@@ -20,3 +20,6 @@ lustre = ">= 5.4.0 and < 6.0.0"
 [dev-dependencies]
 gleeunit = ">= 1.0.0 and < 2.0.0"
 lustre_dev_tools = ">= 2.3.1 and < 3.0.0"
+
+[tools.lustre.html]
+title = "関数型まつり2026"
