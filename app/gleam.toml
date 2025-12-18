@@ -24,3 +24,8 @@ lustre_dev_tools = ">= 2.3.1 and < 3.0.0"
 [tools.lustre.html]
 title = "関数型まつり2026"
 lang = "ja"
+links = [
+    # https://coliss.com/articles/build-websites/operation/work/how-to-favicon.html#h201
+    { rel= "icon", href= "/favicon.ico", "sizes"= "32x32" },
+    { rel= "icon", href= "/icon.svg", "type"= "image/svg+xml" },
+]
