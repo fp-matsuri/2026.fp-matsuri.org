@@ -1,0 +1,35 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+    name: "fpmatsuri";
+    default: true;
+    color-scheme: dark;
+
+    /* Base colors - Dark navy theme matching fp-matsuri.org */
+    --color-base-100: oklch(16% 0.05 240);
+    --color-base-200: oklch(20% 0.06 250);
+    --color-base-300: oklch(25% 0.05 250);
+    --color-base-content: oklch(100% 0 0);
+
+    /* Primary - Medium blue for interactive elements */
+    --color-primary: oklch(30% 0.15 240);
+    --color-primary-content: oklch(100% 0 0);
+
+    /* Secondary - Lighter blue */
+    --color-secondary: oklch(65% 0.18 250);
+    --color-secondary-content: oklch(100% 0 0);
+
+    /* Accent - Bright blue for highlights */
+    --color-accent: oklch(75% 0.16 250);
+    --color-accent-content: oklch(100% 0 0);
+
+    /* Neutral */
+    --color-neutral: oklch(40% 0.03 250);
+    --color-neutral-content: oklch(100% 0 0);
+
+    /* Semantic colors */
+    --color-info: oklch(70% 0.18 250);
+    --color-success: oklch(65% 0.18 150);
+    --color-warning: oklch(70% 0.18 60);
+    --color-error: oklch(65% 0.25 20);
+}

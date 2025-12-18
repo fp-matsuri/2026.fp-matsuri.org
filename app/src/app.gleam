@@ -1,111 +1,75 @@
 import lustre
-import lustre/attribute.{attribute, class}
-import lustre/element/html.{a, button, div, footer, h1, h2, h3, p, text}
+import lustre/attribute.{attribute, class, href, rel, src, target}
+import lustre/element.{type Element}
+import lustre/element/html.{a, br, div, h1, img, p, text}
 
 pub fn main() {
   let app =
     lustre.element(
-      div([class("min-h-screen bg-base-100")], [
-        // Hero section - Main content
-        div([class("hero min-h-screen")], [
-          div([class("hero-content text-center")], [
-            div([class("max-w-2xl")], [
-              // Logo placeholder - replace with actual logo later
-              div([class("mb-8")], [
-                h1([class("text-6xl font-bold mb-2")], [text("関数型まつり")]),
-                div([class("text-4xl font-light text-primary")], [
-                  text("Functional Programming Festival"),
-                ]),
-              ]),
-
-              // Year and Coming Soon
-              div([class("mb-12")], [
-                h2([class("text-8xl font-bold text-primary mb-4")], [
-                  text("2026"),
-                ]),
-                div([class("badge badge-lg badge-outline badge-primary")], [
-                  text("COMING SOON"),
-                ]),
-              ]),
-
-              // Announcement
-              div([class("card bg-base-200 shadow-xl mb-8")], [
-                div([class("card-body")], [
-                  h3([class("card-title text-2xl justify-center mb-4")], [
-                    text("関数型まつり 2026 開催予定！"),
-                  ]),
-                  p([class("text-lg")], [
-                    text("最新情報は SNS にて配信予定です"),
-                  ]),
-                ]),
-              ]),
-
-              // Links section
-              div(
-                [
-                  class(
-                    "flex flex-col sm:flex-row gap-4 justify-center items-center",
-                  ),
-                ],
-                [
-                  a(
-                    [
-                      attribute("href", "https://x.com/fp_matsuri"),
-                      attribute("target", "_blank"),
-                      attribute("rel", "noopener noreferrer"),
-                      class("btn btn-primary btn-wide"),
-                    ],
-                    [
-                      text("X (Twitter)"),
-                    ],
-                  ),
-                  a(
-                    [
-                      attribute("href", "https://fp-matsuri.hatenablog.com/"),
-                      attribute("target", "_blank"),
-                      attribute("rel", "noopener noreferrer"),
-                      class("btn btn-secondary btn-wide"),
-                    ],
-                    [
-                      text("公式ブログ"),
-                    ],
-                  ),
-                  a(
-                    [
-                      attribute("href", "https://forms.gle/your-form-id"),
-                      attribute("target", "_blank"),
-                      attribute("rel", "noopener noreferrer"),
-                      class("btn btn-outline btn-wide"),
-                    ],
-                    [
-                      text("お問い合わせ"),
-                    ],
-                  ),
-                ],
-              ),
+      div([class("hero min-h-screen")], [
+        div([class("hero-content text-center")], [
+          div([class("max-w-md")], [
+            img([
+              src("/image/logomark.svg"),
+              attribute("alt", "関数型まつり"),
+              class("w-24 mx-auto mb-4"),
+            ]),
+            img([
+              src("/image/logotype.svg"),
+              attribute("alt", "関数型まつり"),
+              class("w-64 mx-auto mb-8"),
+            ]),
+            h1([class("text-4xl mb-4")], [
+              text("2026"),
+              br([]),
+              text("coming soon"),
+            ]),
+            p([class("text-md mb-6")], [text("関数型まつり 2026 開催予定!")]),
+            div([class("flex flex-col gap-3")], [
+              external_link(ExternalLinkConfig(
+                label: "Follow us on X (Twitter)",
+                url: "https://x.com/fp_matsuri",
+                button_class: "btn btn-primary",
+              )),
+              external_link(ExternalLinkConfig(
+                label: "Official Blog",
+                url: "https://blog.fp-matsuri.org/",
+                button_class: "btn btn-primary",
+              )),
+            ]),
+            p([class("text-xs mt-4 opacity-70")], [text("X や公式ブログから続報を発信します！")]),
+            div([class("divider")], []),
+            external_link(ExternalLinkConfig(
+              label: "お問い合わせ",
+              url: "https://forms.gle/nwG9RnkP3AHWQtzh6",
+              button_class: "btn btn-outline",
+            )),
+            p([class("text-xs mt-4 opacity-70")], [
+              text("関数型まつりに関するお問い合わせはこちらからお願いいたします"),
             ]),
           ]),
         ]),
-
-        // Footer
-        footer(
-          [class("footer footer-center p-10 bg-base-200 text-base-content")],
-          [
-            div([], [
-              p([class("font-semibold")], [
-                text("関数型まつり実行委員会"),
-              ]),
-              p([], [
-                text(
-                  "© 2024-2026 Functional Programming Festival. All rights reserved.",
-                ),
-              ]),
-            ]),
-          ],
-        ),
       ]),
     )
   let assert Ok(_) = lustre.start(app, "#app", Nil)
 
   Nil
+}
+
+// View
+
+type ExternalLinkConfig {
+  ExternalLinkConfig(label: String, url: String, button_class: String)
+}
+
+fn external_link(config: ExternalLinkConfig) -> Element(a) {
+  a(
+    [
+      href(config.url),
+      target("_blank"),
+      rel("noopener noreferrer"),
+      class(config.button_class),
+    ],
+    [text(config.label)],
+  )
 }
