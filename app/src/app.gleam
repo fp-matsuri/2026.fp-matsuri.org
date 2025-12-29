@@ -31,20 +31,24 @@ pub fn main() {
               external_link(ExternalLinkConfig(
                 label: "Follow us on X (Twitter)",
                 url: "https://x.com/fp_matsuri",
-                button_class: "btn btn-primary",
+                icon: "/icons/x.svg",
               )),
               external_link(ExternalLinkConfig(
-                label: "Official Blog",
+                label: "Bluesky",
+                url: "https://bsky.app/profile/fp-matsuri.bsky.social",
+                icon: "/icons/bluesky.svg",
+              )),
+              external_link(ExternalLinkConfig(
+                label: "関数型まつり運営ブログ",
                 url: "https://blog.fp-matsuri.org/",
-                button_class: "btn btn-primary",
+                icon: "/icons/hatenablog.svg",
               )),
             ]),
-            p([class("text-xs mt-4 opacity-70")], [text("X や公式ブログから続報を発信します！")]),
+            p([class("text-xs mt-4 opacity-70")], [text("SNSや運営ブログから続報を発信します！")]),
             div([class("divider")], []),
-            external_link(ExternalLinkConfig(
+            simple_link(SimpleLinkConfig(
               label: "お問い合わせ",
               url: "https://forms.gle/nwG9RnkP3AHWQtzh6",
-              button_class: "btn btn-outline",
             )),
             p([class("text-xs mt-4 opacity-70")], [
               text("関数型まつりに関するお問い合わせはこちらからお願いいたします"),
@@ -61,7 +65,7 @@ pub fn main() {
 // View
 
 type ExternalLinkConfig {
-  ExternalLinkConfig(label: String, url: String, button_class: String)
+  ExternalLinkConfig(label: String, url: String, icon: String)
 }
 
 fn external_link(config: ExternalLinkConfig) -> Element(a) {
@@ -70,7 +74,30 @@ fn external_link(config: ExternalLinkConfig) -> Element(a) {
       href(config.url),
       target("_blank"),
       rel("noopener noreferrer"),
-      class(config.button_class),
+      class("btn btn-primary"),
+    ],
+    [
+      img([
+        src(config.icon),
+        attribute("alt", ""),
+        class("w-5 h-5 inline-block mr-2"),
+      ]),
+      text(config.label),
+    ],
+  )
+}
+
+type SimpleLinkConfig {
+  SimpleLinkConfig(label: String, url: String)
+}
+
+fn simple_link(config: SimpleLinkConfig) -> Element(a) {
+  a(
+    [
+      href(config.url),
+      target("_blank"),
+      rel("noopener noreferrer"),
+      class("btn btn-outline"),
     ],
     [text(config.label)],
   )
