@@ -3,33 +3,33 @@
 @plugin "daisyui/theme" {
     name: "fpmatsuri";
     default: true;
-    color-scheme: dark;
+    color-scheme: light;
 
-    /* Base colors - Dark navy theme matching fp-matsuri.org */
-    --color-base-100: oklch(16% 0.05 240);
-    --color-base-200: oklch(20% 0.06 250);
-    --color-base-300: oklch(25% 0.05 250);
-    --color-base-content: oklch(100% 0 0);
+    /* Base colors - クリーム色の背景 */
+    --color-base-100: oklch(98% 0.015 95);
+    --color-base-200: oklch(92% 0.02 75);
+    --color-base-300: oklch(88% 0.025 70);
+    --color-base-content: oklch(65% 0.1 90);
 
-    /* Primary - Medium blue for interactive elements */
-    --color-primary: oklch(30% 0.15 240);
+    /* Primary - 朱色　*/
+    --color-primary: oklch(61% 0.2 40);
     --color-primary-content: oklch(100% 0 0);
 
-    /* Secondary - Lighter blue */
-    --color-secondary: oklch(65% 0.18 250);
-    --color-secondary-content: oklch(100% 0 0);
+    /* Secondary - 金色（画像のメインテキスト色）*/
+    --color-secondary: oklch(65% 0.12 70);
+    --color-secondary-content: oklch(98% 0.01 80);
 
-    /* Accent - Bright blue for highlights */
-    --color-accent: oklch(75% 0.16 250);
+    /* Accent - 明るいオレンジ */
+    --color-accent: oklch(68% 0.18 45);
     --color-accent-content: oklch(100% 0 0);
 
-    /* Neutral */
-    --color-neutral: oklch(40% 0.03 250);
-    --color-neutral-content: oklch(100% 0 0);
+    /* Neutral - 金茶色（画像のテキスト色に近い）*/
+    --color-neutral: oklch(55% 0.08 65);
+    --color-neutral-content: oklch(98% 0.01 80);
 
     /* Semantic colors */
-    --color-info: oklch(70% 0.18 250);
-    --color-success: oklch(65% 0.18 150);
-    --color-warning: oklch(70% 0.18 60);
-    --color-error: oklch(65% 0.25 20);
+    --color-info: oklch(65% 0.18 250);
+    --color-success: oklch(60% 0.18 150);
+    --color-warning: oklch(70% 0.15 70);
+    --color-error: oklch(60% 0.25 30);
 }

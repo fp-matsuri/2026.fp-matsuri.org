@@ -12,7 +12,7 @@ pub fn main() {
             img([
               src("/image/logomark.svg"),
               attribute("alt", "関数型まつり"),
-              class("w-24 mx-auto mb-4"),
+              class("w-24 mx-auto mb-6"),
             ]),
             img([
               src("/image/logotype.svg"),
@@ -20,10 +20,10 @@ pub fn main() {
               class("w-64 mx-auto mb-8"),
             ]),
             div([class("mb-8")], [
-              p([class("text-2xl font-semibold mb-2")], [
+              p([class("text-xl mb-2")], [
                 text("2026年7月11日（土）・12日（日）"),
               ]),
-              p([class("text-md opacity-90")], [
+              p([class("text-sm opacity-90")], [
                 text("中野セントラルパーク カンファレンス"),
               ]),
             ]),
@@ -74,7 +74,7 @@ fn external_link(config: ExternalLinkConfig) -> Element(a) {
       href(config.url),
       target("_blank"),
       rel("noopener noreferrer"),
-      class("btn btn-primary"),
+      class("btn btn-primary shadow-none"),
     ],
     [
       img([
@@ -97,7 +97,7 @@ fn simple_link(config: SimpleLinkConfig) -> Element(a) {
       href(config.url),
       target("_blank"),
       rel("noopener noreferrer"),
-      class("btn btn-outline"),
+      class("btn btn-outline shadow-none"),
     ],
     [text(config.label)],
   )
