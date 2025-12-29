@@ -31,7 +31,7 @@ pub fn main() {
               ]),
               div([class("flex flex-col gap-3")], [
                 external_link(ExternalLinkConfig(
-                  label: "Follow us on X (Twitter)",
+                  label: "Follow us on X",
                   url: "https://x.com/fp_matsuri",
                   icon: "/icons/x.svg",
                 )),
