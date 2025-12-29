@@ -8,7 +8,7 @@
     /* Base colors - クリーム色の背景 */
     --color-base-100: oklch(98% 0.015 95);
     --color-base-200: oklch(95% 0.02 95);
-    --color-base-300: oklch(88% 0.025 70);
+    --color-base-300: oklch(90% 0.025 95);
     --color-base-content: oklch(65% 0.1 90);
 
     /* Primary - 朱色　*/

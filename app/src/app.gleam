@@ -1,3 +1,4 @@
+import gleam/int
 import gleam/list
 import lustre
 import lustre/attribute.{attribute, class, href, rel, src, target}
@@ -29,25 +30,22 @@ pub fn main() {
                   text("中野セントラルパーク カンファレンス"),
                 ]),
               ]),
-              div([class("flex flex-col gap-3")], [
-                external_link(ExternalLinkConfig(
+              social_link_group([
+                SocialLinkConfig(
                   label: "Follow us on X",
                   url: "https://x.com/fp_matsuri",
                   icon: "/icons/x.svg",
-                )),
-                external_link(ExternalLinkConfig(
+                ),
+                SocialLinkConfig(
                   label: "Bluesky",
                   url: "https://bsky.app/profile/fp-matsuri.bsky.social",
                   icon: "/icons/bluesky.svg",
-                )),
-                external_link(ExternalLinkConfig(
+                ),
+                SocialLinkConfig(
                   label: "関数型まつり運営ブログ",
                   url: "https://blog.fp-matsuri.org/",
                   icon: "/icons/hatenablog.svg",
-                )),
-              ]),
-              p([class("text-xs mt-4 opacity-70")], [
-                text("SNSや運営ブログから続報を発信します！"),
+                ),
               ]),
             ]),
           ]),
@@ -62,26 +60,33 @@ pub fn main() {
 
 // View
 
-type ExternalLinkConfig {
-  ExternalLinkConfig(label: String, url: String, icon: String)
+type SocialLinkConfig {
+  SocialLinkConfig(label: String, url: String, icon: String)
 }
 
-fn external_link(config: ExternalLinkConfig) -> Element(a) {
+fn social_link(config: SocialLinkConfig) -> Element(a) {
   a(
     [
       href(config.url),
       target("_blank"),
       rel("noopener noreferrer"),
-      class("btn btn-primary shadow-none"),
+      attribute("aria-label", config.label),
+      class("btn btn-ghost btn-circle border-none hover:bg-base-300"),
     ],
     [
       img([
         src(config.icon),
-        attribute("alt", ""),
-        class("w-5 h-5 inline-block mr-2"),
+        attribute("alt", config.label),
+        class("w-6 h-6"),
       ]),
-      text(config.label),
     ],
+  )
+}
+
+fn social_link_group(configs: List(SocialLinkConfig)) -> Element(a) {
+  nav(
+    [class("grid grid-flow-col gap-1 justify-center")],
+    list.map(configs, social_link),
   )
 }
 
@@ -109,19 +114,19 @@ fn footer() -> Element(a) {
       ]),
       social_link_group([
         SocialLinkConfig(
-          label: "X (Twitter)",
+          label: "X",
           url: "https://x.com/fp_matsuri",
-          icon: "/icons/x_dark.svg",
+          icon: "/icons/x.svg",
         ),
         SocialLinkConfig(
           label: "Bluesky",
           url: "https://bsky.app/profile/fp-matsuri.bsky.social",
-          icon: "/icons/bluesky_dark.svg",
+          icon: "/icons/bluesky.svg",
         ),
         SocialLinkConfig(
           label: "関数型まつり運営ブログ",
           url: "https://blog.fp-matsuri.org/",
-          icon: "/icons/hatenablog_dark.svg",
+          icon: "/icons/hatenablog.svg",
         ),
       ]),
       aside([], [
@@ -149,30 +154,4 @@ fn navigation_link(config: NavigationLinkConfig) -> Element(a) {
 
 fn navigation_link_group(configs: List(NavigationLinkConfig)) -> Element(a) {
   nav([class("grid grid-flow-col gap-4")], list.map(configs, navigation_link))
-}
-
-type SocialLinkConfig {
-  SocialLinkConfig(label: String, url: String, icon: String)
-}
-
-fn social_link(config: SocialLinkConfig) -> Element(a) {
-  a(
-    [
-      href(config.url),
-      target("_blank"),
-      rel("noopener noreferrer"),
-      attribute("aria-label", config.label),
-    ],
-    [
-      img([
-        src(config.icon),
-        attribute("alt", config.label),
-        class("w-6 h-6"),
-      ]),
-    ],
-  )
-}
-
-fn social_link_group(configs: List(SocialLinkConfig)) -> Element(a) {
-  nav([class("grid grid-flow-col gap-4")], list.map(configs, social_link))
 }
