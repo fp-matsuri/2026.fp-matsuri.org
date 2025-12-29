@@ -2,7 +2,7 @@ import gleam/list
 import lustre
 import lustre/attribute.{attribute, class, href, rel, src, target}
 import lustre/element.{type Element}
-import lustre/element/html.{a, aside, div, img, p, text}
+import lustre/element/html.{a, aside, div, img, nav, p, text}
 
 pub fn main() {
   let app =
@@ -49,14 +49,6 @@ pub fn main() {
               p([class("text-xs mt-4 opacity-70")], [
                 text("SNSや運営ブログから続報を発信します！"),
               ]),
-              div([class("divider")], []),
-              simple_link(SimpleLinkConfig(
-                label: "お問い合わせ",
-                url: "https://forms.gle/nwG9RnkP3AHWQtzh6",
-              )),
-              p([class("text-xs mt-4 opacity-70")], [
-                text("関数型まつりに関するお問い合わせはこちらからお願いいたします"),
-              ]),
             ]),
           ]),
         ]),
@@ -93,22 +85,6 @@ fn external_link(config: ExternalLinkConfig) -> Element(a) {
   )
 }
 
-type SimpleLinkConfig {
-  SimpleLinkConfig(label: String, url: String)
-}
-
-fn simple_link(config: SimpleLinkConfig) -> Element(a) {
-  a(
-    [
-      href(config.url),
-      target("_blank"),
-      rel("noopener noreferrer"),
-      class("btn btn-outline shadow-none"),
-    ],
-    [text(config.label)],
-  )
-}
-
 fn footer() -> Element(a) {
   html.footer(
     [
@@ -117,6 +93,20 @@ fn footer() -> Element(a) {
       ),
     ],
     [
+      navigation_link_group([
+        NavigationLinkConfig(
+          label: "お問い合わせ",
+          url: "https://forms.gle/nwG9RnkP3AHWQtzh6",
+        ),
+        NavigationLinkConfig(
+          label: "公式オンラインストア",
+          url: "https://www.ttrinity.jp/shop/fp-matsuri/",
+        ),
+        NavigationLinkConfig(
+          label: "関数型まつり2025",
+          url: "https://2025.fp-matsuri.org/",
+        ),
+      ]),
       social_link_group([
         SocialLinkConfig(
           label: "X (Twitter)",
@@ -139,6 +129,26 @@ fn footer() -> Element(a) {
       ]),
     ],
   )
+}
+
+type NavigationLinkConfig {
+  NavigationLinkConfig(label: String, url: String)
+}
+
+fn navigation_link(config: NavigationLinkConfig) -> Element(a) {
+  a(
+    [
+      href(config.url),
+      target("_blank"),
+      rel("noopener noreferrer"),
+      class("link link-hover"),
+    ],
+    [text(config.label)],
+  )
+}
+
+fn navigation_link_group(configs: List(NavigationLinkConfig)) -> Element(a) {
+  nav([class("grid grid-flow-col gap-4")], list.map(configs, navigation_link))
 }
 
 type SocialLinkConfig {
@@ -164,5 +174,5 @@ fn social_link(config: SocialLinkConfig) -> Element(a) {
 }
 
 fn social_link_group(configs: List(SocialLinkConfig)) -> Element(a) {
-  div([class("grid grid-flow-col gap-4")], list.map(configs, social_link))
+  nav([class("grid grid-flow-col gap-4")], list.map(configs, social_link))
 }
