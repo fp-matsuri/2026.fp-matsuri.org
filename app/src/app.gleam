@@ -19,12 +19,14 @@ pub fn main() {
               attribute("alt", "関数型まつり"),
               class("w-64 mx-auto mb-8"),
             ]),
-            h1([class("text-4xl mb-4")], [
-              text("2026"),
-              br([]),
-              text("coming soon"),
+            div([class("mb-8")], [
+              p([class("text-2xl font-semibold mb-2")], [
+                text("2026年7月11日（土）・12日（日）"),
+              ]),
+              p([class("text-md opacity-90")], [
+                text("中野セントラルパーク カンファレンス"),
+              ]),
             ]),
-            p([class("text-md mb-6")], [text("関数型まつり 2026 開催予定!")]),
             div([class("flex flex-col gap-3")], [
               external_link(ExternalLinkConfig(
                 label: "Follow us on X (Twitter)",
