@@ -24,7 +24,9 @@ jobs:
           otp-version: "28"
           gleam-version: "1.13.0"
           rebar3-version: "3"
-      - name: Install dependencies
+      - name: Install npm dependencies
+        run: npm install
+      - name: Install Gleam dependencies
         run: cd app && gleam deps download
       - name: Build app
         run: cd app && gleam run -m lustre/dev build app --minify
