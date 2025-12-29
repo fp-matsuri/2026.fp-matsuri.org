@@ -27,7 +27,7 @@ fn hero_section() -> Element(a) {
         img([
           src("/image/logomark.svg"),
           attribute("alt", "関数型まつり"),
-          class("w-24 mx-auto mb-6"),
+          class("w-32 mx-auto mb-6"),
         ]),
         img([
           src("/image/logotype.svg"),
