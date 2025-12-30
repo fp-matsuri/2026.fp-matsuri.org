@@ -23,13 +23,15 @@
     --color-accent: oklch(68% 0.18 45);
     --color-accent-content: oklch(100% 0 0);
 
-    /* Neutral - 金茶色（画像のテキスト色に近い）*/
-    --color-neutral: oklch(55% 0.08 65);
-    --color-neutral-content: oklch(98% 0.01 80);
+    /* Neutral - 白*/
+    --color-neutral: oklch(100% 0 0);
+    --color-neutral-content: var(--color-base-content);
 
     /* Semantic colors */
     --color-info: oklch(65% 0.18 250);
     --color-success: oklch(60% 0.18 150);
     --color-warning: oklch(70% 0.15 70);
     --color-error: oklch(60% 0.25 30);
+
+    --radius-selector: 1rem;
 }
