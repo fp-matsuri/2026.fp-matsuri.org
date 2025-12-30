@@ -2,7 +2,7 @@ import gleam/list
 import lustre
 import lustre/attribute.{attribute, class, href, rel, src, target}
 import lustre/element.{type Element}
-import lustre/element/html.{a, aside, div, img, nav, p, text}
+import lustre/element/html.{a, aside, br, div, img, nav, p, text}
 
 pub fn main() {
   let app =
@@ -98,7 +98,9 @@ fn about_section() -> Element(a) {
   html.section([class("py-16 px-4 bg-base-100")], [
     div([class("max-w-3xl mx-auto")], [
       html.h2([class("text-xl font-bold text-center mb-8")], [
-        text("関数型プログラミングのカンファレンス「関数型まつり2026」を開催します！"),
+        text("関数型プログラミングのカンファレンス"),
+        br([]),
+        text("「関数型まつり2026」を開催します！"),
       ]),
       div([class("mx-auto")], [
         p([class("mb-4")], [
