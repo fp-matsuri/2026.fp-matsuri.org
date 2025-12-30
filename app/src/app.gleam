@@ -118,8 +118,8 @@ fn cloud_decorations() -> Element(a) {
       src: "/image/pattern/cloud_0.svg",
       position_classes: "-top-8 -left-12 md:-top-6 md:-left-8",
       size_class: "w-56 md:w-80",
-      opacity_class: "opacity-80",
-      animation_class: "animate-float-slow",
+      opacity_class: "opacity-60",
+      animation_class: "animate-drift-slow",
     ),
     // 右上
     CloudConfig(
@@ -127,7 +127,7 @@ fn cloud_decorations() -> Element(a) {
       position_classes: "top-8 -right-16 md:top-12 md:-right-12",
       size_class: "w-52 md:w-72",
       opacity_class: "opacity-60",
-      animation_class: "animate-float-medium",
+      animation_class: "animate-drift-medium",
     ),
     // 左下
     CloudConfig(
@@ -135,7 +135,7 @@ fn cloud_decorations() -> Element(a) {
       position_classes: "bottom-4 -left-16 md:bottom-8 md:-left-12",
       size_class: "w-64 md:w-96",
       opacity_class: "opacity-100",
-      animation_class: "animate-float-medium-reverse",
+      animation_class: "animate-drift-fast",
     ),
     // 右下 (md以上で表示)
     CloudConfig(
@@ -143,7 +143,7 @@ fn cloud_decorations() -> Element(a) {
       position_classes: "hidden md:block -bottom-4 -right-16 md:bottom-0 md:-right-12",
       size_class: "w-56 md:w-80",
       opacity_class: "opacity-100",
-      animation_class: "animate-float-medium",
+      animation_class: "animate-drift-medium",
     ),
     // 上端中央やや右 (md以上で表示)
     CloudConfig(
@@ -151,7 +151,7 @@ fn cloud_decorations() -> Element(a) {
       position_classes: "hidden md:block -top-4 right-1/4",
       size_class: "w-48 md:w-64",
       opacity_class: "opacity-50",
-      animation_class: "animate-float-slow-reverse",
+      animation_class: "animate-drift-slow",
     ),
   ]
   div(

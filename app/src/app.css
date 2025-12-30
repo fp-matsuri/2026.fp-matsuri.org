@@ -36,53 +36,33 @@
     --radius-selector: 1rem;
 }
 
-/* Cloud floating animations */
-@keyframes float-slow {
-    0%,
+/* Cloud drift animations */
+@keyframes drift-right {
+    0% {
+        transform: translateX(-50px);
+    }
     100% {
-        transform: translateX(0) translateY(0);
-    }
-    50% {
-        transform: translateX(40px) translateY(-20px);
+        transform: translateX(50px);
     }
 }
 
-@keyframes float-medium {
-    0%,
+@keyframes drift-left {
+    0% {
+        transform: translateX(50px);
+    }
     100% {
-        transform: translateX(0) translateY(0);
-    }
-    50% {
-        transform: translateX(-30px) translateY(25px);
+        transform: translateX(-50px);
     }
 }
 
-@keyframes float-fast {
-    0%,
-    100% {
-        transform: translateX(0) translateY(0);
-    }
-    50% {
-        transform: translateX(25px) translateY(-35px);
-    }
+.animate-drift-slow {
+    animation: drift-right 50s ease-in-out infinite alternate;
 }
 
-.animate-float-slow {
-    animation: float-slow 25s ease-in-out infinite;
+.animate-drift-medium {
+    animation: drift-left 40s ease-in-out infinite alternate;
 }
 
-.animate-float-medium {
-    animation: float-medium 20s ease-in-out infinite;
-}
-
-.animate-float-fast {
-    animation: float-fast 15s ease-in-out infinite;
-}
-
-.animate-float-slow-reverse {
-    animation: float-slow 28s ease-in-out infinite reverse;
-}
-
-.animate-float-medium-reverse {
-    animation: float-medium 22s ease-in-out infinite reverse;
+.animate-drift-fast {
+    animation: drift-right 30s ease-in-out infinite alternate;
 }
