@@ -35,3 +35,54 @@
 
     --radius-selector: 1rem;
 }
+
+/* Cloud floating animations */
+@keyframes float-slow {
+    0%,
+    100% {
+        transform: translateX(0) translateY(0);
+    }
+    50% {
+        transform: translateX(40px) translateY(-20px);
+    }
+}
+
+@keyframes float-medium {
+    0%,
+    100% {
+        transform: translateX(0) translateY(0);
+    }
+    50% {
+        transform: translateX(-30px) translateY(25px);
+    }
+}
+
+@keyframes float-fast {
+    0%,
+    100% {
+        transform: translateX(0) translateY(0);
+    }
+    50% {
+        transform: translateX(25px) translateY(-35px);
+    }
+}
+
+.animate-float-slow {
+    animation: float-slow 25s ease-in-out infinite;
+}
+
+.animate-float-medium {
+    animation: float-medium 20s ease-in-out infinite;
+}
+
+.animate-float-fast {
+    animation: float-fast 15s ease-in-out infinite;
+}
+
+.animate-float-slow-reverse {
+    animation: float-slow 28s ease-in-out infinite reverse;
+}
+
+.animate-float-medium-reverse {
+    animation: float-medium 22s ease-in-out infinite reverse;
+}
