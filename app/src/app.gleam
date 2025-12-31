@@ -4,7 +4,7 @@ import lustre
 import lustre/attribute.{attribute, class, href, rel, src, target}
 import lustre/element.{type Element}
 import lustre/element/html.{
-  a, aside, br, div, h2, img, nav, p, section, span, text,
+  a, aside, br, div, h2, img, li, nav, p, section, span, text, ul,
 }
 
 pub fn main() {
@@ -118,8 +118,19 @@ fn about_section() -> Element(a) {
           h2([class("card-title text-xl mb-8 justify-center")], [
             text("関数型プログラミングのカンファレンス"),
             br([]),
-            text("「関数型まつり2026」を開催します！"),
+            text("「関数型まつり 2026」を開催します！"),
           ]),
+          p([class("mb-4 text-base")], [
+            text(
+              "昨年の「関数型まつり」では、参加者総数494名、登壇者48名による多様なセッションを実施し、言語コミュニティの垣根を越えた交流と学びが生まれました。
+              好評をいただき、今年も「関数型まつり 2026」を開催します！",
+            ),
+          ]),
+          ul([class("text-base")], [
+            li([], [text("日時：2026年7月11日(土), 12日(日)")]),
+            li([], [text("会場：中野セントラルパーク カンファレンス")]),
+          ]),
+          div([class("divider")], []),
           p([class("mb-4 text-base")], [
             text(
               "関数型プログラミングはメジャーな言語・フレームワークに取り入れられ、広く使われるようになりました。
