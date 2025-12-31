@@ -18,3 +18,23 @@ links = [
     { rel= "icon", href= "/favicon.ico", "sizes"= "32x32" },
     { rel= "icon", href= "/icon.svg", "type"= "image/svg+xml" },
 ]
+meta = [
+    # Open Graph / Facebook
+    { property= "og:type", content= "website" },
+    { property= "og:title", content= "関数型まつり 2026" },
+    { property= "og:description", content= "関数型まつりは関数型プログラミングをテーマとしたカンファレンスです" },
+    { property= "og:url", content= "https://2026.fp-matsuri.org" },
+    { property= "og:site_name", content= "関数型まつり 2026" },
+    { property= "og:image", content= "https://2026.fp-matsuri.org/summaryLarge.png" },
+    { property= "og:locale", content= "ja_JP" },
+
+    # Twitter Cards
+    { name= "twitter:card", content= "summary_large_image" },
+    { name= "twitter:title", content= "関数型まつり 2026" },
+    { name= "twitter:description", content= "関数型まつりは関数型プログラミングをテーマとしたカンファレンスです" },
+    { name= "twitter:image", content= "https://2026.fp-matsuri.org/summaryLarge.png" },
+
+    # General meta tags
+    { name= "description", content= "関数型まつりは関数型プログラミングをテーマとしたカンファレンスです" },
+    { name= "keywords", content= "関数型プログラミング,FP,関数型まつり,カンファレンス,技術イベント" },
+]
