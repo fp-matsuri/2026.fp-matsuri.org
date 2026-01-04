@@ -24,6 +24,11 @@ export default defineConfig({
     trace: "on-first-retry",
   },
 
+  expect: {
+    timeout: 5000,
+    toHaveScreenshot: { maxDiffPixels: 0 },
+  },
+  
   projects: [
     {
       name: "Google Chrome",
@@ -35,7 +40,7 @@ export default defineConfig({
     },
     {
       name: "Mobile Safari",
-      use: { ...devices["iPhone 12"], viewport: { width: 375, height: 812 } },
+      use: { ...devices["iPhone 12"] },
     },
   ],
 
