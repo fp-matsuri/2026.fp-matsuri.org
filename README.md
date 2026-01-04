@@ -8,6 +8,7 @@
 - [Lustre](https://hexdocs.pm/lustre/) - GleamのWebフレームワーク
 - [Tailwind CSS](https://tailwindcss.com/) - ユーティリティファーストCSSフレームワーク
 - [daisyUI](https://daisyui.com/) - TailwindベースのUIコンポーネントライブラリ
+- [Playwright](https://playwright.dev/) - E2Eテストフレームワーク
 
 ## 開発環境のセットアップ
 
@@ -15,6 +16,7 @@
 
 ```sh
 nix develop
+npm install
 ```
 
 ### 手動でセットアップする場合
@@ -36,11 +38,21 @@ gleam run -m lustre/dev start
 
 ブラウザで http://localhost:1234 を開いてください。
 
-### ビルド
+## テスト
+
+### E2Eテストの実行
+
+Playwrightを使用したビジュアルリグレッションテストを実行できます。
 
 ```sh
-cd app
-gleam run -m lustre/dev build app
+npm install
+npm test
 ```
 
-ビルド成果物は `app/dist/` ディレクトリに出力されます。
+テストは開発サーバーを自動的に起動し、Google ChromeとMobile Safariで実行されます。
+
+### テストレポートの確認
+
+```sh
+npx playwright show-report
+```
