@@ -18,6 +18,8 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: "html",
+  snapshotPathTemplate:
+    "{testDir}/{testFileDir}/{testFileName}-snapshots/{arg}-{projectName}{ext}",
 
   use: {
     baseURL: "http://localhost:1234",
@@ -28,7 +30,7 @@ export default defineConfig({
     timeout: 5000,
     toHaveScreenshot: { maxDiffPixels: 0 },
   },
-  
+
   projects: [
     {
       name: "Google Chrome",
