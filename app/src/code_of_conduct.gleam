@@ -1,4 +1,4 @@
-import lustre/attribute.{class, href, rel, target}
+import lustre/attribute.{attribute, class, href, rel, target}
 import lustre/element.{type Element}
 import lustre/element/html.{a, div, h1, h2, li, p, section, text, ul}
 
@@ -104,6 +104,7 @@ fn report_section() -> Element(msg) {
           href("https://forms.gle/4NZfofiHZzBcyZjRA"),
           target("_blank"),
           rel("noopener noreferrer"),
+          attribute("aria-label", "ハラスメント報告フォーム（新しいウィンドウで開く）"),
           class("btn btn-primary"),
         ],
         [text("ハラスメント報告フォーム")],
