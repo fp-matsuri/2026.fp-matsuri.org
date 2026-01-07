@@ -2,7 +2,7 @@ import lustre/attribute.{class, href, rel, target}
 import lustre/element.{type Element}
 import lustre/element/html.{a, div, h1, h2, li, p, section, text, ul}
 
-pub fn page() -> Element(a) {
+pub fn page() -> Element(msg) {
   section([class("py-16 px-4 bg-base-100 flex-1")], [
     div([class("max-w-3xl mx-auto")], [
       h1([class("text-3xl font-bold mb-12 text-center")], [text("行動規範")]),
@@ -16,7 +16,7 @@ pub fn page() -> Element(a) {
   ])
 }
 
-fn introduction_section() -> Element(a) {
+fn introduction_section() -> Element(msg) {
   div([class("mb-10")], [
     h2([class("text-xl font-bold mb-4")], [text("はじめに")]),
     p([class("mb-4 leading-relaxed")], [
@@ -30,7 +30,7 @@ fn introduction_section() -> Element(a) {
   ])
 }
 
-fn harassment_section() -> Element(a) {
+fn harassment_section() -> Element(msg) {
   div([class("mb-10")], [
     h2([class("text-xl font-bold mb-4")], [text("ハラスメント行為")]),
     p([class("mb-4 leading-relaxed")], [
@@ -56,7 +56,7 @@ fn harassment_section() -> Element(a) {
   ])
 }
 
-fn response_section() -> Element(a) {
+fn response_section() -> Element(msg) {
   div([class("mb-10")], [
     h2([class("text-xl font-bold mb-4")], [text("対応方針")]),
     p([class("mb-4 leading-relaxed")], [
@@ -72,7 +72,7 @@ fn response_section() -> Element(a) {
   ])
 }
 
-fn operation_section() -> Element(a) {
+fn operation_section() -> Element(msg) {
   div([class("mb-10")], [
     h2([class("text-xl font-bold mb-4")], [text("運用方法")]),
     ul([class("list-disc pl-6 space-y-2")], [
@@ -92,7 +92,7 @@ fn operation_section() -> Element(a) {
   ])
 }
 
-fn report_section() -> Element(a) {
+fn report_section() -> Element(msg) {
   div([class("mb-10")], [
     h2([class("text-xl font-bold mb-4")], [text("報告窓口")]),
     p([class("mb-6 leading-relaxed")], [
@@ -112,7 +112,7 @@ fn report_section() -> Element(a) {
   ])
 }
 
-fn license_section() -> Element(a) {
+fn license_section() -> Element(msg) {
   div([class("mb-10")], [
     h2([class("text-xl font-bold mb-4")], [text("ライセンスと帰属")]),
     p([class("text-sm text-base-content/70 leading-relaxed")], [
