@@ -49,7 +49,35 @@ npm install
 npm test
 ```
 
-テストは開発サーバーを自動的に起動し、Google ChromeとMobile Safariで実行されます。
+テストは開発サーバーを自動的に起動し、ChromiumとMobile Safariで実行されます。
+
+### スナップショットの更新
+
+**重要**: CI環境（Linux）とローカル環境（macOS）ではレンダリング結果が異なるため、スナップショットの更新はDocker経由で行う必要があります。
+
+#### 初回のみ: Dockerイメージのビルド
+
+```sh
+npm run docker:build
+```
+
+このコマンドは、Playwright、Erlang、Gleamが含まれたDockerイメージをビルドします。初回は数分かかりますが、2回目以降は高速です。
+
+#### スナップショットの更新
+
+```sh
+npm run test:update-snapshots
+```
+
+このコマンドは、CI環境と同じLinux環境でスナップショットを生成します。
+
+### Docker経由でのテスト実行
+
+CI環境と同じ条件でテストを実行したい場合:
+
+```sh
+npm run test:docker
+```
 
 ### テストレポートの確認
 

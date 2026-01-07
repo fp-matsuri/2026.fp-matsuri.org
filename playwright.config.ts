@@ -28,18 +28,14 @@ export default defineConfig({
 
   expect: {
     timeout: 5000,
-    toHaveScreenshot: {
-      maxDiffPixelRatio: 0.03,
-      threshold: 0.2,
-    },
+    toHaveScreenshot: { maxDiffPixels: 0 },
   },
 
   projects: [
     {
-      name: "Google Chrome",
+      name: "Chromium",
       use: {
         ...devices["Desktop Chrome"],
-        channel: "chrome",
         viewport: { width: 1440, height: 900 },
       },
     },
