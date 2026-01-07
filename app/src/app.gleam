@@ -1,6 +1,7 @@
 import cloud
 import code_of_conduct
 import gleam/list
+import gleam/string
 import gleam/uri.{type Uri}
 import lustre
 import lustre/attribute.{attribute, class, href, rel, src, target}
@@ -223,36 +224,19 @@ fn footer() -> Element(msg) {
       ),
     ],
     [
-      nav([class("grid grid-flow-col gap-4")], [
-        a([href("/code-of-conduct"), class("link link-hover")], [
-          text("行動規範"),
-        ]),
-        a(
-          [
-            href("https://forms.gle/nwG9RnkP3AHWQtzh6"),
-            target("_blank"),
-            rel("noopener noreferrer"),
-            class("link link-hover"),
-          ],
-          [text("お問い合わせ")],
+      navigation_link_group([
+        NavigationLinkConfig(label: "行動規範", url: "/code-of-conduct"),
+        NavigationLinkConfig(
+          label: "お問い合わせ",
+          url: "https://forms.gle/nwG9RnkP3AHWQtzh6",
         ),
-        a(
-          [
-            href("https://www.ttrinity.jp/shop/fp-matsuri/"),
-            target("_blank"),
-            rel("noopener noreferrer"),
-            class("link link-hover"),
-          ],
-          [text("公式オンラインストア")],
+        NavigationLinkConfig(
+          label: "公式オンラインストア",
+          url: "https://www.ttrinity.jp/shop/fp-matsuri/",
         ),
-        a(
-          [
-            href("https://2025.fp-matsuri.org/"),
-            target("_blank"),
-            rel("noopener noreferrer"),
-            class("link link-hover"),
-          ],
-          [text("関数型まつり2025")],
+        NavigationLinkConfig(
+          label: "関数型まつり2025",
+          url: "https://2025.fp-matsuri.org/",
         ),
       ]),
       social_link_group([
@@ -277,6 +261,28 @@ fn footer() -> Element(msg) {
       ]),
     ],
   )
+}
+
+type NavigationLinkConfig {
+  NavigationLinkConfig(label: String, url: String)
+}
+
+fn is_external_link(url: String) -> Bool {
+  string.starts_with(url, "http://") || string.starts_with(url, "https://")
+}
+
+fn navigation_link(config: NavigationLinkConfig) -> Element(msg) {
+  let base_attrs = [href(config.url), class("link link-hover")]
+  let attrs = case is_external_link(config.url) {
+    True ->
+      list.append(base_attrs, [target("_blank"), rel("noopener noreferrer")])
+    False -> base_attrs
+  }
+  a(attrs, [text(config.label)])
+}
+
+fn navigation_link_group(configs: List(NavigationLinkConfig)) -> Element(msg) {
+  nav([class("grid grid-flow-col gap-4")], list.map(configs, navigation_link))
 }
 
 type SocialLinkConfig {
