@@ -1,6 +1,24 @@
-import lustre/attribute.{attribute, class, href, rel, target}
+import lustre/attribute.{attribute, class, href, id, rel, target}
 import lustre/element.{type Element}
 import lustre/element/html.{a, div, h1, h2, li, p, section, text, ul}
+
+// Helper function for section headers with anchor links
+fn section_header(section_id: String, title: String) -> Element(msg) {
+  h2([class("text-xl font-bold mb-4"), id(section_id)], [
+    text(title),
+    text(" "),
+    a(
+      [
+        href("#" <> section_id),
+        class(
+          "text-base-content/40 hover:text-base-content text-sm no-underline",
+        ),
+        attribute("aria-label", title <> "へのリンク"),
+      ],
+      [text("🔗")],
+    ),
+  ])
+}
 
 pub fn page() -> Element(msg) {
   section([class("py-16 px-4 bg-base-100 flex-1")], [
@@ -18,7 +36,7 @@ pub fn page() -> Element(msg) {
 
 fn introduction_section() -> Element(msg) {
   div([class("mb-10")], [
-    h2([class("text-xl font-bold mb-4")], [text("はじめに")]),
+    section_header("introduction", "はじめに"),
     p([class("mb-4 leading-relaxed")], [
       text("関数型まつりは、様々な地域やコミュニティから集う技術者に対して開かれたカンファレンスを目指しています。"),
     ]),
@@ -32,7 +50,7 @@ fn introduction_section() -> Element(msg) {
 
 fn harassment_section() -> Element(msg) {
   div([class("mb-10")], [
-    h2([class("text-xl font-bold mb-4")], [text("ハラスメント行為")]),
+    section_header("harassment", "ハラスメント行為"),
     p([class("mb-4 leading-relaxed")], [
       text(
         "本規範は、カンファレンス参加者へのハラスメント行為を歓迎しないという立場を明確にしています。会場内、関連ソーシャルイベント、SNS上での全てのコミュニケーションにおいて、参加者、発表者、スポンサー、ブース出展者が遵守することを求めています。",
@@ -58,7 +76,7 @@ fn harassment_section() -> Element(msg) {
 
 fn response_section() -> Element(msg) {
   div([class("mb-10")], [
-    h2([class("text-xl font-bold mb-4")], [text("対応方針")]),
+    section_header("response", "対応方針"),
     p([class("mb-4 leading-relaxed")], [
       text("行動規範に違反した参加者に対しては、以下の対応を行います:"),
     ]),
@@ -74,7 +92,7 @@ fn response_section() -> Element(msg) {
 
 fn operation_section() -> Element(msg) {
   div([class("mb-10")], [
-    h2([class("text-xl font-bold mb-4")], [text("運用方法")]),
+    section_header("operation", "運用方法"),
     ul([class("list-disc pl-6 space-y-2")], [
       li([], [
         text("インシデント報告窓口をオンライン・オフラインで設置します"),
@@ -94,7 +112,7 @@ fn operation_section() -> Element(msg) {
 
 fn report_section() -> Element(msg) {
   div([class("mb-10")], [
-    h2([class("text-xl font-bold mb-4")], [text("報告窓口")]),
+    section_header("report", "報告窓口"),
     p([class("mb-6 leading-relaxed")], [
       text("ハラスメントを受けた場合、または目撃した場合は、以下のフォームからご報告ください:"),
     ]),
@@ -115,7 +133,7 @@ fn report_section() -> Element(msg) {
 
 fn license_section() -> Element(msg) {
   div([class("mb-10")], [
-    h2([class("text-xl font-bold mb-4")], [text("ライセンスと帰属")]),
+    section_header("license", "ライセンスと帰属"),
     p([class("text-sm text-base-content/70 leading-relaxed")], [
       text("この行動規範は、"),
       a(
