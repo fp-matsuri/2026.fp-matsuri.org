@@ -84,7 +84,7 @@ fn handle_route_change(route: Route) -> Effect(Msg) {
 
 // VIEW ------------------------------------------------------------------------
 
-fn view(model: Model) -> Element(Msg) {
+fn view(model: Model) -> Element(msg) {
   div([class("min-h-screen flex flex-col")], [
     navbar(),
     case model.route {
@@ -96,7 +96,7 @@ fn view(model: Model) -> Element(Msg) {
   ])
 }
 
-fn navbar() -> Element(Msg) {
+fn navbar() -> Element(msg) {
   div([class("navbar bg-base-100 px-4")], [
     div([class("navbar-start")], [
       a([href("/"), class("btn btn-ghost text-xl")], [text("関数型まつり 2026")]),
@@ -130,11 +130,11 @@ fn navbar() -> Element(Msg) {
   ])
 }
 
-fn home_content() -> Element(Msg) {
+fn home_content() -> Element(msg) {
   div([], [hero_section(), about_section()])
 }
 
-fn hero_section() -> Element(Msg) {
+fn hero_section() -> Element(msg) {
   div([class("hero flex-1 py-20 relative overflow-hidden")], [
     cloud.cloud_decorations(),
     div([class("hero-content text-center relative z-10")], [
@@ -155,7 +155,7 @@ fn hero_section() -> Element(Msg) {
   ])
 }
 
-fn event_info(date date: String, venue venue: String) -> Element(Msg) {
+fn event_info(date date: String, venue venue: String) -> Element(msg) {
   div([], [
     div([class("mb-4")], [
       span([class("badge badge-lg badge-primary")], [text("開催決定")]),
@@ -165,7 +165,7 @@ fn event_info(date date: String, venue venue: String) -> Element(Msg) {
   ])
 }
 
-fn about_section() -> Element(Msg) {
+fn about_section() -> Element(msg) {
   section([class("py-16 px-4 bg-base-100")], [
     div([class("max-w-2xl mx-auto")], [
       div([class("card bg-neutral text-neutral-content")], [
@@ -205,7 +205,7 @@ fn about_section() -> Element(Msg) {
   ])
 }
 
-fn not_found_page() -> Element(Msg) {
+fn not_found_page() -> Element(msg) {
   div([class("flex-1 flex items-center justify-center py-20")], [
     div([class("text-center")], [
       h1([class("text-6xl font-bold mb-4")], [text("404")]),
@@ -215,7 +215,7 @@ fn not_found_page() -> Element(Msg) {
   ])
 }
 
-fn footer() -> Element(Msg) {
+fn footer() -> Element(msg) {
   html.footer(
     [
       class(
@@ -283,7 +283,7 @@ type SocialLinkConfig {
   SocialLinkConfig(label: String, url: String, icon: String)
 }
 
-fn social_link(config: SocialLinkConfig) -> Element(Msg) {
+fn social_link(config: SocialLinkConfig) -> Element(msg) {
   a(
     [
       href(config.url),
@@ -302,7 +302,7 @@ fn social_link(config: SocialLinkConfig) -> Element(Msg) {
   )
 }
 
-fn social_link_group(configs: List(SocialLinkConfig)) -> Element(Msg) {
+fn social_link_group(configs: List(SocialLinkConfig)) -> Element(msg) {
   nav(
     [class("grid grid-flow-col gap-1 justify-center")],
     list.map(configs, social_link),
