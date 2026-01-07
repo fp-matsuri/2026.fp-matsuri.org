@@ -1,4 +1,13 @@
 @import "tailwindcss";
+
+@theme {
+    /* Tailwind default font-sans に Noto Sans JP を追加 */
+    --font-sans:
+        "Noto Sans JP", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+}
+
 @plugin "daisyui";
 @plugin "daisyui/theme" {
     name: "fpmatsuri";
