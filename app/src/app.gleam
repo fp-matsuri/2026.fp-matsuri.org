@@ -11,6 +11,11 @@ import lustre/element/html.{
 }
 import modem
 
+// FFI
+
+@external(javascript, "./app.ffi.mjs", "setDocumentTitle")
+fn set_document_title(title: String) -> Nil
+
 // Route
 
 type Route {
@@ -45,7 +50,15 @@ fn on_url_change(uri: Uri) -> Msg {
 
 fn update(_model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
   case msg {
-    OnRouteChange(route) -> #(Model(route: route), effect.none())
+    OnRouteChange(route) -> {
+      let title = case route {
+        Home -> "関数型まつり 2026"
+        CodeOfConduct -> "行動規範 - 関数型まつり 2026"
+        NotFound -> "404 - 関数型まつり 2026"
+      }
+      let title_effect = effect.from(fn(_) { set_document_title(title) })
+      #(Model(route: route), title_effect)
+    }
   }
 }
 
