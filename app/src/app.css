@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
     /* Tailwind default font-sans と　https://ics.media/entry/250718/　を組み合わせている */

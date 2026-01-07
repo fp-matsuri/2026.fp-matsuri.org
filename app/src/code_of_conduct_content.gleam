@@ -39,7 +39,8 @@ pub const content = "# 行動規範
 
 ハラスメントを受けた場合、または目撃した場合は、以下のフォームからご報告ください:
 
-[ハラスメント報告フォーム](https://forms.gle/4NZfofiHZzBcyZjRA)
+{.text-center .my-6}
+[ハラスメント報告フォーム](https://forms.gle/4NZfofiHZzBcyZjRA){.btn .btn-primary target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"ハラスメント報告フォーム（新しいウィンドウで開く）\"}
 
 ## ライセンスと帰属 {#license}
 
