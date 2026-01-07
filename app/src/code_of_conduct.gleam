@@ -10,6 +10,14 @@ pub fn page() -> Element(msg) {
   section([class("py-16 px-4 bg-base-100 flex-1")], [
     div([class("max-w-3xl mx-auto")], [
       h1([class("text-3xl font-bold mb-12 text-center")], [text("行動規範")]),
+      // YouTube動画の埋め込み
+      element.unsafe_raw_html(
+        "",
+        "div",
+        [],
+        code_of_conduct_content.video_iframe,
+      ),
+      // 行動規範コンテンツ
       element.unsafe_raw_html(
         "",
         "div",
