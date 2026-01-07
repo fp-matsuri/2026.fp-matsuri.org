@@ -166,6 +166,36 @@ fn event_info(date date: String, venue venue: String) -> Element(msg) {
   ])
 }
 
+type SocialLinkConfig {
+  SocialLinkConfig(label: String, url: String, icon: String)
+}
+
+fn social_link(config: SocialLinkConfig) -> Element(msg) {
+  a(
+    [
+      href(config.url),
+      target("_blank"),
+      rel("noopener noreferrer"),
+      attribute("aria-label", config.label),
+      class("btn btn-ghost btn-circle border-none hover:bg-base-300"),
+    ],
+    [
+      img([
+        src(config.icon),
+        attribute("alt", config.label),
+        class("w-6 h-6"),
+      ]),
+    ],
+  )
+}
+
+fn social_link_group(configs: List(SocialLinkConfig)) -> Element(msg) {
+  nav(
+    [class("grid grid-flow-col gap-1 justify-center")],
+    list.map(configs, social_link),
+  )
+}
+
 fn about_section() -> Element(msg) {
   section([class("py-16 px-4 bg-base-100")], [
     div([class("max-w-2xl mx-auto")], [
@@ -283,36 +313,6 @@ fn navigation_link(config: NavigationLinkConfig) -> Element(msg) {
 
 fn navigation_link_group(configs: List(NavigationLinkConfig)) -> Element(msg) {
   nav([class("grid grid-flow-col gap-4")], list.map(configs, navigation_link))
-}
-
-type SocialLinkConfig {
-  SocialLinkConfig(label: String, url: String, icon: String)
-}
-
-fn social_link(config: SocialLinkConfig) -> Element(msg) {
-  a(
-    [
-      href(config.url),
-      target("_blank"),
-      rel("noopener noreferrer"),
-      attribute("aria-label", config.label),
-      class("btn btn-ghost btn-circle border-none hover:bg-base-300"),
-    ],
-    [
-      img([
-        src(config.icon),
-        attribute("alt", config.label),
-        class("w-6 h-6"),
-      ]),
-    ],
-  )
-}
-
-fn social_link_group(configs: List(SocialLinkConfig)) -> Element(msg) {
-  nav(
-    [class("grid grid-flow-col gap-1 justify-center")],
-    list.map(configs, social_link),
-  )
 }
 
 // FFI -------------------------------------------------------------------------
