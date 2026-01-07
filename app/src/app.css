@@ -1,11 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-    /* Tailwind default font-sans に Noto Sans JP を追加 */
+    /* Tailwind default font-sans と　https://ics.media/entry/250718/　を組み合わせている */
     --font-sans:
-        "Noto Sans JP", ui-sans-serif, system-ui, sans-serif,
-        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-        "Noto Color Emoji";
+        /* macOS/iOS - Hiragino（ProN優先） */
+        "Hiragino Kaku Gothic ProN", "Hiragino Sans",
+        /* Playwright/テスト環境用 */ "Noto Sans JP",
+        /* 汎用フォールバック　*/ sans-serif, /* 絵文字 */ "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 @plugin "daisyui";
