@@ -24,6 +24,22 @@ type Route {
   NotFound
 }
 
+fn parse_route(uri: Uri) -> Route {
+  case uri.path_segments(uri.path) {
+    [] | [""] -> Home
+    ["code-of-conduct"] -> CodeOfConduct
+    _ -> NotFound
+  }
+}
+
+fn get_page_title(route: Route) -> String {
+  case route {
+    Home -> "関数型まつり 2026"
+    CodeOfConduct -> "行動規範 - 関数型まつり 2026"
+    NotFound -> "404 - 関数型まつり 2026"
+  }
+}
+
 // Model
 
 type Model {
@@ -41,24 +57,16 @@ type Msg {
 }
 
 fn on_url_change(uri: Uri) -> Msg {
-  case uri.path_segments(uri.path) {
-    [] | [""] -> OnRouteChange(Home)
-    ["code-of-conduct"] -> OnRouteChange(CodeOfConduct)
-    _ -> OnRouteChange(NotFound)
-  }
+  OnRouteChange(parse_route(uri))
+}
+
+fn handle_route_change(route: Route) -> Effect(Msg) {
+  effect.from(fn(_) { set_document_title(get_page_title(route)) })
 }
 
 fn update(_model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
   case msg {
-    OnRouteChange(route) -> {
-      let title = case route {
-        Home -> "関数型まつり 2026"
-        CodeOfConduct -> "行動規範 - 関数型まつり 2026"
-        NotFound -> "404 - 関数型まつり 2026"
-      }
-      let title_effect = effect.from(fn(_) { set_document_title(title) })
-      #(Model(route: route), title_effect)
-    }
+    OnRouteChange(route) -> #(Model(route: route), handle_route_change(route))
   }
 }
 
