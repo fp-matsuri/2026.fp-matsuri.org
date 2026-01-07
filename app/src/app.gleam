@@ -1,32 +1,89 @@
 import cloud
+import code_of_conduct
 import gleam/list
+import gleam/uri.{type Uri}
 import lustre
 import lustre/attribute.{attribute, class, href, rel, src, target}
+import lustre/effect.{type Effect}
 import lustre/element.{type Element}
 import lustre/element/html.{
-  a, aside, br, div, h2, img, li, nav, p, section, span, text, ul,
+  a, aside, br, div, h1, h2, img, li, nav, p, section, span, text, ul,
+}
+import modem
+
+// Route
+
+type Route {
+  Home
+  CodeOfConduct
+  NotFound
+}
+
+// Model
+
+type Model {
+  Model(route: Route)
+}
+
+fn init(_flags) -> #(Model, Effect(Msg)) {
+  #(Model(route: Home), modem.init(on_url_change))
+}
+
+// Update
+
+type Msg {
+  OnRouteChange(Route)
+}
+
+fn on_url_change(uri: Uri) -> Msg {
+  case uri.path_segments(uri.path) {
+    [] | [""] -> OnRouteChange(Home)
+    ["code-of-conduct"] -> OnRouteChange(CodeOfConduct)
+    _ -> OnRouteChange(NotFound)
+  }
+}
+
+fn update(_model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
+  case msg {
+    OnRouteChange(route) -> #(Model(route: route), effect.none())
+  }
+}
+
+// View
+
+fn view(model: Model) -> Element(Msg) {
+  div([class("min-h-screen flex flex-col")], [
+    navbar(),
+    case model.route {
+      Home -> home_content()
+      CodeOfConduct -> code_of_conduct.page()
+      NotFound -> not_found_page()
+    },
+    footer(),
+  ])
 }
 
 pub fn main() {
-  let app =
-    lustre.element(
-      div([class("min-h-screen flex flex-col")], [
-        navbar(),
-        hero_section(),
-        about_section(),
-        footer(),
-      ]),
-    )
+  let app = lustre.application(init, update, view)
   let assert Ok(_) = lustre.start(app, "#app", Nil)
 
   Nil
 }
 
-// View
+// Components
 
-fn navbar() -> Element(a) {
+fn navbar() -> Element(Msg) {
   div([class("navbar bg-base-100 px-4")], [
-    div([class("navbar-start")], []),
+    div([class("navbar-start")], [
+      a([href("/"), class("btn btn-ghost text-xl")], [text("関数型まつり 2026")]),
+    ]),
+    div([class("navbar-center hidden md:flex")], [
+      ul([class("menu menu-horizontal px-1")], [
+        li([], [
+          a([href("/code-of-conduct"), class("link link-hover")], [text("行動規範")]),
+        ]),
+      ]),
+    ]),
     div([class("navbar-end")], [
       social_link_group([
         SocialLinkConfig(
@@ -49,7 +106,11 @@ fn navbar() -> Element(a) {
   ])
 }
 
-fn hero_section() -> Element(a) {
+fn home_content() -> Element(Msg) {
+  div([], [hero_section(), about_section()])
+}
+
+fn hero_section() -> Element(Msg) {
   div([class("hero flex-1 py-20 relative overflow-hidden")], [
     cloud.cloud_decorations(),
     div([class("hero-content text-center relative z-10")], [
@@ -70,7 +131,7 @@ fn hero_section() -> Element(a) {
   ])
 }
 
-fn event_info(date date: String, venue venue: String) -> Element(a) {
+fn event_info(date date: String, venue venue: String) -> Element(Msg) {
   div([], [
     div([class("mb-4")], [
       span([class("badge badge-lg badge-primary")], [text("開催決定")]),
@@ -84,7 +145,7 @@ type SocialLinkConfig {
   SocialLinkConfig(label: String, url: String, icon: String)
 }
 
-fn social_link(config: SocialLinkConfig) -> Element(a) {
+fn social_link(config: SocialLinkConfig) -> Element(Msg) {
   a(
     [
       href(config.url),
@@ -103,14 +164,14 @@ fn social_link(config: SocialLinkConfig) -> Element(a) {
   )
 }
 
-fn social_link_group(configs: List(SocialLinkConfig)) -> Element(a) {
+fn social_link_group(configs: List(SocialLinkConfig)) -> Element(Msg) {
   nav(
     [class("grid grid-flow-col gap-1 justify-center")],
     list.map(configs, social_link),
   )
 }
 
-fn about_section() -> Element(a) {
+fn about_section() -> Element(Msg) {
   section([class("py-16 px-4 bg-base-100")], [
     div([class("max-w-2xl mx-auto")], [
       div([class("card bg-neutral text-neutral-content")], [
@@ -150,7 +211,17 @@ fn about_section() -> Element(a) {
   ])
 }
 
-fn footer() -> Element(a) {
+fn not_found_page() -> Element(Msg) {
+  div([class("flex-1 flex items-center justify-center py-20")], [
+    div([class("text-center")], [
+      h1([class("text-6xl font-bold mb-4")], [text("404")]),
+      p([class("text-xl mb-8")], [text("ページが見つかりません")]),
+      a([href("/"), class("btn btn-primary")], [text("ホームに戻る")]),
+    ]),
+  ])
+}
+
+fn footer() -> Element(Msg) {
   html.footer(
     [
       class(
@@ -158,18 +229,36 @@ fn footer() -> Element(a) {
       ),
     ],
     [
-      navigation_link_group([
-        NavigationLinkConfig(
-          label: "お問い合わせ",
-          url: "https://forms.gle/nwG9RnkP3AHWQtzh6",
+      nav([class("grid grid-flow-col gap-4")], [
+        a([href("/code-of-conduct"), class("link link-hover")], [
+          text("行動規範"),
+        ]),
+        a(
+          [
+            href("https://forms.gle/nwG9RnkP3AHWQtzh6"),
+            target("_blank"),
+            rel("noopener noreferrer"),
+            class("link link-hover"),
+          ],
+          [text("お問い合わせ")],
         ),
-        NavigationLinkConfig(
-          label: "公式オンラインストア",
-          url: "https://www.ttrinity.jp/shop/fp-matsuri/",
+        a(
+          [
+            href("https://www.ttrinity.jp/shop/fp-matsuri/"),
+            target("_blank"),
+            rel("noopener noreferrer"),
+            class("link link-hover"),
+          ],
+          [text("公式オンラインストア")],
         ),
-        NavigationLinkConfig(
-          label: "関数型まつり2025",
-          url: "https://2025.fp-matsuri.org/",
+        a(
+          [
+            href("https://2025.fp-matsuri.org/"),
+            target("_blank"),
+            rel("noopener noreferrer"),
+            class("link link-hover"),
+          ],
+          [text("関数型まつり2025")],
         ),
       ]),
       social_link_group([
@@ -194,24 +283,4 @@ fn footer() -> Element(a) {
       ]),
     ],
   )
-}
-
-type NavigationLinkConfig {
-  NavigationLinkConfig(label: String, url: String)
-}
-
-fn navigation_link(config: NavigationLinkConfig) -> Element(a) {
-  a(
-    [
-      href(config.url),
-      target("_blank"),
-      rel("noopener noreferrer"),
-      class("link link-hover"),
-    ],
-    [text(config.label)],
-  )
-}
-
-fn navigation_link_group(configs: List(NavigationLinkConfig)) -> Element(a) {
-  nav([class("grid grid-flow-col gap-4")], list.map(configs, navigation_link))
 }
