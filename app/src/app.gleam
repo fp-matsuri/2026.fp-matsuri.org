@@ -49,7 +49,17 @@ fn get_page_title(route: Route) -> String {
 }
 
 fn init(_flags) -> #(Model, Effect(Msg)) {
-  #(Model(route: Home), modem.init(on_url_change))
+  let initial_route = case modem.initial_uri() {
+    Ok(uri) -> parse_route(uri)
+    Error(_) -> Home
+  }
+  #(
+    Model(route: initial_route),
+    effect.batch([
+      modem.init(on_url_change),
+      handle_route_change(initial_route),
+    ]),
+  )
 }
 
 // UPDATE ----------------------------------------------------------------------
