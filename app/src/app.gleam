@@ -11,12 +11,20 @@ import lustre/element/html.{
 }
 import modem
 
-// FFI
+// MAIN ------------------------------------------------------------------------
 
-@external(javascript, "./app.ffi.mjs", "setDocumentTitle")
-fn set_document_title(title: String) -> Nil
+pub fn main() {
+  let app = lustre.application(init, update, view)
+  let assert Ok(_) = lustre.start(app, "#app", Nil)
 
-// Route
+  Nil
+}
+
+// MODEL -----------------------------------------------------------------------
+
+type Model {
+  Model(route: Route)
+}
 
 type Route {
   Home
@@ -40,17 +48,11 @@ fn get_page_title(route: Route) -> String {
   }
 }
 
-// Model
-
-type Model {
-  Model(route: Route)
-}
-
 fn init(_flags) -> #(Model, Effect(Msg)) {
   #(Model(route: Home), modem.init(on_url_change))
 }
 
-// Update
+// UPDATE ----------------------------------------------------------------------
 
 type Msg {
   OnRouteChange(Route)
@@ -60,17 +62,17 @@ fn on_url_change(uri: Uri) -> Msg {
   OnRouteChange(parse_route(uri))
 }
 
-fn handle_route_change(route: Route) -> Effect(Msg) {
-  effect.from(fn(_) { set_document_title(get_page_title(route)) })
-}
-
 fn update(_model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
   case msg {
     OnRouteChange(route) -> #(Model(route: route), handle_route_change(route))
   }
 }
 
-// View
+fn handle_route_change(route: Route) -> Effect(Msg) {
+  effect.from(fn(_) { set_document_title(get_page_title(route)) })
+}
+
+// VIEW ------------------------------------------------------------------------
 
 fn view(model: Model) -> Element(Msg) {
   div([class("min-h-screen flex flex-col")], [
@@ -83,15 +85,6 @@ fn view(model: Model) -> Element(Msg) {
     footer(),
   ])
 }
-
-pub fn main() {
-  let app = lustre.application(init, update, view)
-  let assert Ok(_) = lustre.start(app, "#app", Nil)
-
-  Nil
-}
-
-// Components
 
 fn navbar() -> Element(Msg) {
   div([class("navbar bg-base-100 px-4")], [
@@ -160,36 +153,6 @@ fn event_info(date date: String, venue venue: String) -> Element(Msg) {
     p([class("text-lg mb-2")], [text(date)]),
     p([], [text(venue)]),
   ])
-}
-
-type SocialLinkConfig {
-  SocialLinkConfig(label: String, url: String, icon: String)
-}
-
-fn social_link(config: SocialLinkConfig) -> Element(Msg) {
-  a(
-    [
-      href(config.url),
-      target("_blank"),
-      rel("noopener noreferrer"),
-      attribute("aria-label", config.label),
-      class("btn btn-ghost btn-circle border-none hover:bg-base-300"),
-    ],
-    [
-      img([
-        src(config.icon),
-        attribute("alt", config.label),
-        class("w-6 h-6"),
-      ]),
-    ],
-  )
-}
-
-fn social_link_group(configs: List(SocialLinkConfig)) -> Element(Msg) {
-  nav(
-    [class("grid grid-flow-col gap-1 justify-center")],
-    list.map(configs, social_link),
-  )
 }
 
 fn about_section() -> Element(Msg) {
@@ -305,3 +268,38 @@ fn footer() -> Element(Msg) {
     ],
   )
 }
+
+type SocialLinkConfig {
+  SocialLinkConfig(label: String, url: String, icon: String)
+}
+
+fn social_link(config: SocialLinkConfig) -> Element(Msg) {
+  a(
+    [
+      href(config.url),
+      target("_blank"),
+      rel("noopener noreferrer"),
+      attribute("aria-label", config.label),
+      class("btn btn-ghost btn-circle border-none hover:bg-base-300"),
+    ],
+    [
+      img([
+        src(config.icon),
+        attribute("alt", config.label),
+        class("w-6 h-6"),
+      ]),
+    ],
+  )
+}
+
+fn social_link_group(configs: List(SocialLinkConfig)) -> Element(Msg) {
+  nav(
+    [class("grid grid-flow-col gap-1 justify-center")],
+    list.map(configs, social_link),
+  )
+}
+
+// FFI -------------------------------------------------------------------------
+
+@external(javascript, "./app.ffi.mjs", "setDocumentTitle")
+fn set_document_title(title: String) -> Nil
