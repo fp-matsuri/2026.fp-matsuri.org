@@ -54,7 +54,7 @@ pub const content = "
 
 自分や他の人がハラスメントを受けている場合には以下のフォームにてご連絡ください。
 
-[ハラスメント インシデント報告フォーム](https://forms.gle/4NZfofiHZzBcyZjRA){target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"ハラスメント報告フォーム（新しいウィンドウで開く）\"}
+[ハラスメント インシデント報告フォーム](https://forms.gle/AoV7o6n5AdbY22WA9){target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"ハラスメント報告フォーム（新しいウィンドウで開く）\"}
 
 ## ライセンスと帰属に関して
 
