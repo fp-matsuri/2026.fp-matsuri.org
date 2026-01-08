@@ -1,7 +1,7 @@
 // このファイルは行動規範のDjotコンテンツを保持します
 
 // YouTube動画のiframe（Djotとは別に埋め込む）
-pub const video_iframe = "<div class=\"my-8\"><h2 class=\"text-xl font-bold mb-4\">行動規範マナー動画</h2><div class=\"flex justify-center\"><iframe class=\"section_movie\" width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/KYSRKiOlMjA?si=3BUMipTs1gz3UB2n\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen=\"\"></iframe></div></div>"
+pub const video_iframe = "<h2>行動規範マナー動画</h2><div><iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/KYSRKiOlMjA?si=3BUMipTs1gz3UB2n\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen=\"\"></iframe></div>"
 
 pub const content = "
 ## はじめに
@@ -54,10 +54,9 @@ pub const content = "
 
 自分や他の人がハラスメントを受けている場合には以下のフォームにてご連絡ください。
 
-{.text-center .my-6}
-[ハラスメント インシデント報告フォーム](https://forms.gle/4NZfofiHZzBcyZjRA){.btn .btn-primary target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"ハラスメント報告フォーム（新しいウィンドウで開く）\"}
+[ハラスメント インシデント報告フォーム](https://forms.gle/4NZfofiHZzBcyZjRA){target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"ハラスメント報告フォーム（新しいウィンドウで開く）\"}
 
 ## ライセンスと帰属に関して
 
-> 本規範は [ScalaMatsuri](https://scalamatsuri.org/) の規範に基いています。
-> ScalaMatsuri の行動規範は、Geek Feminism wiki の規範例から派生しており、PNW Scala、NE Scala、および Scala Days の影響を受けています。"
+本規範は [ScalaMatsuri](https://scalamatsuri.org/) の規範に基いています。
+ScalaMatsuri の行動規範は、Geek Feminism wiki の規範例から派生しており、PNW Scala、NE Scala、および Scala Days の影響を受けています。"
