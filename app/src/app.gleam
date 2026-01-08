@@ -100,12 +100,11 @@ fn view(model: Model) -> Element(msg) {
 fn navbar() -> Element(msg) {
   div([class("navbar bg-base-100 px-4")], [
     div([class("navbar-start")], [
-      a([href("/"), class("btn btn-ghost text-xl")], [text("関数型まつり 2026")]),
-    ]),
-    div([class("navbar-center hidden md:flex")], [
-      ul([class("menu menu-horizontal px-1")], [
-        li([], [
-          a([href("/code-of-conduct"), class("link link-hover")], [text("行動規範")]),
+      a([href("/")], [
+        img([
+          src("/image/logo_horizontal.svg"),
+          attribute("alt", "関数型まつり"),
+          class("w-[150px]"),
         ]),
       ]),
     ]),
