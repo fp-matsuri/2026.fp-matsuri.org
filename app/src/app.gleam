@@ -1,32 +1,113 @@
 import cloud
+import code_of_conduct
 import gleam/list
+import gleam/string
+import gleam/uri.{type Uri}
 import lustre
 import lustre/attribute.{attribute, class, href, rel, src, target}
+import lustre/effect.{type Effect}
 import lustre/element.{type Element}
 import lustre/element/html.{
-  a, aside, br, div, h2, img, li, nav, p, section, span, text, ul,
+  a, aside, br, div, h1, h2, img, li, nav, p, section, span, text, ul,
 }
+import modem
+
+// MAIN ------------------------------------------------------------------------
 
 pub fn main() {
-  let app =
-    lustre.element(
-      div([class("min-h-screen flex flex-col")], [
-        navbar(),
-        hero_section(),
-        about_section(),
-        footer(),
-      ]),
-    )
+  let app = lustre.application(init, update, view)
   let assert Ok(_) = lustre.start(app, "#app", Nil)
 
   Nil
 }
 
-// View
+// MODEL -----------------------------------------------------------------------
 
-fn navbar() -> Element(a) {
+type Model {
+  Model(route: Route)
+}
+
+type Route {
+  Home
+  CodeOfConduct
+  NotFound
+}
+
+fn parse_route(uri: Uri) -> Route {
+  case uri.path_segments(uri.path) {
+    [] | [""] -> Home
+    ["code-of-conduct"] -> CodeOfConduct
+    _ -> NotFound
+  }
+}
+
+fn get_page_title(route: Route) -> String {
+  case route {
+    Home -> "関数型まつり 2026"
+    CodeOfConduct -> "行動規範 | 関数型まつり 2026"
+    NotFound -> "404 - 関数型まつり 2026"
+  }
+}
+
+fn init(_flags) -> #(Model, Effect(Msg)) {
+  let initial_route = case modem.initial_uri() {
+    Ok(uri) -> parse_route(uri)
+    Error(_) -> Home
+  }
+  #(
+    Model(route: initial_route),
+    effect.batch([
+      modem.init(on_url_change),
+      handle_route_change(initial_route),
+    ]),
+  )
+}
+
+// UPDATE ----------------------------------------------------------------------
+
+type Msg {
+  OnRouteChange(Route)
+}
+
+fn on_url_change(uri: Uri) -> Msg {
+  OnRouteChange(parse_route(uri))
+}
+
+fn update(_model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
+  case msg {
+    OnRouteChange(route) -> #(Model(route: route), handle_route_change(route))
+  }
+}
+
+fn handle_route_change(route: Route) -> Effect(Msg) {
+  effect.from(fn(_) { set_document_title(get_page_title(route)) })
+}
+
+// VIEW ------------------------------------------------------------------------
+
+fn view(model: Model) -> Element(msg) {
+  div([class("min-h-screen flex flex-col")], [
+    navbar(),
+    case model.route {
+      Home -> home_content()
+      CodeOfConduct -> code_of_conduct.page()
+      NotFound -> not_found_page()
+    },
+    footer(),
+  ])
+}
+
+fn navbar() -> Element(msg) {
   div([class("navbar bg-base-100 px-4")], [
-    div([class("navbar-start")], []),
+    div([class("navbar-start")], [
+      a([href("/")], [
+        img([
+          src("/image/logo_horizontal.svg"),
+          attribute("alt", "関数型まつり"),
+          class("w-[150px]"),
+        ]),
+      ]),
+    ]),
     div([class("navbar-end")], [
       social_link_group([
         SocialLinkConfig(
@@ -49,7 +130,11 @@ fn navbar() -> Element(a) {
   ])
 }
 
-fn hero_section() -> Element(a) {
+fn home_content() -> Element(msg) {
+  div([], [hero_section(), about_section()])
+}
+
+fn hero_section() -> Element(msg) {
   div([class("hero flex-1 py-20 relative overflow-hidden")], [
     cloud.cloud_decorations(),
     div([class("hero-content text-center relative z-10")], [
@@ -70,7 +155,7 @@ fn hero_section() -> Element(a) {
   ])
 }
 
-fn event_info(date date: String, venue venue: String) -> Element(a) {
+fn event_info(date date: String, venue venue: String) -> Element(msg) {
   div([], [
     div([class("mb-4")], [
       span([class("badge badge-lg badge-primary")], [text("開催決定")]),
@@ -84,7 +169,7 @@ type SocialLinkConfig {
   SocialLinkConfig(label: String, url: String, icon: String)
 }
 
-fn social_link(config: SocialLinkConfig) -> Element(a) {
+fn social_link(config: SocialLinkConfig) -> Element(msg) {
   a(
     [
       href(config.url),
@@ -103,14 +188,14 @@ fn social_link(config: SocialLinkConfig) -> Element(a) {
   )
 }
 
-fn social_link_group(configs: List(SocialLinkConfig)) -> Element(a) {
+fn social_link_group(configs: List(SocialLinkConfig)) -> Element(msg) {
   nav(
     [class("grid grid-flow-col gap-1 justify-center")],
     list.map(configs, social_link),
   )
 }
 
-fn about_section() -> Element(a) {
+fn about_section() -> Element(msg) {
   section([class("py-16 px-4 bg-base-100")], [
     div([class("max-w-2xl mx-auto")], [
       div([class("card bg-neutral text-neutral-content")], [
@@ -150,7 +235,17 @@ fn about_section() -> Element(a) {
   ])
 }
 
-fn footer() -> Element(a) {
+fn not_found_page() -> Element(msg) {
+  div([class("flex-1 flex items-center justify-center py-20")], [
+    div([class("text-center")], [
+      h1([class("text-6xl font-bold mb-4")], [text("404")]),
+      p([class("text-xl mb-8")], [text("ページが見つかりません")]),
+      a([href("/"), class("btn btn-primary")], [text("ホームに戻る")]),
+    ]),
+  ])
+}
+
+fn footer() -> Element(msg) {
   html.footer(
     [
       class(
@@ -159,6 +254,7 @@ fn footer() -> Element(a) {
     ],
     [
       navigation_link_group([
+        NavigationLinkConfig(label: "行動規範", url: "/code-of-conduct"),
         NavigationLinkConfig(
           label: "お問い合わせ",
           url: "https://forms.gle/nwG9RnkP3AHWQtzh6",
@@ -200,18 +296,25 @@ type NavigationLinkConfig {
   NavigationLinkConfig(label: String, url: String)
 }
 
-fn navigation_link(config: NavigationLinkConfig) -> Element(a) {
-  a(
-    [
-      href(config.url),
-      target("_blank"),
-      rel("noopener noreferrer"),
-      class("link link-hover"),
-    ],
-    [text(config.label)],
-  )
+fn is_external_link(url: String) -> Bool {
+  string.starts_with(url, "http://") || string.starts_with(url, "https://")
 }
 
-fn navigation_link_group(configs: List(NavigationLinkConfig)) -> Element(a) {
+fn navigation_link(config: NavigationLinkConfig) -> Element(msg) {
+  let base_attrs = [href(config.url), class("link link-hover")]
+  let attrs = case is_external_link(config.url) {
+    True ->
+      list.append(base_attrs, [target("_blank"), rel("noopener noreferrer")])
+    False -> base_attrs
+  }
+  a(attrs, [text(config.label)])
+}
+
+fn navigation_link_group(configs: List(NavigationLinkConfig)) -> Element(msg) {
   nav([class("grid grid-flow-col gap-4")], list.map(configs, navigation_link))
 }
+
+// FFI -------------------------------------------------------------------------
+
+@external(javascript, "./app.ffi.mjs", "setDocumentTitle")
+fn set_document_title(title: String) -> Nil
