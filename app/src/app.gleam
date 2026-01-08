@@ -44,7 +44,7 @@ fn parse_route(uri: Uri) -> Route {
 fn get_page_title(route: Route) -> String {
   case route {
     Home -> "関数型まつり 2026"
-    CodeOfConduct -> "行動規範 - 関数型まつり 2026"
+    CodeOfConduct -> "行動規範 | 関数型まつり 2026"
     NotFound -> "404 - 関数型まつり 2026"
   }
 }
