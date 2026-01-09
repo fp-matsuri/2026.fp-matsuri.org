@@ -8,7 +8,8 @@ import lustre/attribute.{attribute, class, href, rel, src, target}
 import lustre/effect.{type Effect}
 import lustre/element.{type Element}
 import lustre/element/html.{
-  a, aside, br, div, h1, h2, img, li, nav, p, section, span, text, ul,
+  a, aside, br, div, h1, h2, h3, iframe, img, li, nav, p, section, span, text,
+  ul,
 }
 import modem
 
@@ -131,7 +132,7 @@ fn navbar() -> Element(msg) {
 }
 
 fn home_content() -> Element(msg) {
-  div([], [hero_section(), about_section()])
+  div([], [hero_section(), about_section(), venue_section()])
 }
 
 fn hero_section() -> Element(msg) {
@@ -200,20 +201,16 @@ fn about_section() -> Element(msg) {
     div([class("max-w-2xl mx-auto")], [
       div([class("card bg-neutral text-neutral-content")], [
         div([class("card-body")], [
-          h2([class("card-title text-xl mb-8 justify-center")], [
+          h2([class("card-title text-xl mb-4 justify-center")], [
             text("関数型プログラミングのカンファレンス"),
             br([]),
             text("「関数型まつり 2026」を開催します！"),
           ]),
-          p([class("mb-4 text-base")], [
+          p([class("text-base")], [
             text(
               "昨年の「関数型まつり」では、参加者総数494名、登壇者48名による多様なセッションを実施し、言語コミュニティの垣根を越えた交流と学びが生まれました。
               好評をいただき、今年も「関数型まつり 2026」を開催します！",
             ),
-          ]),
-          ul([class("text-base")], [
-            li([], [text("日時：2026年7月11日(土), 12日(日)")]),
-            li([], [text("会場：中野セントラルパーク カンファレンス")]),
           ]),
           div([class("divider")], []),
           p([class("mb-4 text-base")], [
@@ -229,6 +226,52 @@ fn about_section() -> Element(msg) {
 普段から関数型言語を活用している方や関数型プログラミングに興味がある方はもちろん、最先端のソフトウェア開発技術に興味がある方もぜひご参加ください！",
             ),
           ]),
+        ]),
+      ]),
+    ]),
+  ])
+}
+
+fn venue_section() -> Element(msg) {
+  section([class("py-16 px-4 bg-base-100")], [
+    div([class("max-w-4xl mx-auto")], [
+      h2([class("text-2xl font-bold text-center mb-12")], [text("会場")]),
+      venue_card(),
+    ]),
+  ])
+}
+
+fn venue_card() -> Element(msg) {
+  div([class("card bg-neutral text-neutral-content")], [
+    div([class("card-body")], [
+      div([class("flex items-center gap-3 mb-6")], [
+        img([
+          src("/icons/map-pin.svg"),
+          attribute("alt", ""),
+          class("w-6 h-6"),
+        ]),
+        h3([class("text-lg font-semibold")], [
+          text("中野セントラルパーク カンファレンス"),
+        ]),
+      ]),
+      div([class("text-sm mb-6")], [
+        p([class("font-semibold mb-2")], [text("アクセス")]),
+        ul([class("list-disc list-inside space-y-1")], [
+          li([], [text("JR中央線・総武線「中野駅」北口より徒歩5分")]),
+          li([], [text("東京メトロ東西線「中野駅」より徒歩5分")]),
+        ]),
+      ]),
+      div([class("rounded-lg overflow-hidden")], [
+        iframe([
+          src(
+            "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6706.437024372982!2d139.6603819160998!3d35.70552369324171!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018f34668e0bc27%3A0x7d66caba722762c5!2z5Lit6YeO44K744Oz44OI44Op44Or44OR44O844Kv44Kr44Oz44OV44Kh44Os44Oz44K5!5e0!3m2!1sja!2sjp!4v1745237362764!5m2!1sja!2sjp",
+          ),
+          attribute("width", "100%"),
+          attribute("height", "400"),
+          attribute("style", "border:0;"),
+          attribute("allowfullscreen", ""),
+          attribute("loading", "lazy"),
+          attribute("referrerpolicy", "no-referrer-when-downgrade"),
         ]),
       ]),
     ]),
@@ -311,7 +354,10 @@ fn navigation_link(config: NavigationLinkConfig) -> Element(msg) {
 }
 
 fn navigation_link_group(configs: List(NavigationLinkConfig)) -> Element(msg) {
-  nav([class("grid grid-flow-col gap-4")], list.map(configs, navigation_link))
+  nav(
+    [class("flex flex-wrap justify-center gap-4")],
+    list.map(configs, navigation_link),
+  )
 }
 
 // FFI -------------------------------------------------------------------------
