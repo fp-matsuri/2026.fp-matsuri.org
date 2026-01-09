@@ -1,5 +1,6 @@
 import cloud
 import code_of_conduct
+import components/button
 import gleam/list
 import gleam/string
 import gleam/uri.{type Uri}
@@ -302,14 +303,9 @@ fn staff_recruitment_section() -> Element(msg) {
             ]),
           ]),
           div([class("card-actions justify-center")], [
-            a(
-              [
-                href("https://jsa.connpass.com/event/380068/"),
-                target("_blank"),
-                rel("noopener noreferrer"),
-                class("btn btn-primary btn-lg"),
-              ],
-              [text("募集ページを見る")],
+            button.primary(
+              label: "募集ページを見る",
+              url: "https://jsa.connpass.com/event/380068/",
             ),
           ]),
         ]),
@@ -346,16 +342,9 @@ fn sponsor_recruitment_section() -> Element(msg) {
             text("詳細なスポンサープランや特典内容については、スポンサー向け資料をご確認の上、お問い合わせフォームよりご連絡ください。"),
           ]),
           div([class("card-actions justify-center")], [
-            a(
-              [
-                href(
-                  "https://docs.google.com/presentation/d/16tjmPFO3poqKBlrBtq7zv5IiZb1ksX05F_R7GqLFrTo/edit?usp=sharing",
-                ),
-                target("_blank"),
-                rel("noopener noreferrer"),
-                class("btn btn-primary btn-lg"),
-              ],
-              [text("スポンサーシップのご案内")],
+            button.primary(
+              label: "スポンサーシップのご案内",
+              url: "https://docs.google.com/presentation/d/16tjmPFO3poqKBlrBtq7zv5IiZb1ksX05F_R7GqLFrTo/edit?usp=sharing",
             ),
           ]),
         ]),
@@ -415,7 +404,7 @@ fn not_found_page() -> Element(msg) {
     div([class("text-center")], [
       h1([class("text-6xl font-bold mb-4")], [text("404")]),
       p([class("text-xl mb-8")], [text("ページが見つかりません")]),
-      a([href("/"), class("btn btn-primary")], [text("ホームに戻る")]),
+      button.primary(label: "ホームに戻る", url: "/"),
     ]),
   ])
 }
