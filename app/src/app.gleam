@@ -132,7 +132,12 @@ fn navbar() -> Element(msg) {
 }
 
 fn home_content() -> Element(msg) {
-  div([], [hero_section(), about_section(), venue_section()])
+  div([], [
+    hero_section(),
+    about_section(),
+    staff_recruitment_section(),
+    venue_section(),
+  ])
 }
 
 fn hero_section() -> Element(msg) {
@@ -224,6 +229,86 @@ fn about_section() -> Element(msg) {
             text(
               "私たちは様々な背景の方々が関数型プログラミングを通じて新しい知見を得て、交流ができるような場を提供することを目指しています。
 普段から関数型言語を活用している方や関数型プログラミングに興味がある方はもちろん、最先端のソフトウェア開発技術に興味がある方もぜひご参加ください！",
+            ),
+          ]),
+        ]),
+      ]),
+    ]),
+  ])
+}
+
+fn staff_recruitment_section() -> Element(msg) {
+  section([class("py-16 px-4 bg-base-100")], [
+    div([class("max-w-2xl mx-auto")], [
+      h2([class("text-2xl font-bold text-center mb-12")], [
+        text("運営スタッフ募集"),
+      ]),
+      div([class("card bg-neutral text-neutral-content")], [
+        div([class("card-body")], [
+          p([class("text-base mb-6")], [
+            text(
+              "関数型まつり 2026 の企画・運営に一緒に取り組んでくださるコアスタッフを募集しています！関数型プログラミングのコミュニティを盛り上げる舞台裏で活躍してみませんか？",
+            ),
+          ]),
+          h3([class("text-lg font-semibold mb-4")], [
+            text("キックオフミーティング"),
+          ]),
+          div([class("mb-6")], [
+            p([class("text-sm mb-2")], [
+              span([class("font-semibold")], [text("日時：")]),
+              text("2026年1月18日（日）19:00〜21:00"),
+            ]),
+            p([class("text-sm mb-4")], [
+              span([class("font-semibold")], [text("形式：")]),
+              text("オンライン（Google Meet）"),
+            ]),
+            p([class("text-base")], [
+              text(
+                "初めてカンファレンス運営に参加される方も大歓迎です。まずはキックオフミーティングにご参加いただき、雰囲気を感じていただければと思います。",
+              ),
+            ]),
+          ]),
+          h3([class("text-lg font-semibold mb-4")], [text("募集している役割・チーム")]),
+          div([class("space-y-4 mb-6 text-sm")], [
+            div([], [
+              p([class("font-semibold mb-1")], [text("プログラムチーム")]),
+              ul([class("list-disc list-inside ml-4 space-y-1")], [
+                li([], [text("セッション公募（CFP）の要項作成・募集・採択")]),
+                li([], [text("当日のセッションテーブル（タイムテーブル）の作成")]),
+              ]),
+            ]),
+            div([], [
+              p([class("font-semibold mb-1")], [text("PRチーム")]),
+              ul([class("list-disc list-inside ml-4 space-y-1")], [
+                li([], [text("公式サイトやSNSでの情報発信")]),
+                li([], [text("コミュニティに向けた広報活動全般")]),
+              ]),
+            ]),
+            div([], [
+              p([class("font-semibold mb-1")], [text("スポンサーチーム")]),
+              ul([class("list-disc list-inside ml-4 space-y-1")], [
+                li([], [text("企業へのスポンサーシップ依頼・コミュニケーション")]),
+                li([], [text("広告、ノベルティ、当日ブース設営のサポート")]),
+              ]),
+            ]),
+            div([], [
+              p([class("font-semibold mb-1")], [text("会場チーム")]),
+              ul([class("list-disc list-inside ml-4 space-y-1")], [
+                li([], [text("チケット販売管理")]),
+                li([], [text("会場手配、設営・撤収計画の策定")]),
+                li([], [text("音響、記録、配信の準備と当日のオペレーション")]),
+              ]),
+            ]),
+          ]),
+          div([class("card-actions justify-center")], [
+            a(
+              [
+                href("https://jsa.connpass.com/event/380068/"),
+                target("_blank"),
+                rel("noopener noreferrer"),
+                class("btn btn-primary btn-lg"),
+              ],
+              [text("募集ページを見る")],
             ),
           ]),
         ]),
