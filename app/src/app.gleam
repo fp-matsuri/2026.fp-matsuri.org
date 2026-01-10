@@ -200,7 +200,7 @@ fn about_section() -> Element(msg) {
       div(
         [
           class(
-            "card bg-neutral text-neutral-content border border-base-200/75 shadow-none",
+            "card bg-neutral text-neutral-content border border-subtle shadow-none",
           ),
         ],
         [
@@ -238,7 +238,7 @@ fn about_section() -> Element(msg) {
 }
 
 fn staff_recruitment_section() -> Element(msg) {
-  section([class("py-20 px-4 md:px-6 bg-base-200/50")], [
+  section([class("py-20 px-4 md:px-6 bg-base-200")], [
     div([class("max-w-2xl mx-auto")], [
       h2([class("text-2xl font-bold text-center mb-10")], [
         text("運営スタッフ募集"),
@@ -272,7 +272,7 @@ fn staff_recruitment_section() -> Element(msg) {
       div(
         [
           class(
-            "card bg-neutral text-neutral-content border border-base-200/75 shadow-none",
+            "card bg-neutral text-neutral-content border border-subtle shadow-none",
           ),
         ],
         [
@@ -284,9 +284,7 @@ fn staff_recruitment_section() -> Element(msg) {
               div([class("flex items-center gap-3")], [
                 span(
                   [
-                    class(
-                      "text-sm font-medium text-base-content/60 min-w-[2rem]",
-                    ),
+                    class("text-sm font-medium text-secondary min-w-[2rem]"),
                   ],
                   [text("日時")],
                 ),
@@ -297,9 +295,7 @@ fn staff_recruitment_section() -> Element(msg) {
               div([class("flex items-center gap-3")], [
                 span(
                   [
-                    class(
-                      "text-sm font-medium text-base-content/60 min-w-[2rem]",
-                    ),
+                    class("text-sm font-medium text-secondary min-w-[2rem]"),
                   ],
                   [text("形式")],
                 ),
@@ -335,7 +331,7 @@ fn collapse(
   div(
     [
       class(
-        "collapse collapse-arrow bg-neutral text-neutral-content border border-base-200/75 shadow-none",
+        "collapse collapse-arrow bg-neutral text-neutral-content border border-subtle shadow-none",
       ),
     ],
     [
@@ -373,7 +369,7 @@ fn sponsor_recruitment_section() -> Element(msg) {
       div(
         [
           class(
-            "card bg-neutral text-neutral-content border border-base-200/75 shadow-none",
+            "card bg-neutral text-neutral-content border border-subtle shadow-none",
           ),
         ],
         [
@@ -413,7 +409,7 @@ fn sponsor_recruitment_section() -> Element(msg) {
 }
 
 fn venue_section() -> Element(msg) {
-  section([class("py-20 px-4 md:px-6 bg-base-200/50")], [
+  section([class("py-20 px-4 md:px-6 bg-base-200")], [
     div([class("max-w-4xl mx-auto")], [
       h2([class("text-2xl font-bold text-center mb-10")], [
         text("会場"),
@@ -431,10 +427,9 @@ fn venue_section() -> Element(msg) {
         ]),
         div([class("flex justify-center mb-8")], [
           div([class("flex items-center gap-3")], [
-            span(
-              [class("text-sm font-medium text-base-content/60 min-w-[4rem]")],
-              [text("アクセス")],
-            ),
+            span([class("text-sm font-medium text-secondary min-w-[4rem]")], [
+              text("アクセス"),
+            ]),
             div([class("text-sm")], [
               p([], [text("JR中央線・総武線「中野駅」北口より徒歩5分")]),
               p([], [text("東京メトロ東西線「中野駅」より徒歩5分")]),
@@ -442,7 +437,7 @@ fn venue_section() -> Element(msg) {
           ]),
         ]),
       ]),
-      div([class("rounded-xl overflow-hidden border border-base-200/75")], [
+      div([class("rounded-xl overflow-hidden border border-subtle")], [
         iframe([
           src(
             "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6706.437024372982!2d139.6603819160998!3d35.70552369324171!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018f34668e0bc27%3A0x7d66caba722762c5!2z5Lit6YeO44K744Oz44OI44Op44Or44OR44O844Kv44Kr44Oz44OV44Kh44Os44Oz44K5!5e0!3m2!1sja!2sjp!4v1745237362764!5m2!1sja!2sjp",
@@ -463,7 +458,7 @@ fn not_found_page() -> Element(msg) {
   div([class("flex-1 flex items-center justify-center py-24")], [
     div([class("text-center")], [
       h1([class("text-7xl font-bold mb-6")], [text("404")]),
-      p([class("text-xl mb-10 text-base-content/70")], [
+      p([class("text-xl mb-10 text-muted")], [
         text("ページが見つかりません"),
       ]),
       button.primary(label: "ホームに戻る", url: "/"),
@@ -475,7 +470,7 @@ fn footer() -> Element(msg) {
   html.footer(
     [
       class(
-        "py-12 px-6 flex flex-col items-center gap-10 bg-base-200 text-base-content",
+        "py-12 px-6 flex flex-col items-center gap-10 bg-base-300 text-base-content",
       ),
     ],
     [
