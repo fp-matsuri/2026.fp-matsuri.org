@@ -413,58 +413,50 @@ fn sponsor_recruitment_section() -> Element(msg) {
 }
 
 fn venue_section() -> Element(msg) {
-  section([class("py-20 px-6 bg-base-200/50")], [
+  section([class("py-20 px-4 md:px-6 bg-base-200/50")], [
     div([class("max-w-4xl mx-auto")], [
-      h2([class("text-2xl font-bold text-center mb-10 tracking-tight")], [
+      h2([class("text-2xl font-bold text-center mb-10")], [
         text("会場"),
       ]),
-      venue_card(),
-    ]),
-  ])
-}
-
-fn venue_card() -> Element(msg) {
-  div(
-    [
-      class(
-        "card bg-neutral text-neutral-content border border-base-200/75 shadow-none",
-      ),
-    ],
-    [
-      div([class("card-body p-8 md:p-10")], [
-        div([class("flex items-center gap-3 mb-6")], [
+      div([class("mb-8")], [
+        div([class("flex items-center justify-center gap-2 mb-6")], [
           img([
             src("/icons/map-pin.svg"),
             attribute("alt", ""),
             class("w-6 h-6"),
           ]),
-          h3([class("text-lg font-semibold")], [
+          h3([class("font-semibold")], [
             text("中野セントラルパーク カンファレンス"),
           ]),
         ]),
-        div([class("text-sm mb-8")], [
-          p([class("font-semibold mb-2")], [text("アクセス")]),
-          ul([class("list-disc list-inside space-y-1")], [
-            li([], [text("JR中央線・総武線「中野駅」北口より徒歩5分")]),
-            li([], [text("東京メトロ東西線「中野駅」より徒歩5分")]),
-          ]),
-        ]),
-        div([class("rounded-xl overflow-hidden border border-base-200/75")], [
-          iframe([
-            src(
-              "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6706.437024372982!2d139.6603819160998!3d35.70552369324171!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018f34668e0bc27%3A0x7d66caba722762c5!2z5Lit6YeO44K744Oz44OI44Op44Or44OR44O844Kv44Kr44Oz44OV44Kh44Os44Oz44K5!5e0!3m2!1sja!2sjp!4v1745237362764!5m2!1sja!2sjp",
+        div([class("flex justify-center mb-8")], [
+          div([class("flex items-center gap-3")], [
+            span(
+              [class("text-sm font-medium text-base-content/60 min-w-[4rem]")],
+              [text("アクセス")],
             ),
-            attribute("width", "100%"),
-            attribute("height", "400"),
-            attribute("style", "border:0;"),
-            attribute("allowfullscreen", ""),
-            attribute("loading", "lazy"),
-            attribute("referrerpolicy", "no-referrer-when-downgrade"),
+            div([class("text-sm")], [
+              p([], [text("JR中央線・総武線「中野駅」北口より徒歩5分")]),
+              p([], [text("東京メトロ東西線「中野駅」より徒歩5分")]),
+            ]),
           ]),
         ]),
       ]),
-    ],
-  )
+      div([class("rounded-xl overflow-hidden border border-base-200/75")], [
+        iframe([
+          src(
+            "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6706.437024372982!2d139.6603819160998!3d35.70552369324171!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018f34668e0bc27%3A0x7d66caba722762c5!2z5Lit6YeO44K744Oz44OI44Op44Or44OR44O844Kv44Kr44Oz44OV44Kh44Os44Oz44K5!5e0!3m2!1sja!2sjp!4v1745237362764!5m2!1sja!2sjp",
+          ),
+          attribute("width", "100%"),
+          attribute("height", "400"),
+          attribute("style", "border:0;"),
+          attribute("allowfullscreen", ""),
+          attribute("loading", "lazy"),
+          attribute("referrerpolicy", "no-referrer-when-downgrade"),
+        ]),
+      ]),
+    ]),
+  ])
 }
 
 fn not_found_page() -> Element(msg) {
