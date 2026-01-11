@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "dev": "vite",
-    "build": "cd app && gleam run -m build && mkdir -p dist/src && cp src/app.css dist/src/ && cd .. && npx vite build",
-    "preview": "vite preview",
+    "dev": "npm run build:html && vite",
+    "build:html": "cd app && gleam run -m build && mkdir -p dist/src && cp src/app.css dist/src/",
+    "build": "npm run build:html && vite build",
     "docker:build": "docker build -f Dockerfile -t fp-matsuri-playwright .",
     "docker:run": "docker run --rm --network host -v \"$(pwd):/work\" fp-matsuri-playwright",
     "pretest": "npm ci && cd app && rm -rf build && gleam deps download",
