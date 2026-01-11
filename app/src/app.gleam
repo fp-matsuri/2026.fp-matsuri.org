@@ -1,14 +1,15 @@
 import cloud
 import code_of_conduct
+import components/button
 import gleam/list
 import gleam/string
 import gleam/uri.{type Uri}
 import lustre
-import lustre/attribute.{attribute, class, href, rel, src, target}
+import lustre/attribute.{attribute, class, href, id, rel, src, target}
 import lustre/effect.{type Effect}
 import lustre/element.{type Element}
 import lustre/element/html.{
-  a, aside, br, div, h1, h2, img, li, nav, p, section, span, text, ul,
+  a, aside, br, div, h1, h2, h3, img, input, li, nav, p, section, span, text, ul,
 }
 import modem
 
@@ -108,30 +109,32 @@ fn navbar() -> Element(msg) {
         ]),
       ]),
     ]),
-    div([class("navbar-end")], [
-      social_link_group([
-        SocialLinkConfig(
-          label: "Follow us on X",
-          url: "https://x.com/fp_matsuri",
-          icon: "/icons/x.svg",
-        ),
-        SocialLinkConfig(
-          label: "Bluesky",
-          url: "https://bsky.app/profile/fp-matsuri.bsky.social",
-          icon: "/icons/bluesky.svg",
-        ),
-        SocialLinkConfig(
-          label: "関数型まつり運営ブログ",
-          url: "https://blog.fp-matsuri.org/",
-          icon: "/icons/hatenablog.svg",
-        ),
-      ]),
+    div([class("navbar-end gap-1")], [
+      social_link(
+        label: "Follow us on X",
+        url: "https://x.com/fp_matsuri",
+        icon: "/icons/x.svg",
+      ),
+      social_link(
+        label: "Bluesky",
+        url: "https://bsky.app/profile/fp-matsuri.bsky.social",
+        icon: "/icons/bluesky.svg",
+      ),
+      social_link(
+        label: "関数型まつり運営ブログ",
+        url: "https://blog.fp-matsuri.org/",
+        icon: "/icons/hatenablog.svg",
+      ),
     ]),
   ])
 }
 
 fn home_content() -> Element(msg) {
-  div([], [hero_section(), about_section()])
+  div([], [
+    hero_section(),
+    about_section(),
+    staff_recruitment_section(),
+  ])
 }
 
 fn hero_section() -> Element(msg) {
@@ -165,82 +168,203 @@ fn event_info(date date: String, venue venue: String) -> Element(msg) {
   ])
 }
 
-type SocialLinkConfig {
-  SocialLinkConfig(label: String, url: String, icon: String)
-}
-
-fn social_link(config: SocialLinkConfig) -> Element(msg) {
+fn social_link(
+  label label: String,
+  url url: String,
+  icon icon: String,
+) -> Element(msg) {
   a(
     [
-      href(config.url),
+      href(url),
       target("_blank"),
       rel("noopener noreferrer"),
-      attribute("aria-label", config.label),
+      attribute("aria-label", label),
       class("btn btn-ghost btn-circle border-none hover:bg-base-300"),
     ],
     [
       img([
-        src(config.icon),
-        attribute("alt", config.label),
+        src(icon),
+        attribute("alt", label),
         class("w-6 h-6"),
       ]),
     ],
   )
 }
 
-fn social_link_group(configs: List(SocialLinkConfig)) -> Element(msg) {
-  nav(
-    [class("grid grid-flow-col gap-1 justify-center")],
-    list.map(configs, social_link),
-  )
-}
-
 fn about_section() -> Element(msg) {
-  section([class("py-16 px-4 bg-base-100")], [
+  section([class("py-20 px-6 bg-base-100")], [
     div([class("max-w-2xl mx-auto")], [
-      div([class("card bg-neutral text-neutral-content")], [
-        div([class("card-body")], [
-          h2([class("card-title text-xl mb-8 justify-center")], [
-            text("関数型プログラミングのカンファレンス"),
-            br([]),
-            text("「関数型まつり 2026」を開催します！"),
-          ]),
-          p([class("mb-4 text-base")], [
-            text(
-              "昨年の「関数型まつり」では、参加者総数494名、登壇者48名による多様なセッションを実施し、言語コミュニティの垣根を越えた交流と学びが生まれました。
+      div(
+        [
+          class(
+            "card bg-neutral text-neutral-content border border-subtle shadow-none",
+          ),
+        ],
+        [
+          div([class("card-body p-8 md:p-10")], [
+            h2([class("card-title text-xl md:text-2xl mb-6 justify-center")], [
+              text("関数型プログラミングのカンファレンス"),
+              br([]),
+              text("「関数型まつり 2026」を開催します！"),
+            ]),
+            p([class("text-base leading-relaxed")], [
+              text(
+                "昨年の「関数型まつり」では、参加者総数494名、登壇者48名による多様なセッションを実施し、言語コミュニティの垣根を越えた交流と学びが生まれました。
               好評をいただき、今年も「関数型まつり 2026」を開催します！",
-            ),
-          ]),
-          ul([class("text-base")], [
-            li([], [text("日時：2026年7月11日(土), 12日(日)")]),
-            li([], [text("会場：中野セントラルパーク カンファレンス")]),
-          ]),
-          div([class("divider")], []),
-          p([class("mb-4 text-base")], [
-            text(
-              "関数型プログラミングはメジャーな言語・フレームワークに取り入れられ、広く使われるようになりました。
+              ),
+            ]),
+            div([class("divider")], []),
+            p([class("mb-4 text-base leading-relaxed")], [
+              text(
+                "関数型プログラミングはメジャーな言語・フレームワークに取り入れられ、広く使われるようになりました。
 そしてその手法自体も進化し続けています。
 その一方で「関数型プログラミング」というと「難しい・とっつきにくい」という声もあり、十分普及し切った状態ではありません。",
-            ),
-          ]),
-          p([class("text-base")], [
-            text(
-              "私たちは様々な背景の方々が関数型プログラミングを通じて新しい知見を得て、交流ができるような場を提供することを目指しています。
+              ),
+            ]),
+            p([class("text-base leading-relaxed")], [
+              text(
+                "私たちは様々な背景の方々が関数型プログラミングを通じて新しい知見を得て、交流ができるような場を提供することを目指しています。
 普段から関数型言語を活用している方や関数型プログラミングに興味がある方はもちろん、最先端のソフトウェア開発技術に興味がある方もぜひご参加ください！",
-            ),
+              ),
+            ]),
           ]),
-        ]),
-      ]),
+        ],
+      ),
     ]),
   ])
 }
 
+fn staff_recruitment_section() -> Element(msg) {
+  section([id("staff"), class("py-20 px-4 md:px-6 bg-base-200")], [
+    div([class("max-w-2xl mx-auto")], [
+      h2([class("text-2xl font-bold text-center mb-10")], [
+        text("運営スタッフ募集"),
+      ]),
+      div([class("mb-8")], [
+        p([class("text-base mb-8 leading-relaxed")], [
+          text(
+            "関数型まつり 2026 の企画・運営に一緒に取り組んでくださるコアスタッフを募集しています！関数型プログラミングのコミュニティを盛り上げる舞台裏で活躍してみませんか？",
+          ),
+        ]),
+      ]),
+      div([class("space-y-2 mb-12")], [
+        collapse(icon: "/icons/calendar-check.svg", name: "プログラムチーム", tasks: [
+          "セッション公募（CFP）の要項作成・募集・採択",
+          "当日のセッションテーブル（タイムテーブル）の作成",
+        ]),
+        collapse(icon: "/icons/megaphone.svg", name: "PRチーム", tasks: [
+          "公式サイトやSNSでの情報発信",
+          "コミュニティに向けた広報活動全般",
+        ]),
+        collapse(icon: "/icons/handshake.svg", name: "スポンサーチーム", tasks: [
+          "企業へのスポンサーシップ依頼・コミュニケーション",
+          "広告、ノベルティ、当日ブース設営のサポート",
+        ]),
+        collapse(icon: "/icons/building.svg", name: "会場チーム", tasks: [
+          "チケット販売管理",
+          "会場手配、設営・撤収計画の策定",
+          "音響、記録、配信の準備と当日のオペレーション",
+        ]),
+      ]),
+      div(
+        [
+          class(
+            "card bg-neutral text-neutral-content border border-subtle shadow-none",
+          ),
+        ],
+        [
+          div([class("card-body p-8 md:p-10")], [
+            h3([class("text-xl font-bold mb-6 text-center")], [
+              text("キックオフミーティング"),
+            ]),
+            div([class("space-y-2 s")], [
+              div([class("flex items-center gap-3")], [
+                span(
+                  [
+                    class("text-sm font-medium text-secondary min-w-[2rem]"),
+                  ],
+                  [text("日時")],
+                ),
+                p([class("text-base")], [
+                  text("2026年1月18日（日）19:00〜21:00"),
+                ]),
+              ]),
+              div([class("flex items-center gap-3")], [
+                span(
+                  [
+                    class("text-sm font-medium text-secondary min-w-[2rem]"),
+                  ],
+                  [text("形式")],
+                ),
+                p([class("text-base")], [
+                  text("オンライン（Google Meet）"),
+                ]),
+              ]),
+            ]),
+            div([class("divider")], []),
+            p([class("text-base leading-relaxed mb-4")], [
+              text(
+                "初めてカンファレンス運営に参加される方も大歓迎です。まずはキックオフミーティングにご参加いただき、雰囲気を感じていただければと思います。",
+              ),
+            ]),
+            div([class("flex justify-center")], [
+              button.primary(
+                label: "募集ページを見る",
+                url: "https://jsa.connpass.com/event/380068/",
+              ),
+            ]),
+          ]),
+        ],
+      ),
+    ]),
+  ])
+}
+
+fn collapse(
+  icon icon: String,
+  name name: String,
+  tasks tasks: List(String),
+) -> Element(msg) {
+  div(
+    [
+      class(
+        "collapse collapse-arrow bg-neutral text-neutral-content border border-subtle shadow-none",
+      ),
+    ],
+    [
+      input([attribute("type", "checkbox")]),
+      div([class("collapse-title text-base font-semibold")], [
+        div([class("flex items-center gap-3")], [
+          img([
+            src(icon),
+            attribute("alt", ""),
+            class("w-5 h-5"),
+          ]),
+          text(name),
+        ]),
+      ]),
+      div([class("collapse-content")], [
+        ul(
+          [
+            class(
+              "list-disc list-outside ml-5 space-y-2 text-sm leading-relaxed",
+            ),
+          ],
+          list.map(tasks, fn(task) { li([], [text(task)]) }),
+        ),
+      ]),
+    ],
+  )
+}
+
 fn not_found_page() -> Element(msg) {
-  div([class("flex-1 flex items-center justify-center py-20")], [
+  div([class("flex-1 flex items-center justify-center py-24")], [
     div([class("text-center")], [
-      h1([class("text-6xl font-bold mb-4")], [text("404")]),
-      p([class("text-xl mb-8")], [text("ページが見つかりません")]),
-      a([href("/"), class("btn btn-primary")], [text("ホームに戻る")]),
+      h1([class("text-7xl font-bold mb-6")], [text("404")]),
+      p([class("text-xl mb-10 text-muted")], [
+        text("ページが見つかりません"),
+      ]),
+      button.primary(label: "ホームに戻る", url: "/"),
     ]),
   ])
 }
@@ -249,40 +373,49 @@ fn footer() -> Element(msg) {
   html.footer(
     [
       class(
-        "footer footer-horizontal footer-center p-10 bg-base-200 text-base-content",
+        "py-12 px-6 flex flex-col items-center gap-10 bg-base-300 text-base-content",
       ),
     ],
     [
-      navigation_link_group([
-        NavigationLinkConfig(label: "行動規範", url: "/code-of-conduct"),
-        NavigationLinkConfig(
-          label: "お問い合わせ",
-          url: "https://forms.gle/nwG9RnkP3AHWQtzh6",
-        ),
-        NavigationLinkConfig(
-          label: "公式オンラインストア",
-          url: "https://www.ttrinity.jp/shop/fp-matsuri/",
-        ),
-        NavigationLinkConfig(
-          label: "関数型まつり2025",
-          url: "https://2025.fp-matsuri.org/",
-        ),
-      ]),
-      social_link_group([
-        SocialLinkConfig(
-          label: "X",
-          url: "https://x.com/fp_matsuri",
-          icon: "/icons/x.svg",
-        ),
-        SocialLinkConfig(
-          label: "Bluesky",
-          url: "https://bsky.app/profile/fp-matsuri.bsky.social",
-          icon: "/icons/bluesky.svg",
-        ),
-        SocialLinkConfig(
-          label: "関数型まつり運営ブログ",
-          url: "https://blog.fp-matsuri.org/",
-          icon: "/icons/hatenablog.svg",
+      div([class("footer sm:footer-horizontal max-w-2xl")], [
+        nav([], [
+          h3([class("footer-title")], [
+            text("関数型まつり2026"),
+          ]),
+          nav_link(label: "行動規範", url: "/code-of-conduct"),
+          nav_link(label: "お問い合わせ", url: "https://forms.gle/nwG9RnkP3AHWQtzh6"),
+          nav_link(
+            label: "公式オンラインストア",
+            url: "https://www.ttrinity.jp/shop/fp-matsuri/",
+          ),
+        ]),
+        nav([], [
+          h3([class("footer-title")], [text("過去の開催")]),
+          nav_link(label: "関数型まつり2025", url: "https://2025.fp-matsuri.org/"),
+        ]),
+        nav(
+          [
+            class(
+              "w-full grid grid-flow-col gap-1 justify-center sm:justify-start",
+            ),
+          ],
+          [
+            social_link(
+              label: "X",
+              url: "https://x.com/fp_matsuri",
+              icon: "/icons/x.svg",
+            ),
+            social_link(
+              label: "Bluesky",
+              url: "https://bsky.app/profile/fp-matsuri.bsky.social",
+              icon: "/icons/bluesky.svg",
+            ),
+            social_link(
+              label: "関数型まつり運営ブログ",
+              url: "https://blog.fp-matsuri.org/",
+              icon: "/icons/hatenablog.svg",
+            ),
+          ],
         ),
       ]),
       aside([], [
@@ -292,26 +425,18 @@ fn footer() -> Element(msg) {
   )
 }
 
-type NavigationLinkConfig {
-  NavigationLinkConfig(label: String, url: String)
-}
-
 fn is_external_link(url: String) -> Bool {
   string.starts_with(url, "http://") || string.starts_with(url, "https://")
 }
 
-fn navigation_link(config: NavigationLinkConfig) -> Element(msg) {
-  let base_attrs = [href(config.url), class("link link-hover")]
-  let attrs = case is_external_link(config.url) {
+fn nav_link(label label: String, url url: String) -> Element(msg) {
+  let base_attrs = [href(url), class("link link-hover")]
+  let attrs = case is_external_link(url) {
     True ->
       list.append(base_attrs, [target("_blank"), rel("noopener noreferrer")])
     False -> base_attrs
   }
-  a(attrs, [text(config.label)])
-}
-
-fn navigation_link_group(configs: List(NavigationLinkConfig)) -> Element(msg) {
-  nav([class("grid grid-flow-col gap-4")], list.map(configs, navigation_link))
+  a(attrs, [text(label)])
 }
 
 // FFI -------------------------------------------------------------------------
