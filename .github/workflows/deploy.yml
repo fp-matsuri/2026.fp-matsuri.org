@@ -1,4 +1,3 @@
-# https://hexdocs.pm/lustre/guide/04-spa-deployments.html
 name: Deploy to GitHub Pages
 
 on:
@@ -18,24 +17,37 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+
       - name: Set up Gleam
         uses: erlef/setup-beam@v1
         with:
-          otp-version: "28"
-          gleam-version: "1.13.0"
+          otp-version: "27"
+          gleam-version: "1.6.0"
           rebar3-version: "3"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
       - name: Install npm dependencies
-        run: npm install
+        run: npm ci
+
       - name: Install Gleam dependencies
         run: cd app && gleam deps download
-      - name: Build app
-        run: cd app && gleam run -m lustre/dev build app --minify
+
+      - name: Build site
+        run: npm run build
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: "app/dist"
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

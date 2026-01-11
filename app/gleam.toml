@@ -1,46 +1,13 @@
 name = "app"
 version = "1.0.0"
-target = "javascript"
+target = "erlang"
 
 [dependencies]
 gleam_stdlib = ">= 0.44.0 and < 2.0.0"
 lustre = ">= 5.4.0 and < 6.0.0"
-modem = ">= 2.1.2 and < 3.0.0"
-jot = ">= 8.0.0 and < 9.0.0"
+jot = ">= 4.0.0 and < 5.0.0"
+lustre_ssg = ">= 0.11.0 and < 1.0.0"
+simplifile = ">= 2.0.0 and < 3.0.0"
 
 [dev-dependencies]
 gleeunit = ">= 1.0.0 and < 2.0.0"
-lustre_dev_tools = ">= 2.3.1 and < 3.0.0"
-
-[tools.lustre.html]
-title = "関数型まつり2026"
-lang = "ja"
-links = [
-    # https://coliss.com/articles/build-websites/operation/work/how-to-favicon.html#h201
-    { rel= "icon", href= "/favicon.ico", "sizes"= "32x32" },
-    { rel= "icon", href= "/icon.svg", "type"= "image/svg+xml" },
-    # Google Fonts - Noto Sans JP
-    { rel= "preconnect", href= "https://fonts.googleapis.com" },
-    { rel= "preconnect", href= "https://fonts.gstatic.com", "crossorigin"= "" },
-    { rel= "stylesheet", href= "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" },
-]
-meta = [
-    # Open Graph / Facebook
-    { property= "og:type", content= "website" },
-    { property= "og:title", content= "関数型まつり 2026" },
-    { property= "og:description", content= "関数型まつりは関数型プログラミングをテーマとしたカンファレンスです" },
-    { property= "og:url", content= "https://2026.fp-matsuri.org" },
-    { property= "og:site_name", content= "関数型まつり 2026" },
-    { property= "og:image", content= "https://2026.fp-matsuri.org/summaryLarge.png" },
-    { property= "og:locale", content= "ja_JP" },
-
-    # Twitter Cards
-    { name= "twitter:card", content= "summary_large_image" },
-    { name= "twitter:title", content= "関数型まつり 2026" },
-    { name= "twitter:description", content= "関数型まつりは関数型プログラミングをテーマとしたカンファレンスです" },
-    { name= "twitter:image", content= "https://2026.fp-matsuri.org/summaryLarge.png" },
-
-    # General meta tags
-    { name= "description", content= "関数型まつりは関数型プログラミングをテーマとしたカンファレンスです" },
-    { name= "keywords", content= "関数型プログラミング,FP,関数型まつり,カンファレンス,技術イベント" },
-]

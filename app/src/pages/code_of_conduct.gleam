@@ -1,10 +1,15 @@
 import code_of_conduct_content
 import jot
+import layout
 import lustre/attribute.{class}
 import lustre/element.{type Element}
 import lustre/element/html.{div, h1, section, text}
 
 pub fn page() -> Element(msg) {
+  layout.page("行動規範 | 関数型まつり 2026", content())
+}
+
+fn content() -> Element(msg) {
   let html_content = jot.to_html(code_of_conduct_content.content)
 
   section([class("py-16 px-4 bg-base-100 flex-1")], [

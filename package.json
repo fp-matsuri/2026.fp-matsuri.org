@@ -1,5 +1,8 @@
 {
   "scripts": {
+    "dev": "vite",
+    "build": "cd app && gleam run -m build && cd .. && npx @tailwindcss/cli -i app/src/app.css -o app/dist/assets/app.css --minify",
+    "preview": "vite preview",
     "docker:build": "docker build -f Dockerfile -t fp-matsuri-playwright .",
     "docker:run": "docker run --rm --network host -v \"$(pwd):/work\" fp-matsuri-playwright",
     "pretest": "npm ci && cd app && rm -rf build && gleam deps download",
@@ -9,7 +12,11 @@
   "devDependencies": {
     "@playwright/test": "^1.57.0",
     "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.0.0",
     "@types/node": "^25.0.3",
-    "daisyui": "^5.5.14"
+    "concurrently": "^9.0.0",
+    "daisyui": "^5.5.14",
+    "tailwindcss": "^4.0.0",
+    "vite": "^6.0.0"
   }
 }
