@@ -5,7 +5,7 @@ import gleam/list
 import gleam/string
 import gleam/uri.{type Uri}
 import lustre
-import lustre/attribute.{attribute, class, href, rel, src, target}
+import lustre/attribute.{attribute, class, href, id, rel, src, target}
 import lustre/effect.{type Effect}
 import lustre/element.{type Element}
 import lustre/element/html.{
@@ -237,7 +237,7 @@ fn about_section() -> Element(msg) {
 }
 
 fn staff_recruitment_section() -> Element(msg) {
-  section([class("py-20 px-4 md:px-6 bg-base-200")], [
+  section([id("staff"), class("py-20 px-4 md:px-6 bg-base-200")], [
     div([class("max-w-2xl mx-auto")], [
       h2([class("text-2xl font-bold text-center mb-10")], [
         text("運営スタッフ募集"),
