@@ -19,7 +19,7 @@ export default defineConfig({
           __dirname,
           "app/dist/code-of-conduct/index.html",
         ),
-        404: resolve(__dirname, "app/dist/404/index.html"),
+        404: resolve(__dirname, "app/dist/404.html"),
       },
     },
   },

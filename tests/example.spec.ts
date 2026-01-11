@@ -2,8 +2,8 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Top Page Visual Tests", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/", { waitUntil: "domcontentloaded" });
-    await page.locator("#app").waitFor({ state: "visible" });
+    await page.goto("/");
+    await page.locator("body").waitFor({ state: "visible" });
     await page.waitForTimeout(1000);
   });
 
@@ -16,8 +16,8 @@ test.describe("Top Page Visual Tests", () => {
 
 test.describe("Code of Conduct Page Visual Tests", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/code-of-conduct", { waitUntil: "domcontentloaded" });
-    await page.locator("#app").waitFor({ state: "visible" });
+    await page.goto("/code-of-conduct/");
+    await page.locator("body").waitFor({ state: "visible" });
     await page.waitForTimeout(1000);
   });
 
@@ -30,8 +30,8 @@ test.describe("Code of Conduct Page Visual Tests", () => {
 
 test.describe("404 Page Visual Tests", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/non-existent-page", { waitUntil: "domcontentloaded" });
-    await page.locator("#app").waitFor({ state: "visible" });
+    await page.goto("/404");
+    await page.locator("body").waitFor({ state: "visible" });
     await page.waitForTimeout(1000);
   });
 
