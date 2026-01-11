@@ -44,7 +44,7 @@ pub fn page(page_title: String, content: Element(msg)) -> Element(msg) {
       // CSS
       link([
         attribute("rel", "stylesheet"),
-        attribute("href", "/assets/app.css"),
+        attribute("href", "/src/app.css"),
       ]),
       // Open Graph / Facebook
       meta([attribute("property", "og:type"), attribute("content", "website")]),

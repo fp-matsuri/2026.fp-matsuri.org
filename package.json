@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "vite",
-    "build": "cd app && gleam run -m build && cd .. && npx @tailwindcss/cli -i app/src/app.css -o app/dist/assets/app.css --minify",
+    "build": "cd app && gleam run -m build && mkdir -p dist/src && cp src/app.css dist/src/ && cd .. && npx vite build",
     "preview": "vite preview",
     "docker:build": "docker build -f Dockerfile -t fp-matsuri-playwright .",
     "docker:run": "docker run --rm --network host -v \"$(pwd):/work\" fp-matsuri-playwright",
