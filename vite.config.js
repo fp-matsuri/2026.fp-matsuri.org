@@ -27,7 +27,4 @@ export default defineConfig({
     port: 1234,
     open: true,
   },
-  preview: {
-    port: 1234,
-  },
 });
