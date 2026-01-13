@@ -4,6 +4,15 @@ import lustre/attribute.{attribute, class}
 import lustre/element.{type Element}
 import lustre/element/html.{body, div, head, html, link, meta}
 
+// Site metadata constants
+const site_name = "関数型まつり 2026"
+
+const site_description = "関数型まつりは関数型プログラミングをテーマとしたカンファレンスです"
+
+const site_url = "https://2026.fp-matsuri.org"
+
+const site_image = "https://2026.fp-matsuri.org/summaryLarge.png"
+
 pub fn page(page_title: String, content: Element(msg)) -> Element(msg) {
   html([attribute("lang", "ja")], [
     head([], [
@@ -50,23 +59,23 @@ pub fn page(page_title: String, content: Element(msg)) -> Element(msg) {
       meta([attribute("property", "og:type"), attribute("content", "website")]),
       meta([
         attribute("property", "og:title"),
-        attribute("content", "関数型まつり 2026"),
+        attribute("content", page_title),
       ]),
       meta([
         attribute("property", "og:description"),
-        attribute("content", "関数型まつりは関数型プログラミングをテーマとしたカンファレンスです"),
+        attribute("content", site_description),
       ]),
       meta([
         attribute("property", "og:url"),
-        attribute("content", "https://2026.fp-matsuri.org"),
+        attribute("content", site_url),
       ]),
       meta([
         attribute("property", "og:site_name"),
-        attribute("content", "関数型まつり 2026"),
+        attribute("content", site_name),
       ]),
       meta([
         attribute("property", "og:image"),
-        attribute("content", "https://2026.fp-matsuri.org/summaryLarge.png"),
+        attribute("content", site_image),
       ]),
       meta([attribute("property", "og:locale"), attribute("content", "ja_JP")]),
       // Twitter Cards
@@ -76,20 +85,20 @@ pub fn page(page_title: String, content: Element(msg)) -> Element(msg) {
       ]),
       meta([
         attribute("name", "twitter:title"),
-        attribute("content", "関数型まつり 2026"),
+        attribute("content", page_title),
       ]),
       meta([
         attribute("name", "twitter:description"),
-        attribute("content", "関数型まつりは関数型プログラミングをテーマとしたカンファレンスです"),
+        attribute("content", site_description),
       ]),
       meta([
         attribute("name", "twitter:image"),
-        attribute("content", "https://2026.fp-matsuri.org/summaryLarge.png"),
+        attribute("content", site_image),
       ]),
       // General meta tags
       meta([
         attribute("name", "description"),
-        attribute("content", "関数型まつりは関数型プログラミングをテーマとしたカンファレンスです"),
+        attribute("content", site_description),
       ]),
       meta([
         attribute("name", "keywords"),
