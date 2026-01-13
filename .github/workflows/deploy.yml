@@ -17,37 +17,29 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-
       - name: Set up Gleam
         uses: erlef/setup-beam@v1
         with:
           otp-version: "28"
           gleam-version: "1.13.0"
           rebar3-version: "3"
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: "npm"
-
       - name: Install npm dependencies
         run: npm ci
-
       - name: Install Gleam dependencies
         run: cd app && gleam deps download
-
       - name: Build site
         run: npm run build
-
       - name: Setup Pages
         uses: actions/configure-pages@v5
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: "app/dist"
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
