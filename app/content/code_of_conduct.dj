@@ -1,9 +1,11 @@
-// このファイルは行動規範のDjotコンテンツを保持します
+## 行動規範マナー動画
 
-// YouTube動画のiframe（Djotとは別に埋め込む）
-pub const video_iframe = "<h2>行動規範マナー動画</h2><div><iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/KYSRKiOlMjA?si=3BUMipTs1gz3UB2n\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen=\"\"></iframe></div>"
+```=html
+<div class="flex justify-center">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KYSRKiOlMjA?si=3BUMipTs1gz3UB2n" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-cross" allowfullscreen=""></iframe>
+</div>
+```
 
-pub const content = "
 ## はじめに
 
 関数型まつりは、様々な地域やコミュニティから集う技術者に対して開かれたカンファレンスを目指しています。
@@ -54,9 +56,13 @@ pub const content = "
 
 自分や他の人がハラスメントを受けている場合には以下のフォームにてご連絡ください。
 
-[ハラスメント インシデント報告フォーム](https://forms.gle/AoV7o6n5AdbY22WA9){target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"ハラスメント報告フォーム（新しいウィンドウで開く）\"}
+```=html
+<p class="text-center">
+<a href="https://forms.gle/AoV7o6n5AdbY22WA9" target="_blank" rel="noopener noreferrer" aria-label="ハラスメント報告フォーム（新しいウィンドウで開く）" class="btn btn-primary">ハラスメント インシデント報告フォーム</a>
+</p>
+```
 
 ## ライセンスと帰属に関して
 
 本規範は [ScalaMatsuri](https://scalamatsuri.org/) の規範に基いています。
-ScalaMatsuri の行動規範は、Geek Feminism wiki の規範例から派生しており、PNW Scala、NE Scala、および Scala Days の影響を受けています。"
+ScalaMatsuri の行動規範は、Geek Feminism wiki の規範例から派生しており、PNW Scala、NE Scala、および Scala Days の影響を受けています。
