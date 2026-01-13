@@ -14,7 +14,7 @@ pub fn main() {
     |> ssg.add_static_dir("assets")
     |> ssg.use_index_routes
     |> ssg.add_static_route("/", home.page())
-    |> ssg.add_static_route("/code-of-conduct", code_of_conduct.page())
+    |> ssg.add_static_route("/code-of-conduct/", code_of_conduct.page())
     |> ssg.build
 
   case result {
