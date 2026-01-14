@@ -99,7 +99,7 @@ fn about_section() -> Element(msg) {
 
 // Sponsor Section
 fn sponsor_recruitment_section() -> Element(msg) {
-  section([class("py-20 px-6 bg-base-200")], [
+  section([id("sponsors"), class("py-20 px-6 bg-base-200")], [
     div([class("max-w-2xl mx-auto")], [
       h2([class("text-2xl font-bold text-center mb-10 tracking-tight")], [
         text("スポンサー募集"),
@@ -112,26 +112,13 @@ fn sponsor_recruitment_section() -> Element(msg) {
         ],
         [
           div([class("card-body p-8 md:p-10")], [
-            p([class("text-base mb-6 leading-relaxed")], [
+            p([class("text-base mb-2 leading-relaxed")], [
               text(
-                "関数型まつり 2026 のスポンサーを募集しています。関数型プログラミングコミュニティの発展を支援してくださる企業・団体の皆様からのご協賛をお待ちしております。",
+                "関数型まつり 2026 のスポンサーを募集しています。関数型プログラミングのコミュニティを一緒に盛り上げてくださる企業・団体の皆様をお待ちしております。",
               ),
             ]),
-            h3([class("text-lg font-semibold mb-4")], [
-              text("スポンサーシップの特典"),
-            ]),
-            div([class("space-y-3 mb-8 text-sm")], [
-              ul([class("list-disc list-inside space-y-2 ml-4")], [
-                li([], [text("公式サイトおよび各種広報物へのロゴ掲載")]),
-                li([], [text("会場でのブース出展や配布物の設置（プランによる）")]),
-                li([], [text("関数型プログラミングに関心の高い参加者への認知向上")]),
-                li([], [
-                  text("技術コミュニティとの交流機会およびエンジニア採用活動の支援"),
-                ]),
-              ]),
-            ]),
             p([class("text-base mb-6 leading-relaxed")], [
-              text("詳細なスポンサープランや特典内容については、スポンサー向け資料をご確認の上、お問い合わせフォームよりご連絡ください。"),
+              text("詳細なスポンサープランや特典内容については、スポンサー向け資料をご確認ください。"),
             ]),
             div([class("card-actions justify-center")], [
               button.primary(
