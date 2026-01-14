@@ -136,7 +136,7 @@ fn sponsor_recruitment_section() -> Element(msg) {
             div([class("card-actions justify-center")], [
               button.primary(
                 label: "スポンサーシップのご案内",
-                url: "https://docs.google.com/presentation/d/16tjmPFO3poqKBlrBtq7zv5IiZb1ksX05F_R7GqLFrTo/edit?usp=sharing",
+                url: "https://docs.google.com/presentation/d/18gdlsPhTKK_95xIqKYOzBCehAiPOaIxNaSC92mV09_U/",
               ),
             ]),
           ]),
