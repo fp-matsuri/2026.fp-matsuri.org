@@ -13,7 +13,12 @@ pub fn page() -> Element(msg) {
 }
 
 fn content() -> Element(msg) {
-  div([], [hero_section(), about_section(), staff_recruitment_section()])
+  div([], [
+    hero_section(),
+    about_section(),
+    sponsor_recruitment_section(),
+    staff_recruitment_section(),
+  ])
 }
 
 // Hero Section
@@ -92,9 +97,45 @@ fn about_section() -> Element(msg) {
   ])
 }
 
+// Sponsor Section
+fn sponsor_recruitment_section() -> Element(msg) {
+  section([id("sponsors"), class("py-20 px-6 bg-base-200")], [
+    div([class("max-w-2xl mx-auto")], [
+      h2([class("text-2xl font-bold text-center mb-10 tracking-tight")], [
+        text("スポンサー募集"),
+      ]),
+      div(
+        [
+          class(
+            "card bg-neutral text-neutral-content border border-subtle shadow-none",
+          ),
+        ],
+        [
+          div([class("card-body p-8 md:p-10")], [
+            p([class("text-base mb-2 leading-relaxed")], [
+              text(
+                "関数型まつり 2026 のスポンサーを募集しています。関数型プログラミングのコミュニティを一緒に盛り上げてくださる企業・団体の皆様をお待ちしております。",
+              ),
+            ]),
+            p([class("text-base mb-6 leading-relaxed")], [
+              text("詳細なスポンサープランや特典内容については、スポンサー向け資料をご確認ください。"),
+            ]),
+            div([class("card-actions justify-center")], [
+              button.primary(
+                label: "スポンサーシップのご案内",
+                url: "https://docs.google.com/presentation/d/18gdlsPhTKK_95xIqKYOzBCehAiPOaIxNaSC92mV09_U/",
+              ),
+            ]),
+          ]),
+        ],
+      ),
+    ]),
+  ])
+}
+
 // Staff Recruitment Section
 fn staff_recruitment_section() -> Element(msg) {
-  section([id("staff"), class("py-20 px-4 md:px-6 bg-base-200")], [
+  section([id("staff"), class("py-20 px-4 md:px-6 bg-base-100")], [
     div([class("max-w-2xl mx-auto")], [
       h2([class("text-2xl font-bold text-center mb-10")], [
         text("運営スタッフ募集"),
