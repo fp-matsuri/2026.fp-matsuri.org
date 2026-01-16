@@ -15,7 +15,7 @@ const site_url = "https://2026.fp-matsuri.org"
 
 const site_image = "https://2026.fp-matsuri.org/summaryLarge.png"
 
-pub fn page(page_title: String, content: Element(msg)) -> Element(msg) {
+pub fn spa_frame(content: Element(Nil)) -> Element(Nil) {
   html([attribute("lang", "ja")], [
     head([], [
       meta([attribute("charset", "UTF-8")]),
@@ -23,7 +23,6 @@ pub fn page(page_title: String, content: Element(msg)) -> Element(msg) {
         attribute("name", "viewport"),
         attribute("content", "width=device-width, initial-scale=1.0"),
       ]),
-      html.title([], page_title),
       // Favicon
       link([
         attribute("rel", "icon"),
@@ -57,51 +56,7 @@ pub fn page(page_title: String, content: Element(msg)) -> Element(msg) {
         attribute("rel", "stylesheet"),
         attribute("href", "/src/app.css"),
       ]),
-      // Open Graph / Facebook
-      meta([attribute("property", "og:type"), attribute("content", "website")]),
-      meta([
-        attribute("property", "og:title"),
-        attribute("content", page_title),
-      ]),
-      meta([
-        attribute("property", "og:description"),
-        attribute("content", site_description),
-      ]),
-      meta([
-        attribute("property", "og:url"),
-        attribute("content", site_url),
-      ]),
-      meta([
-        attribute("property", "og:site_name"),
-        attribute("content", site_name),
-      ]),
-      meta([
-        attribute("property", "og:image"),
-        attribute("content", site_image),
-      ]),
-      meta([attribute("property", "og:locale"), attribute("content", "ja_JP")]),
-      // Twitter Cards
-      meta([
-        attribute("name", "twitter:card"),
-        attribute("content", "summary_large_image"),
-      ]),
-      meta([
-        attribute("name", "twitter:title"),
-        attribute("content", page_title),
-      ]),
-      meta([
-        attribute("name", "twitter:description"),
-        attribute("content", site_description),
-      ]),
-      meta([
-        attribute("name", "twitter:image"),
-        attribute("content", site_image),
-      ]),
       // General meta tags
-      meta([
-        attribute("name", "description"),
-        attribute("content", site_description),
-      ]),
       meta([
         attribute("name", "keywords"),
         attribute("content", "関数型プログラミング,FP,関数型まつり,カンファレンス,技術イベント"),
@@ -113,6 +68,56 @@ pub fn page(page_title: String, content: Element(msg)) -> Element(msg) {
         content,
         footer(),
       ]),
+    ]),
+  ])
+}
+
+pub fn page_head(title page_title: String) -> Element(msg) {
+  div([class("hidden")], [
+    html.title([], page_title),
+    meta([
+      attribute("name", "description"),
+      attribute("content", site_description),
+    ]),
+    // Open Graph / Facebook
+    meta([attribute("property", "og:type"), attribute("content", "website")]),
+    meta([
+      attribute("property", "og:title"),
+      attribute("content", page_title),
+    ]),
+    meta([
+      attribute("property", "og:description"),
+      attribute("content", site_description),
+    ]),
+    meta([
+      attribute("property", "og:url"),
+      attribute("content", site_url),
+    ]),
+    meta([
+      attribute("property", "og:site_name"),
+      attribute("content", site_name),
+    ]),
+    meta([
+      attribute("property", "og:image"),
+      attribute("content", site_image),
+    ]),
+    meta([attribute("property", "og:locale"), attribute("content", "ja_JP")]),
+    // Twitter Cards
+    meta([
+      attribute("name", "twitter:card"),
+      attribute("content", "summary_large_image"),
+    ]),
+    meta([
+      attribute("name", "twitter:title"),
+      attribute("content", page_title),
+    ]),
+    meta([
+      attribute("name", "twitter:description"),
+      attribute("content", site_description),
+    ]),
+    meta([
+      attribute("name", "twitter:image"),
+      attribute("content", site_image),
     ]),
   ])
 }

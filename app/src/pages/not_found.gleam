@@ -5,7 +5,10 @@ import lustre/element.{type Element}
 import lustre/element/html.{div, h1, p, text}
 
 pub fn page() -> Element(msg) {
-  layout.page("404 | 関数型まつり 2026", content())
+  div([], [
+    layout.page_head(title: "404 | 関数型まつり 2026"),
+    content(),
+  ])
 }
 
 fn content() -> Element(msg) {

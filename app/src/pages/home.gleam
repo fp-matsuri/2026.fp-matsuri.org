@@ -9,7 +9,10 @@ import lustre/element/html.{
 }
 
 pub fn page() -> Element(msg) {
-  layout.page("関数型まつり 2026", content())
+  div([], [
+    layout.page_head(title: "関数型まつり 2026"),
+    content(),
+  ])
 }
 
 fn content() -> Element(msg) {

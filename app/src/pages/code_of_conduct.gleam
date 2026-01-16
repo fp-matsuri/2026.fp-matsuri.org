@@ -7,7 +7,10 @@ import lustre/element/html.{div, h1, section, text}
 import simplifile
 
 pub fn page() -> Element(msg) {
-  layout.page("行動規範 | 関数型まつり 2026", content())
+  div([], [
+    layout.page_head(title: "行動規範 | 関数型まつり 2026"),
+    content(),
+  ])
 }
 
 fn content() -> Element(msg) {
