@@ -1,40 +1,38 @@
+import arctic/build
+import arctic/config
 import gleam/io
-import gleam/string
-import lustre/element
-import lustre/ssg
 import pages/code_of_conduct
 import pages/home
 import pages/not_found
 import simplifile
+import snag
 
 pub fn main() {
-  // Build main pages with index routes
-  let result =
-    ssg.new("dist")
-    |> ssg.add_static_dir("assets")
-    |> ssg.use_index_routes
-    |> ssg.add_static_route("/", home.page())
-    |> ssg.add_static_route("/code-of-conduct/", code_of_conduct.page())
-    |> ssg.build
+  // Arctic設定を構築（SSGモード）
+  let site_config =
+    config.new()
+    |> config.home_renderer(fn(_) { home.page() })
+    |> config.add_main_page("code-of-conduct", code_of_conduct.page())
+    |> config.add_main_page("404", not_found.page())
+    |> config.turn_off_spa()
 
-  case result {
+  // ビルド実行
+  case build.build(site_config) {
     Ok(_) -> {
-      // Write 404.html separately as a flat file
-      let html_content =
-        "<!doctype html>\n" <> element.to_string(not_found.page())
-      let result_404 = simplifile.write("dist/404.html", html_content)
+      // アセットをコピー
+      let _ = simplifile.copy_directory("assets", "arctic_build")
 
-      case result_404 {
-        Ok(_) -> io.println("Build completed successfully!")
-        Error(err) -> {
-          io.println("404 build failed: " <> string.inspect(err))
-          Nil
-        }
-      }
+      // 404ページをルートにコピー（Cloudflare Pages等で必要）
+      let _ =
+        simplifile.copy_file(
+          "arctic_build/404/index.html",
+          "arctic_build/404.html",
+        )
+
+      io.println("Build completed successfully!")
     }
     Error(err) -> {
-      io.println("Build failed: " <> string.inspect(err))
-      Nil
+      io.println("Build failed: " <> snag.pretty_print(err))
     }
   }
 }

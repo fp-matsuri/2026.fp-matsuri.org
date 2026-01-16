@@ -7,19 +7,19 @@ const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 export default defineConfig({
   plugins: [tailwindcss()],
-  root: "app/dist",
+  root: "app/arctic_build",
   publicDir: false,
   build: {
     outDir: ".",
     emptyOutDir: false,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "app/dist/index.html"),
+        main: resolve(__dirname, "app/arctic_build/index.html"),
         "code-of-conduct": resolve(
           __dirname,
-          "app/dist/code-of-conduct/index.html",
+          "app/arctic_build/code-of-conduct/index.html",
         ),
-        404: resolve(__dirname, "app/dist/404.html"),
+        404: resolve(__dirname, "app/arctic_build/404.html"),
       },
     },
   },

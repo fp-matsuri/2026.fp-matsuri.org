@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "npm run build:html && vite",
-    "build:html": "cd app && gleam run -m build && mkdir -p dist/src && cp src/app.css dist/src/",
+    "build:html": "cd app && gleam run -m build && mkdir -p arctic_build/src && cp src/app.css arctic_build/src/",
     "build": "npm run build:html && vite build",
     "docker:build": "docker build -f Dockerfile -t fp-matsuri-playwright .",
     "docker:run": "docker run --rm --network host -v \"$(pwd):/work\" fp-matsuri-playwright",
