@@ -20,7 +20,7 @@ pub fn main() {
     Ok(_) -> {
       let _ = simplifile.copy_directory("assets", "arctic_build")
       let _ =
-        simplifile.copy_file(
+        simplifile.rename(
           "arctic_build/404/index.html",
           "arctic_build/404.html",
         )
