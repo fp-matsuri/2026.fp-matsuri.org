@@ -91,7 +91,7 @@ function gleamWatchPlugin() {
 export default defineConfig({
   plugins: [gleamWatchPlugin(), tailwindcss()],
   root: buildDir,
-  publicDir: false,
+  publicDir: resolve(__dirname, "public"),
   build: {
     outDir: ".",
     emptyOutDir: false,

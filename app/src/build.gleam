@@ -18,7 +18,6 @@ pub fn main() {
 
   case build.build(site_config) {
     Ok(_) -> {
-      let _ = simplifile.copy_directory("assets", "arctic_build")
       let _ =
         simplifile.rename(
           "arctic_build/404/index.html",
