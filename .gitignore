@@ -7,6 +7,11 @@ erl_crash.dump
 .lustre
 dist
 
+# Arctic
+arctic_build
+arctic_vite_config.js
+.arctic_cache.csv
+
 # Node.js dependencies
 node_modules
 

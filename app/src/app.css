@@ -100,3 +100,11 @@
 .text-muted {
     color: var(--text-muted);
 }
+
+/* Arctic SPA framework - flex container chain */
+#arctic-app,
+body > div:has(#arctic-app) {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}

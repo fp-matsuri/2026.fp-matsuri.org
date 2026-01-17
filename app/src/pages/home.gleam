@@ -1,19 +1,15 @@
 import cloud
 import components/button
 import gleam/list
-import layout
+import layout.{type Page, Page}
 import lustre/attribute.{attribute, class, id, src}
 import lustre/element.{type Element}
 import lustre/element/html.{
   br, div, h2, h3, img, input, li, p, section, span, text, ul,
 }
 
-pub fn page() -> Element(msg) {
-  layout.page("関数型まつり 2026", content())
-}
-
-fn content() -> Element(msg) {
-  div([], [
+pub fn page() -> Page(msg) {
+  Page(title: "関数型まつり 2026", body: [
     hero_section(),
     about_section(),
     sponsor_recruitment_section(),

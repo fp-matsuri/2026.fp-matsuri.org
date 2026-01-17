@@ -1,40 +1,36 @@
+import arctic/build
+import arctic/config
 import gleam/io
-import gleam/string
-import lustre/element
-import lustre/ssg
+import layout
 import pages/code_of_conduct
 import pages/home
 import pages/not_found
 import simplifile
+import snag
 
 pub fn main() {
-  // Build main pages with index routes
-  let result =
-    ssg.new("dist")
-    |> ssg.add_static_dir("assets")
-    |> ssg.use_index_routes
-    |> ssg.add_static_route("/", home.page())
-    |> ssg.add_static_route("/code-of-conduct/", code_of_conduct.page())
-    |> ssg.build
+  let site_config =
+    config.new()
+    |> config.home_renderer(fn(_) { layout.render_page(home.page()) })
+    |> config.add_main_page(
+      "code-of-conduct",
+      layout.render_page(code_of_conduct.page()),
+    )
+    |> config.add_main_page("404", layout.render_page(not_found.page()))
+    |> config.add_spa_frame(layout.spa_frame)
 
-  case result {
+  case build.build(site_config) {
     Ok(_) -> {
-      // Write 404.html separately as a flat file
-      let html_content =
-        "<!doctype html>\n" <> element.to_string(not_found.page())
-      let result_404 = simplifile.write("dist/404.html", html_content)
+      let _ =
+        simplifile.rename(
+          "arctic_build/404/index.html",
+          "arctic_build/404.html",
+        )
 
-      case result_404 {
-        Ok(_) -> io.println("Build completed successfully!")
-        Error(err) -> {
-          io.println("404 build failed: " <> string.inspect(err))
-          Nil
-        }
-      }
+      io.println("Build completed successfully!")
     }
     Error(err) -> {
-      io.println("Build failed: " <> string.inspect(err))
-      Nil
+      io.println("Build failed: " <> snag.pretty_print(err))
     }
   }
 }
