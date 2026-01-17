@@ -103,14 +103,7 @@
 
 /* Arctic SPA framework - flex container chain */
 #arctic-app,
-#arctic-app > div {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-/* Arctic wrapper (parent of #arctic-app) */
-body > div > div:has(#arctic-app) {
+body > div:has(#arctic-app) {
     display: flex;
     flex-direction: column;
     flex: 1;

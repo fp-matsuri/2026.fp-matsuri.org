@@ -11,9 +11,12 @@ import snag
 pub fn main() {
   let site_config =
     config.new()
-    |> config.home_renderer(fn(_) { home.page() })
-    |> config.add_main_page("code-of-conduct", code_of_conduct.page())
-    |> config.add_main_page("404", not_found.page())
+    |> config.home_renderer(fn(_) { layout.render_page(home.page()) })
+    |> config.add_main_page(
+      "code-of-conduct",
+      layout.render_page(code_of_conduct.page()),
+    )
+    |> config.add_main_page("404", layout.render_page(not_found.page()))
     |> config.add_spa_frame(layout.spa_frame)
 
   case build.build(site_config) {

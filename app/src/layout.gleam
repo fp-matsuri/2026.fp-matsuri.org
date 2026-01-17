@@ -62,17 +62,26 @@ pub fn spa_frame(content: Element(Nil)) -> Element(Nil) {
         attribute("content", "関数型プログラミング,FP,関数型まつり,カンファレンス,技術イベント"),
       ]),
     ]),
-    body([], [
-      div([class("min-h-screen flex flex-col")], [
-        navbar(),
-        content,
-        footer(),
-      ]),
+    body([class("min-h-screen flex flex-col")], [
+      navbar(),
+      content,
+      footer(),
     ]),
   ])
 }
 
-pub fn page_head(title page_title: String) -> Element(msg) {
+pub type Page(msg) {
+  Page(title: String, body: List(Element(msg)))
+}
+
+pub fn render_page(page: Page(msg)) -> Element(msg) {
+  div([class("flex-1 flex flex-col")], [
+    page_head(page.title),
+    html.main([class("flex-1 flex flex-col")], page.body),
+  ])
+}
+
+fn page_head(page_title: String) -> Element(msg) {
   div([class("hidden")], [
     html.title([], page_title),
     meta([
