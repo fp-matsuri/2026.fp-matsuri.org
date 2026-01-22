@@ -1,16 +1,18 @@
 import cloud
 import components/button
 import gleam/list
+import gleam/option.{type Option}
 import layout.{type Page, Page}
 import lustre/attribute.{attribute, class, id, src}
 import lustre/element.{type Element}
 import lustre/element/html.{
-  br, div, h2, h3, img, input, li, p, section, span, text, ul,
+  a, br, div, h2, h3, img, input, li, p, section, span, text, ul,
 }
 
 pub fn page() -> Page(msg) {
   Page(title: "関数型まつり 2026", body: [
     hero_section(),
+    announcements_section(),
     about_section(),
     sponsor_recruitment_section(),
     staff_recruitment_section(),
@@ -47,6 +49,118 @@ fn event_info(date date: String, venue venue: String) -> Element(msg) {
     p([class("text-lg mb-2")], [text(date)]),
     p([], [text(venue)]),
   ])
+}
+
+// Announcements Section
+type Announcement {
+  Announcement(
+    date: String,
+    content: String,
+    bluesky_url: Option(String),
+    x_url: Option(String),
+  )
+}
+
+fn announcements_section() -> Element(msg) {
+  let announcements = [
+    Announcement(
+      date: "2026-01-15",
+      content: "関数型まつり2026のスポンサーを募集しています",
+      bluesky_url: option.Some(
+        "https://bsky.app/profile/fp-matsuri.bsky.social/post/3mcgnlzxv222f",
+      ),
+      x_url: option.Some("https://x.com/fp_matsuri/status/2011641073916133442"),
+    ),
+    Announcement(
+      date: "2026-01-04",
+      content: "コアスタッフを募集中です",
+      bluesky_url: option.Some(
+        "https://bsky.app/profile/fp-matsuri.bsky.social/post/3mbkrgimloc2k",
+      ),
+      x_url: option.Some("https://x.com/fp_matsuri/status/2007624377433739675"),
+    ),
+    Announcement(
+      date: "2026-01-01",
+      content: "関数型まつり2026 開催決定！",
+      bluesky_url: option.Some(
+        "https://bsky.app/profile/fp-matsuri.bsky.social/post/3mbc4z7l32s2w",
+      ),
+      x_url: option.Some("https://x.com/fp_matsuri/status/2006379923863453803"),
+    ),
+  ]
+  section([class("py-20 px-6 bg-base-200")], [
+    div([class("max-w-2xl mx-auto")], [
+      h2([class("text-2xl font-bold text-center mb-10 tracking-tight")], [
+        text("お知らせ"),
+      ]),
+      ul(
+        [class("list rounded-box")],
+        list.map(announcements, fn(announcement) {
+          announcement_item(announcement)
+        }),
+      ),
+    ]),
+  ])
+}
+
+fn announcement_item(announcement: Announcement) -> Element(msg) {
+  let social_links =
+    [
+      case announcement.x_url {
+        option.Some(url) ->
+          option.Some(social_link(
+            url: url,
+            icon: "/icons/x.svg",
+            label: "Xで投稿を見る",
+          ))
+        option.None -> option.None
+      },
+      case announcement.bluesky_url {
+        option.Some(url) ->
+          option.Some(social_link(
+            url: url,
+            icon: "/icons/bluesky.svg",
+            label: "Blueskyで投稿を見る",
+          ))
+        option.None -> option.None
+      },
+    ]
+    |> list.filter_map(fn(link) { option.to_result(link, Nil) })
+
+  li([class("list-row")], [
+    div([class("list-col-grow")], [
+      div([], [
+        span([class("")], [
+          text(announcement.date),
+        ]),
+      ]),
+      div([], [
+        p([class("text-base leading-relaxed")], [
+          text(announcement.content),
+        ]),
+      ]),
+    ]),
+    div([class("flex gap-4 items-center")], social_links),
+  ])
+}
+
+fn social_link(url url: String, icon icon: String, label label: String) {
+  a(
+    [
+      attribute("href", url),
+      attribute("target", "_blank"),
+      attribute("rel", "noopener noreferrer"),
+      class("hover:opacity-80 transition-opacity"),
+      attribute("aria-label", label),
+    ],
+    [
+      img([
+        src(icon),
+        attribute("alt", label),
+        class("w-6 h-6"),
+      ]),
+    ],
+  )
 }
 
 // About Section
