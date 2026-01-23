@@ -1,16 +1,23 @@
 import cloud
 import components/button
+import gleam/dynamic/decode
+import gleam/int
+import gleam/json
 import gleam/list
+import gleam/result
+import gleam/string
 import layout.{type Page, Page}
 import lustre/attribute.{attribute, class, id, src}
 import lustre/element.{type Element}
 import lustre/element/html.{
-  br, div, h2, h3, img, input, li, p, section, span, text, ul,
+  a, br, div, h2, h3, img, input, li, p, section, span, text, ul,
 }
+import simplifile
 
 pub fn page() -> Page(msg) {
   Page(title: "関数型まつり 2026", body: [
     hero_section(),
+    announcements_section(),
     about_section(),
     sponsor_recruitment_section(),
     staff_recruitment_section(),
@@ -47,6 +54,122 @@ fn event_info(date date: String, venue venue: String) -> Element(msg) {
     p([class("text-lg mb-2")], [text(date)]),
     p([], [text(venue)]),
   ])
+}
+
+// Announcements Section
+type SocialLinks {
+  SocialLinks(x: String, bluesky: String)
+}
+
+type Announcement {
+  Announcement(posted_on: String, headline: String, links: SocialLinks)
+}
+
+fn social_links_decoder() -> decode.Decoder(SocialLinks) {
+  use x <- decode.field("x", decode.string)
+  use bluesky <- decode.field("bluesky", decode.string)
+  decode.success(SocialLinks(x:, bluesky:))
+}
+
+fn announcement_decoder() -> decode.Decoder(Announcement) {
+  use posted_on <- decode.field("posted_on", decode.string)
+  use headline <- decode.field("headline", decode.string)
+  use links <- decode.field("links", social_links_decoder())
+  decode.success(Announcement(posted_on:, headline:, links:))
+}
+
+fn load_announcements(file_path: String) -> List(Announcement) {
+  {
+    use content <- result.try(
+      simplifile.read(file_path)
+      |> result.replace_error(Nil),
+    )
+    use announcements <- result.try(
+      json.parse(content, decode.list(announcement_decoder()))
+      |> result.replace_error(Nil),
+    )
+    Ok(announcements)
+  }
+  |> result.unwrap([])
+}
+
+fn announcements_section() -> Element(msg) {
+  let announcements = load_announcements("../content/announcements.json")
+  section([class("py-20 px-6 bg-base-200")], [
+    div([class("max-w-2xl mx-auto")], [
+      h2([class("text-2xl font-bold text-center mb-10 tracking-tight")], [
+        text("お知らせ"),
+      ]),
+      ul(
+        [class("list rounded-box")],
+        list.map(announcements, fn(announcement) {
+          announcement_item(announcement)
+        }),
+      ),
+    ]),
+  ])
+}
+
+fn format_date(date_str: String) -> String {
+  case string.split(date_str, "-") {
+    [year, month, day] -> {
+      let year_int = int.parse(year) |> result.unwrap(0)
+      let month_int = int.parse(month) |> result.unwrap(0)
+      let day_int = int.parse(day) |> result.unwrap(0)
+      int.to_string(year_int)
+      <> "年"
+      <> int.to_string(month_int)
+      <> "月"
+      <> int.to_string(day_int)
+      <> "日"
+    }
+    _ -> date_str
+  }
+}
+
+fn announcement_item(announcement: Announcement) -> Element(msg) {
+  let Announcement(posted_on:, headline:, links:) = announcement
+  let formatted_date = format_date(posted_on)
+
+  let social_links = [
+    social_link(url: links.x, icon: "/icons/x.svg", label: "Xで投稿を見る"),
+    social_link(
+      url: links.bluesky,
+      icon: "/icons/bluesky.svg",
+      label: "Blueskyで投稿を見る",
+    ),
+  ]
+
+  li([class("list-row")], [
+    div([class("list-col-grow")], [
+      div([], [
+        span([class("")], [text(formatted_date)]),
+      ]),
+      div([], [
+        p([class("text-base leading-relaxed")], [text(headline)]),
+      ]),
+    ]),
+    div([class("flex gap-4 items-center")], social_links),
+  ])
+}
+
+fn social_link(url url: String, icon icon: String, label label: String) {
+  a(
+    [
+      attribute("href", url),
+      attribute("target", "_blank"),
+      attribute("rel", "noopener noreferrer"),
+      class("hover:opacity-80 transition-opacity"),
+      attribute("aria-label", label),
+    ],
+    [
+      img([
+        src(icon),
+        attribute("alt", label),
+        class("w-6 h-6"),
+      ]),
+    ],
+  )
 }
 
 // About Section
