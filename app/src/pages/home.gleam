@@ -1,9 +1,11 @@
 import cloud
 import components/button
 import gleam/dynamic/decode
+import gleam/int
 import gleam/json
 import gleam/list
 import gleam/result
+import gleam/string
 import layout.{type Page, Page}
 import lustre/attribute.{attribute, class, id, src}
 import lustre/element.{type Element}
@@ -108,8 +110,26 @@ fn announcements_section() -> Element(msg) {
   ])
 }
 
+fn format_date(date_str: String) -> String {
+  case string.split(date_str, "-") {
+    [year, month, day] -> {
+      let year_int = int.parse(year) |> result.unwrap(0)
+      let month_int = int.parse(month) |> result.unwrap(0)
+      let day_int = int.parse(day) |> result.unwrap(0)
+      int.to_string(year_int)
+      <> "年"
+      <> int.to_string(month_int)
+      <> "月"
+      <> int.to_string(day_int)
+      <> "日"
+    }
+    _ -> date_str
+  }
+}
+
 fn announcement_item(announcement: Announcement) -> Element(msg) {
   let Announcement(posted_on:, headline:, links:) = announcement
+  let formatted_date = format_date(posted_on)
 
   let social_links = [
     social_link(url: links.x, icon: "/icons/x.svg", label: "Xで投稿を見る"),
@@ -123,7 +143,7 @@ fn announcement_item(announcement: Announcement) -> Element(msg) {
   li([class("list-row")], [
     div([class("list-col-grow")], [
       div([], [
-        span([class("")], [text(posted_on)]),
+        span([class("")], [text(formatted_date)]),
       ]),
       div([], [
         p([class("text-base leading-relaxed")], [text(headline)]),
