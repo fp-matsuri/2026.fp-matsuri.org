@@ -1,13 +1,16 @@
 import cloud
 import components/button
+import gleam/dynamic/decode
+import gleam/json
 import gleam/list
-import gleam/option.{type Option}
+import gleam/result
 import layout.{type Page, Page}
 import lustre/attribute.{attribute, class, id, src}
 import lustre/element.{type Element}
 import lustre/element/html.{
   a, br, div, h2, h3, img, input, li, p, section, span, text, ul,
 }
+import simplifile
 
 pub fn page() -> Page(msg) {
   Page(title: "関数型まつり 2026", body: [
@@ -52,42 +55,44 @@ fn event_info(date date: String, venue venue: String) -> Element(msg) {
 }
 
 // Announcements Section
+type SocialLinks {
+  SocialLinks(x: String, bluesky: String)
+}
+
 type Announcement {
-  Announcement(
-    date: String,
-    content: String,
-    bluesky_url: Option(String),
-    x_url: Option(String),
-  )
+  Announcement(posted_on: String, headline: String, links: SocialLinks)
+}
+
+fn social_links_decoder() -> decode.Decoder(SocialLinks) {
+  use x <- decode.field("x", decode.string)
+  use bluesky <- decode.field("bluesky", decode.string)
+  decode.success(SocialLinks(x:, bluesky:))
+}
+
+fn announcement_decoder() -> decode.Decoder(Announcement) {
+  use posted_on <- decode.field("posted_on", decode.string)
+  use headline <- decode.field("headline", decode.string)
+  use links <- decode.field("links", social_links_decoder())
+  decode.success(Announcement(posted_on:, headline:, links:))
+}
+
+fn load_announcements(file_path: String) -> List(Announcement) {
+  {
+    use content <- result.try(
+      simplifile.read(file_path)
+      |> result.replace_error(Nil),
+    )
+    use announcements <- result.try(
+      json.parse(content, decode.list(announcement_decoder()))
+      |> result.replace_error(Nil),
+    )
+    Ok(announcements)
+  }
+  |> result.unwrap([])
 }
 
 fn announcements_section() -> Element(msg) {
-  let announcements = [
-    Announcement(
-      date: "2026-01-15",
-      content: "関数型まつり2026のスポンサーを募集しています",
-      bluesky_url: option.Some(
-        "https://bsky.app/profile/fp-matsuri.bsky.social/post/3mcgnlzxv222f",
-      ),
-      x_url: option.Some("https://x.com/fp_matsuri/status/2011641073916133442"),
-    ),
-    Announcement(
-      date: "2026-01-04",
-      content: "コアスタッフを募集中です",
-      bluesky_url: option.Some(
-        "https://bsky.app/profile/fp-matsuri.bsky.social/post/3mbkrgimloc2k",
-      ),
-      x_url: option.Some("https://x.com/fp_matsuri/status/2007624377433739675"),
-    ),
-    Announcement(
-      date: "2026-01-01",
-      content: "関数型まつり2026 開催決定！",
-      bluesky_url: option.Some(
-        "https://bsky.app/profile/fp-matsuri.bsky.social/post/3mbc4z7l32s2w",
-      ),
-      x_url: option.Some("https://x.com/fp_matsuri/status/2006379923863453803"),
-    ),
-  ]
+  let announcements = load_announcements("../content/announcements.json")
   section([class("py-20 px-6 bg-base-200")], [
     div([class("max-w-2xl mx-auto")], [
       h2([class("text-2xl font-bold text-center mb-10 tracking-tight")], [
@@ -104,40 +109,24 @@ fn announcements_section() -> Element(msg) {
 }
 
 fn announcement_item(announcement: Announcement) -> Element(msg) {
-  let social_links =
-    [
-      case announcement.x_url {
-        option.Some(url) ->
-          option.Some(social_link(
-            url: url,
-            icon: "/icons/x.svg",
-            label: "Xで投稿を見る",
-          ))
-        option.None -> option.None
-      },
-      case announcement.bluesky_url {
-        option.Some(url) ->
-          option.Some(social_link(
-            url: url,
-            icon: "/icons/bluesky.svg",
-            label: "Blueskyで投稿を見る",
-          ))
-        option.None -> option.None
-      },
-    ]
-    |> list.filter_map(fn(link) { option.to_result(link, Nil) })
+  let Announcement(posted_on:, headline:, links:) = announcement
+
+  let social_links = [
+    social_link(url: links.x, icon: "/icons/x.svg", label: "Xで投稿を見る"),
+    social_link(
+      url: links.bluesky,
+      icon: "/icons/bluesky.svg",
+      label: "Blueskyで投稿を見る",
+    ),
+  ]
 
   li([class("list-row")], [
     div([class("list-col-grow")], [
       div([], [
-        span([class("")], [
-          text(announcement.date),
-        ]),
+        span([class("")], [text(posted_on)]),
       ]),
       div([], [
-        p([class("text-base leading-relaxed")], [
-          text(announcement.content),
-        ]),
+        p([class("text-base leading-relaxed")], [text(headline)]),
       ]),
     ]),
     div([class("flex gap-4 items-center")], social_links),

@@ -33,6 +33,7 @@ packages = [
 
 [requirements]
 arctic = { version = ">= 11.0.0 and < 12.0.0" }
+gleam_json = { version = ">= 3.0.0 and < 4.0.0" }
 gleam_stdlib = { version = ">= 0.44.0 and < 2.0.0" }
 gleeunit = { version = ">= 1.0.0 and < 2.0.0" }
 jot = { version = ">= 4.0.0 and < 5.0.0" }
