@@ -24,5 +24,4 @@ node_modules
 
 
 # direnv
-.envrc
 .direnv
