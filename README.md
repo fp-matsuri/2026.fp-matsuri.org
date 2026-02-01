@@ -22,7 +22,6 @@ npm install
 ### direnv での setup 
 
 ```sh
-echo 'use flake' > .envrc
 direnv allow
 ```
 
