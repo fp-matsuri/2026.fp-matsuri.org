@@ -38,8 +38,7 @@ direnv allow
 ### 開発サーバーの起動
 
 ```sh
-cd app
-gleam run -m lustre/dev start
+npm run dev
 ```
 
 ブラウザで http://localhost:1234 を開いてください。
