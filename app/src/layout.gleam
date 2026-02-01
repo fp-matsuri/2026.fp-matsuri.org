@@ -212,7 +212,7 @@ fn footer() -> Element(msg) {
         ),
       ]),
       aside([], [
-        p([class("text-sm")], [text("© 2026 関数型まつり準備委員会")]),
+        p([class("text-sm")], [text("© 2026 関数型まつり運営委員会")]),
       ]),
     ],
   )
