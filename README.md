@@ -19,6 +19,13 @@ nix develop
 npm install
 ```
 
+### direnv での setup 
+
+```sh
+echo 'use flake' > .envrc
+direnv allow
+```
+
 ### 手動でセットアップする場合
 
 以下をインストールしてください:
