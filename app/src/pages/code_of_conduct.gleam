@@ -13,7 +13,7 @@ pub fn page() -> Page(msg) {
 
   let html_content = jot.to_html(djot_content)
 
-  Page(title: "行動規範 | 関数型まつり 2026", body: [
+  Page(title: "行動規範 | 関数型まつり2026", body: [
     section([class("py-16 px-4 bg-base-100 flex-1")], [
       div([class("max-w-2xl mx-auto")], [
         div([class("card bg-neutral text-neutral-content")], [

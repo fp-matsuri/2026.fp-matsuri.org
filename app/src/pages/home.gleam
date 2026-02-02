@@ -15,7 +15,7 @@ import lustre/element/html.{
 import simplifile
 
 pub fn page() -> Page(msg) {
-  Page(title: "関数型まつり 2026", body: [
+  Page(title: "関数型まつり2026", body: [
     hero_section(),
     announcements_section(),
     about_section(),
@@ -187,12 +187,12 @@ fn about_section() -> Element(msg) {
             h2([class("card-title text-xl md:text-2xl mb-6 justify-center")], [
               text("関数型プログラミングのカンファレンス"),
               br([]),
-              text("「関数型まつり 2026」を開催します！"),
+              text("「関数型まつり2026」を開催します！"),
             ]),
             p([class("text-base leading-relaxed")], [
               text(
                 "昨年の「関数型まつり」では、参加者総数494名、登壇者48名による多様なセッションを実施し、言語コミュニティの垣根を越えた交流と学びが生まれました。
-              好評をいただき、今年も「関数型まつり 2026」を開催します！",
+              好評をいただき、今年も「関数型まつり2026」を開催します！",
               ),
             ]),
             div([class("divider")], []),
@@ -233,7 +233,7 @@ fn sponsor_recruitment_section() -> Element(msg) {
           div([class("card-body p-8 md:p-10")], [
             p([class("text-base mb-2 leading-relaxed")], [
               text(
-                "関数型まつり 2026 のスポンサーを募集しています。関数型プログラミングのコミュニティを一緒に盛り上げてくださる企業・団体の皆様をお待ちしております。",
+                "関数型まつり2026 のスポンサーを募集しています。関数型プログラミングのコミュニティを一緒に盛り上げてくださる企業・団体の皆様をお待ちしております。",
               ),
             ]),
             p([class("text-base mb-6 leading-relaxed")], [
@@ -262,7 +262,7 @@ fn staff_recruitment_section() -> Element(msg) {
       div([class("mb-8")], [
         p([class("text-base mb-8 leading-relaxed")], [
           text(
-            "関数型まつり 2026 の企画・運営に一緒に取り組んでくださるコアスタッフを募集しています！関数型プログラミングのコミュニティを盛り上げる舞台裏で活躍してみませんか？",
+            "関数型まつり2026 の企画・運営に一緒に取り組んでくださるコアスタッフを募集しています！関数型プログラミングのコミュニティを盛り上げる舞台裏で活躍してみませんか？",
           ),
         ]),
       ]),

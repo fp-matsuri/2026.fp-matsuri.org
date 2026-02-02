@@ -7,7 +7,7 @@ import lustre/element/html.{
 }
 
 // Site metadata constants
-const site_name = "関数型まつり 2026"
+const site_name = "関数型まつり2026"
 
 const site_description = "関数型まつりは関数型プログラミングをテーマとしたカンファレンスです"
 
