@@ -265,6 +265,11 @@ const platinum_sponsors: List(Sponsor) = [
     image: "/image/sponsors/sponsors_logo1.png",
     href: "https://2026.fp-matsuri.org/",
   ),
+  Sponsor(
+    name: "sample1",
+    image: "/image/sponsors/sponsors_logo1.png",
+    href: "https://2026.fp-matsuri.org/",
+  ),
 ]
 
 const gold_sponsors: List(Sponsor) = [
@@ -327,7 +332,7 @@ fn sponsor_logos() -> Element(msg) {
     sponsor_plan(
       title: "プラチナスポンサー",
       sponsors: platinum_sponsors,
-      grid_cols: "grid-cols-1",
+      grid_cols: "grid-cols-2",
     ),
     sponsor_plan(
       title: "ゴールドスポンサー",
