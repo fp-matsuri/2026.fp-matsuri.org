@@ -249,7 +249,156 @@ fn sponsor_recruitment_section() -> Element(msg) {
         ],
       ),
     ]),
+    div([class("max-w-2xl mx-auto")], [
+      sponsor_logos(),
+    ]),
   ])
+}
+
+type Sponsor {
+  Sponsor(name: String, image: String, href: String)
+}
+
+const platinum_sponsors: List(Sponsor) = [
+  Sponsor(
+    name: "sample1",
+    image: "/image/sponsors/sponsors_logo1.png",
+    href: "https://2026.fp-matsuri.org/",
+  ),
+  Sponsor(
+    name: "sample1",
+    image: "/image/sponsors/sponsors_logo1.png",
+    href: "https://2026.fp-matsuri.org/",
+  ),
+]
+
+const gold_sponsors: List(Sponsor) = [
+  Sponsor(
+    name: "sample1",
+    image: "/image/sponsors/sponsors_logo1.png",
+    href: "https://2026.fp-matsuri.org/",
+  ),
+  Sponsor(
+    name: "sample1",
+    image: "/image/sponsors/sponsors_logo1.png",
+    href: "https://2026.fp-matsuri.org/",
+  ),
+]
+
+const silver_sponsors: List(Sponsor) = [
+  Sponsor(
+    name: "sample2",
+    image: "/image/sponsors/sponsors_logo2.png",
+    href: "https://2026.fp-matsuri.org/",
+  ),
+  Sponsor(
+    name: "sample2",
+    image: "/image/sponsors/sponsors_logo2.png",
+    href: "https://2026.fp-matsuri.org/",
+  ),
+  Sponsor(
+    name: "sample2",
+    image: "/image/sponsors/sponsors_logo2.png",
+    href: "https://2026.fp-matsuri.org/",
+  ),
+]
+
+const bronze_sponsors: List(Sponsor) = [
+  Sponsor(
+    name: "sample2",
+    image: "/image/sponsors/sponsors_logo2.png",
+    href: "https://2026.fp-matsuri.org/",
+  ),
+  Sponsor(
+    name: "sample2",
+    image: "/image/sponsors/sponsors_logo2.png",
+    href: "https://2026.fp-matsuri.org/",
+  ),
+  Sponsor(
+    name: "sample2",
+    image: "/image/sponsors/sponsors_logo2.png",
+    href: "https://2026.fp-matsuri.org/",
+  ),
+  Sponsor(
+    name: "sample2",
+    image: "/image/sponsors/sponsors_logo2.png",
+    href: "https://2026.fp-matsuri.org/",
+  ),
+]
+
+// スポンサーロゴ表示
+fn sponsor_logos() -> Element(msg) {
+  div([class("")], [
+    sponsor_plan(
+      title: "プラチナスポンサー",
+      sponsors: platinum_sponsors,
+      grid_cols: "grid-cols-2",
+    ),
+    sponsor_plan(
+      title: "ゴールドスポンサー",
+      sponsors: gold_sponsors,
+      grid_cols: "grid-cols-2",
+    ),
+    sponsor_plan(
+      title: "シルバースポンサー",
+      sponsors: silver_sponsors,
+      grid_cols: "grid-cols-2 md:grid-cols-3",
+    ),
+    sponsor_plan(
+      title: "ブロンズスポンサー",
+      sponsors: bronze_sponsors,
+      grid_cols: "grid-cols-2 md:grid-cols-4",
+    ),
+  ])
+}
+
+fn sponsor_plan(
+  title title: String,
+  sponsors sponsors: List(Sponsor),
+  grid_cols grid_cols: String,
+) -> Element(msg) {
+  div([class("pt-8")], [
+    h3([class("text-xl font-semibold text-center")], [
+      text(title),
+    ]),
+    div(
+      [class("grid " <> grid_cols <> " gap-4 justify-items-center mt-8")],
+      list.map(sponsors, sponsor_logo),
+    ),
+  ])
+}
+
+fn sponsor_logo(sponsor: Sponsor) -> Element(msg) {
+  let Sponsor(name:, image:, href:) = sponsor
+  case href {
+    "" ->
+      div([class("w-full")], [
+        img([
+          src(image),
+          attribute("alt", name),
+          class(
+            "w-full h-auto aspect-[21/9] object-contain bg-white rounded-lg shadow-sm",
+          ),
+        ]),
+      ])
+    _ ->
+      a(
+        [
+          attribute("href", href),
+          attribute("target", "_blank"),
+          attribute("rel", "noopener noreferrer"),
+        ],
+        [
+          img([
+            src(image),
+            attribute("alt", name),
+            class(
+              "w-full h-auto aspect-[21/9] object-contain bg-white rounded-lg shadow-sm",
+            ),
+          ]),
+        ],
+      )
+  }
 }
 
 // Staff Recruitment Section
