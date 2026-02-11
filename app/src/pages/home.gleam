@@ -303,7 +303,7 @@ const silver_sponsors: List(Sponsor) = [
   ),
 ]
 
-const bronze_sponsors: List(Sponsor) = [
+const logo_sponsors: List(Sponsor) = [
   Sponsor(
     name: "sample2",
     image: "/image/sponsors/sponsors_logo2.png",
@@ -332,22 +332,22 @@ fn sponsor_logos() -> Element(msg) {
     sponsor_plan(
       title: "プラチナスポンサー",
       sponsors: platinum_sponsors,
-      grid_cols: "grid-cols-2",
+      grid_template: "grid-cols-[repeat(1,304px)] sm:grid-cols-[repeat(2,328px)]",
     ),
     sponsor_plan(
       title: "ゴールドスポンサー",
       sponsors: gold_sponsors,
-      grid_cols: "grid-cols-2",
+      grid_template: "grid-cols-[repeat(2,144px)] sm:grid-cols-[repeat(2,248px)]",
     ),
     sponsor_plan(
       title: "シルバースポンサー",
       sponsors: silver_sponsors,
-      grid_cols: "grid-cols-2 md:grid-cols-3",
+      grid_template: "grid-cols-[repeat(3,96px)] sm:grid-cols-[repeat(3,168px)]",
     ),
     sponsor_plan(
-      title: "ブロンズスポンサー",
-      sponsors: bronze_sponsors,
-      grid_cols: "grid-cols-2 md:grid-cols-4",
+      title: "ロゴスポンサー",
+      sponsors: logo_sponsors,
+      grid_template: "grid-cols-[repeat(3,80px)] sm:grid-cols-[repeat(4,128px)]",
     ),
   ])
 }
@@ -355,14 +355,20 @@ fn sponsor_logos() -> Element(msg) {
 fn sponsor_plan(
   title title: String,
   sponsors sponsors: List(Sponsor),
-  grid_cols grid_cols: String,
+  grid_template grid_template: String,
 ) -> Element(msg) {
   div([class("pt-8")], [
     h3([class("text-xl font-semibold text-center")], [
       text(title),
     ]),
     div(
-      [class("grid " <> grid_cols <> " gap-4 justify-items-center mt-8")],
+      [
+        class(
+          "grid "
+          <> grid_template
+          <> " gap-2 mt-8 justify-items-center justify-center",
+        ),
+      ],
       list.map(sponsors, sponsor_logo),
     ),
   ])
@@ -370,17 +376,17 @@ fn sponsor_plan(
 
 fn sponsor_logo(sponsor: Sponsor) -> Element(msg) {
   let Sponsor(name:, image:, href:) = sponsor
+  let img_element =
+    img([
+      src(image),
+      attribute("alt", name),
+      class(
+        "w-full h-auto aspect-[21/9] object-contain bg-white rounded-lg shadow-sm",
+      ),
+    ])
+
   case href {
-    "" ->
-      div([class("w-full")], [
-        img([
-          src(image),
-          attribute("alt", name),
-          class(
-            "w-full h-auto aspect-[21/9] object-contain bg-white rounded-lg shadow-sm",
-          ),
-        ]),
-      ])
+    "" -> div([class("")], [img_element])
     _ ->
       a(
         [
@@ -388,15 +394,7 @@ fn sponsor_logo(sponsor: Sponsor) -> Element(msg) {
           attribute("target", "_blank"),
           attribute("rel", "noopener noreferrer"),
         ],
-        [
-          img([
-            src(image),
-            attribute("alt", name),
-            class(
-              "w-full h-auto aspect-[21/9] object-contain bg-white rounded-lg shadow-sm",
-            ),
-          ]),
-        ],
+        [img_element],
       )
   }
 }
