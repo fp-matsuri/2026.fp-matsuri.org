@@ -303,7 +303,7 @@ const silver_sponsors: List(Sponsor) = [
   ),
 ]
 
-const bronze_sponsors: List(Sponsor) = [
+const logo_sponsors: List(Sponsor) = [
   Sponsor(
     name: "sample2",
     image: "/image/sponsors/sponsors_logo2.png",
@@ -345,8 +345,8 @@ fn sponsor_logos() -> Element(msg) {
       grid_cols: "grid-cols-2 md:grid-cols-3",
     ),
     sponsor_plan(
-      title: "ブロンズスポンサー",
-      sponsors: bronze_sponsors,
+      title: "ロゴスポンサー",
+      sponsors: logo_sponsors,
       grid_cols: "grid-cols-2 md:grid-cols-4",
     ),
   ])
