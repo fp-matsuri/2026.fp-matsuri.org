@@ -332,22 +332,22 @@ fn sponsor_logos() -> Element(msg) {
     sponsor_plan(
       title: "プラチナスポンサー",
       sponsors: platinum_sponsors,
-      grid_template: "grid-cols-[repeat(1,304px)] md:grid-cols-[repeat(2,328px)]",
+      grid_template: "grid-cols-[repeat(1,304px)] sm:grid-cols-[repeat(2,328px)]",
     ),
     sponsor_plan(
       title: "ゴールドスポンサー",
       sponsors: gold_sponsors,
-      grid_template: "grid-cols-[repeat(2,144px)] md:grid-cols-[repeat(2,248px)]",
+      grid_template: "grid-cols-[repeat(2,144px)] sm:grid-cols-[repeat(2,248px)]",
     ),
     sponsor_plan(
       title: "シルバースポンサー",
       sponsors: silver_sponsors,
-      grid_template: "grid-cols-[repeat(3,96px)] md:grid-cols-[repeat(3,168px)]",
+      grid_template: "grid-cols-[repeat(3,96px)] sm:grid-cols-[repeat(3,168px)]",
     ),
     sponsor_plan(
       title: "ロゴスポンサー",
       sponsors: logo_sponsors,
-      grid_template: "grid-cols-[repeat(3,80px)] md:grid-cols-[repeat(4,128px)]",
+      grid_template: "grid-cols-[repeat(3,80px)] sm:grid-cols-[repeat(4,128px)]",
     ),
   ])
 }
