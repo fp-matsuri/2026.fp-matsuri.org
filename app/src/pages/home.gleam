@@ -362,7 +362,13 @@ fn sponsor_plan(
       text(title),
     ]),
     div(
-      [class("grid " <> grid_template <>  " gap-2 mt-8 justify-items-center justify-center")],
+      [
+        class(
+          "grid "
+          <> grid_template
+          <> " gap-2 mt-8 justify-items-center justify-center",
+        ),
+      ],
       list.map(sponsors, sponsor_logo),
     ),
   ])
