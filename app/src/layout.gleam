@@ -3,7 +3,7 @@ import gleam/string
 import lustre/attribute.{attribute, class, href, rel, src, target}
 import lustre/element.{type Element}
 import lustre/element/html.{
-  a, aside, body, div, head, html, img, link, meta, nav, p, text,
+  a, aside, body, div, head, html, img, link, meta, nav, p, script, text,
 }
 
 // Site metadata constants
@@ -61,6 +61,21 @@ pub fn spa_frame(content: Element(Nil)) -> Element(Nil) {
         attribute("name", "keywords"),
         attribute("content", "関数型プログラミング,FP,関数型まつり,カンファレンス,技術イベント"),
       ]),
+      // Google Analytics
+      script(
+        [
+          attribute("async", ""),
+          src("https://www.googletagmanager.com/gtag/js?id=G-RG29W8HDWS"),
+        ],
+        "",
+      ),
+      script(
+        [],
+        "window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RG29W8HDWS');",
+      ),
     ]),
     body([class("min-h-screen flex flex-col")], [
       navbar(),
