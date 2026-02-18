@@ -261,14 +261,9 @@ type Sponsor {
 
 const platinum_sponsors: List(Sponsor) = [
   Sponsor(
-    name: "sample1",
-    image: "/image/sponsors/sponsors_logo1.png",
-    href: "https://2026.fp-matsuri.org/",
-  ),
-  Sponsor(
-    name: "sample1",
-    image: "/image/sponsors/sponsors_logo1.png",
-    href: "https://2026.fp-matsuri.org/",
+    name: "株式会社FOLIO",
+    image: "/image/sponsors/folio.png",
+    href: "https://corp.folio-sec.com/",
   ),
 ]
 
