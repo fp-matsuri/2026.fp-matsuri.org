@@ -13,6 +13,7 @@ import lustre/element/html.{
   a, br, div, h2, h3, img, input, li, p, section, span, text, ul,
 }
 import simplifile
+import sponsor.{type Sponsor, Sponsor}
 
 pub fn page() -> Page(msg) {
   Page(title: "関数型まつり2026", body: [
@@ -255,93 +256,28 @@ fn sponsor_recruitment_section() -> Element(msg) {
   ])
 }
 
-type Sponsor {
-  Sponsor(name: String, image: String, href: String)
-}
-
-const platinum_sponsors: List(Sponsor) = [
-  Sponsor(
-    name: "株式会社FOLIO",
-    image: "/image/sponsors/folio.png",
-    href: "https://corp.folio-sec.com/",
-  ),
-]
-
-const gold_sponsors: List(Sponsor) = [
-  Sponsor(
-    name: "sample1",
-    image: "/image/sponsors/sponsors_logo1.png",
-    href: "https://2026.fp-matsuri.org/",
-  ),
-  Sponsor(
-    name: "sample1",
-    image: "/image/sponsors/sponsors_logo1.png",
-    href: "https://2026.fp-matsuri.org/",
-  ),
-]
-
-const silver_sponsors: List(Sponsor) = [
-  Sponsor(
-    name: "sample2",
-    image: "/image/sponsors/sponsors_logo2.png",
-    href: "https://2026.fp-matsuri.org/",
-  ),
-  Sponsor(
-    name: "sample2",
-    image: "/image/sponsors/sponsors_logo2.png",
-    href: "https://2026.fp-matsuri.org/",
-  ),
-  Sponsor(
-    name: "sample2",
-    image: "/image/sponsors/sponsors_logo2.png",
-    href: "https://2026.fp-matsuri.org/",
-  ),
-]
-
-const logo_sponsors: List(Sponsor) = [
-  Sponsor(
-    name: "sample2",
-    image: "/image/sponsors/sponsors_logo2.png",
-    href: "https://2026.fp-matsuri.org/",
-  ),
-  Sponsor(
-    name: "sample2",
-    image: "/image/sponsors/sponsors_logo2.png",
-    href: "https://2026.fp-matsuri.org/",
-  ),
-  Sponsor(
-    name: "sample2",
-    image: "/image/sponsors/sponsors_logo2.png",
-    href: "https://2026.fp-matsuri.org/",
-  ),
-  Sponsor(
-    name: "sample2",
-    image: "/image/sponsors/sponsors_logo2.png",
-    href: "https://2026.fp-matsuri.org/",
-  ),
-]
-
 // スポンサーロゴ表示
 fn sponsor_logos() -> Element(msg) {
+  let sponsors = sponsor.load_all()
   div([class("")], [
     sponsor_plan(
       title: "プラチナスポンサー",
-      sponsors: platinum_sponsors,
+      sponsors: sponsors(sponsor.Platinum),
       grid_template: "grid-cols-[repeat(1,304px)] sm:grid-cols-[repeat(2,328px)]",
     ),
     sponsor_plan(
       title: "ゴールドスポンサー",
-      sponsors: gold_sponsors,
+      sponsors: sponsors(sponsor.Gold),
       grid_template: "grid-cols-[repeat(2,144px)] sm:grid-cols-[repeat(2,248px)]",
     ),
     sponsor_plan(
       title: "シルバースポンサー",
-      sponsors: silver_sponsors,
+      sponsors: sponsors(sponsor.Silver),
       grid_template: "grid-cols-[repeat(3,96px)] sm:grid-cols-[repeat(3,168px)]",
     ),
     sponsor_plan(
       title: "ロゴスポンサー",
-      sponsors: logo_sponsors,
+      sponsors: sponsors(sponsor.Logo),
       grid_template: "grid-cols-[repeat(3,80px)] sm:grid-cols-[repeat(4,128px)]",
     ),
   ])
@@ -370,7 +306,7 @@ fn sponsor_plan(
 }
 
 fn sponsor_logo(sponsor: Sponsor) -> Element(msg) {
-  let Sponsor(name:, image:, href:) = sponsor
+  let Sponsor(name:, image:, href:, ..) = sponsor
   let img_element =
     img([
       src(image),
