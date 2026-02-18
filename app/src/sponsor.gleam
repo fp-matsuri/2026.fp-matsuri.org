@@ -37,10 +37,20 @@ pub fn load_all() -> fn(SponsorPlan) -> List(Sponsor) {
         |> list.filter(fn(f) { string.ends_with(f, ".dj") })
         |> list.filter_map(fn(filename) {
           let path = sponsors_dir <> "/" <> filename
-          case load_sponsor(path) {
+          case
+            {
+              use content <- result.try(
+                simplifile.read(path)
+                |> result.replace_error("Failed to read " <> path),
+              )
+              parse(content)
+            }
+          {
             Ok(s) -> Ok(s)
-            Error(Nil) -> {
-              io.println("Warning: failed to parse " <> path)
+            Error(msg) -> {
+              io.println_error(
+                "Error parsing sponsor file " <> path <> ": " <> msg,
+              )
               Error(Nil)
             }
           }
@@ -51,12 +61,14 @@ pub fn load_all() -> fn(SponsorPlan) -> List(Sponsor) {
   }
 }
 
-fn load_sponsor(path: String) -> Result(Sponsor, Nil) {
-  use content <- result.try(simplifile.read(path) |> result.replace_error(Nil))
+pub fn parse(content: String) -> Result(Sponsor, String) {
   use #(metadata, body) <- result.try(parse_frontmatter(content))
-  use name <- result.try(dict.get(metadata, "name"))
-  use image <- result.try(dict.get(metadata, "image"))
-  use plan_str <- result.try(dict.get(metadata, "plan"))
+  let get = fn(key) {
+    dict.get(metadata, key) |> result.replace_error("Missing " <> key)
+  }
+  use name <- result.try(get("name"))
+  use image <- result.try(get("image"))
+  use plan_str <- result.try(get("plan"))
   use plan <- result.try(parse_plan(plan_str))
   let href = result.unwrap(dict.get(metadata, "href"), "")
   let description = case string.trim(body) {
@@ -68,7 +80,7 @@ fn load_sponsor(path: String) -> Result(Sponsor, Nil) {
 
 fn parse_frontmatter(
   content: String,
-) -> Result(#(Dict(String, String), String), Nil) {
+) -> Result(#(Dict(String, String), String), String) {
   case string.split(content, "\n") {
     ["---", ..rest] -> {
       let #(meta, body) = list.split_while(rest, fn(l) { l != "---" })
@@ -85,16 +97,16 @@ fn parse_frontmatter(
         |> dict.from_list()
       Ok(#(meta, body))
     }
-    _ -> Error(Nil)
+    _ -> Error("Content must start with frontmatter delimited by ---")
   }
 }
 
-fn parse_plan(s: String) -> Result(SponsorPlan, Nil) {
+fn parse_plan(s: String) -> Result(SponsorPlan, String) {
   case string.lowercase(string.trim(s)) {
     "platinum" -> Ok(Platinum)
     "gold" -> Ok(Gold)
     "silver" -> Ok(Silver)
     "logo" -> Ok(Logo)
-    _ -> Error(Nil)
+    s -> Error("Unknown sponsor plan: " <> s)
   }
 }
