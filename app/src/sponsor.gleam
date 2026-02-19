@@ -1,4 +1,3 @@
-import gleam/dict
 import gleam/io
 import gleam/list
 import gleam/result
@@ -27,38 +26,36 @@ pub type SponsorPlan {
 
 const sponsors_dir = "content/sponsors"
 
-pub fn load_all() -> fn(SponsorPlan) -> List(Sponsor) {
+pub fn load_all(plan) -> List(Sponsor) {
   case simplifile.read_directory(sponsors_dir) {
     Error(_) -> {
       io.println("Warning: could not read " <> sponsors_dir)
-      fn(_) { [] }
+      []
     }
     Ok(files) -> {
-      let all =
-        files
-        |> list.filter(fn(f) { string.ends_with(f, ".dj") })
-        |> list.filter_map(fn(filename) {
-          let path = sponsors_dir <> "/" <> filename
-          case
-            {
-              use content <- result.try(
-                simplifile.read(path)
-                |> result.replace_error("Failed to read " <> path),
-              )
-              parse(content)
-            }
+      files
+      |> list.filter(fn(f) { string.ends_with(f, ".dj") })
+      |> list.filter_map(fn(filename) {
+        let path = sponsors_dir <> "/" <> filename
+        case
           {
-            Ok(s) -> Ok(s)
-            Error(msg) -> {
-              io.println_error(
-                "Error parsing sponsor file " <> path <> ": " <> msg,
-              )
-              Error(Nil)
-            }
+            use content <- result.try(
+              simplifile.read(path)
+              |> result.replace_error("Failed to read " <> path),
+            )
+            parse(content)
           }
-        })
-        |> list.group(fn(s) { s.plan })
-      fn(plan) { dict.get(all, plan) |> result.unwrap([]) }
+        {
+          Ok(s) -> Ok(s)
+          Error(msg) -> {
+            io.println_error(
+              "Error parsing sponsor file " <> path <> ": " <> msg,
+            )
+            Error(Nil)
+          }
+        }
+      })
+      |> list.filter(fn(s) { s.plan == plan })
     }
   }
 }

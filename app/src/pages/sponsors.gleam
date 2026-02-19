@@ -7,17 +7,21 @@ import lustre/element/html.{a, div, h1, h2, h3, img, p, section, text}
 import sponsor.{type Sponsor}
 
 pub fn page() -> Page(msg) {
-  let sponsors = sponsor.load_all()
-
   Page(title: "スポンサー | 関数型まつり2026", body: [
     page_header(),
     sponsor_plan_section(
       title: "プラチナスポンサー",
-      sponsors: sponsors(sponsor.Platinum),
+      sponsors: sponsor.load_all(sponsor.Platinum),
     ),
-    sponsor_plan_section(title: "ゴールドスポンサー", sponsors: sponsors(sponsor.Gold)),
-    sponsor_plan_section(title: "シルバースポンサー", sponsors: sponsors(sponsor.Silver)),
-    logo_plan_section(sponsors(sponsor.Logo)),
+    sponsor_plan_section(
+      title: "ゴールドスポンサー",
+      sponsors: sponsor.load_all(sponsor.Gold),
+    ),
+    sponsor_plan_section(
+      title: "シルバースポンサー",
+      sponsors: sponsor.load_all(sponsor.Silver),
+    ),
+    logo_plan_section(sponsor.load_all(sponsor.Logo)),
     recruitment_section(),
   ])
 }

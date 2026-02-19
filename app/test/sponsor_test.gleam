@@ -1,16 +1,14 @@
 import sponsor.{Gold, Logo, Platinum, Silver, Sponsor}
 
 pub fn load_all_returns_sponsors_by_plan_test() {
-  let sponsors = sponsor.load_all()
-
   // 1 platinum sponsor now
-  let assert [Sponsor(plan: Platinum, ..)] = sponsors(Platinum)
+  let assert [Sponsor(plan: Platinum, ..)] = sponsor.load_all(Platinum)
 
   // sample sponsors
 
-  let assert [Sponsor(plan: Gold, ..), ..] = sponsors(Gold)
-  let assert [Sponsor(plan: Silver, ..), ..] = sponsors(Silver)
-  let assert [Sponsor(plan: Logo, ..), ..] = sponsors(Logo)
+  let assert [Sponsor(plan: Gold, ..), ..] = sponsor.load_all(Gold)
+  let assert [Sponsor(plan: Silver, ..), ..] = sponsor.load_all(Silver)
+  let assert [Sponsor(plan: Logo, ..), ..] = sponsor.load_all(Logo)
 }
 
 pub fn parse_valid_sponsor_test() {
