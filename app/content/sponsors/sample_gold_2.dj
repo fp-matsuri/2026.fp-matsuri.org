@@ -1,6 +1,6 @@
 ---
-name: sample1
-image: /image/sponsors/sponsors_logo1.png
-href: https://2026.fp-matsuri.org/
-plan: gold
+name = "sample1"
+image = "/image/sponsors/sponsors_logo1.png"
+href = "https://2026.fp-matsuri.org/"
+plan = "gold"
 ---

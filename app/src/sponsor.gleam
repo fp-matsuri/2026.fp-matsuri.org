@@ -1,10 +1,12 @@
-import gleam/dict.{type Dict}
+import gleam/dict
 import gleam/io
 import gleam/list
 import gleam/result
 import gleam/string
 import jot
+import lustre/ssg/djot
 import simplifile
+import tom
 
 pub type Sponsor {
   Sponsor(
@@ -62,43 +64,22 @@ pub fn load_all() -> fn(SponsorPlan) -> List(Sponsor) {
 }
 
 pub fn parse(content: String) -> Result(Sponsor, String) {
-  use #(metadata, body) <- result.try(parse_frontmatter(content))
+  use metadata <- result.try(
+    djot.metadata(content) |> result.replace_error("Invalid TOML frontmatter"),
+  )
   let get = fn(key) {
-    dict.get(metadata, key) |> result.replace_error("Missing " <> key)
+    tom.get_string(metadata, [key]) |> result.replace_error("Missing " <> key)
   }
   use name <- result.try(get("name"))
   use image <- result.try(get("image"))
   use plan_str <- result.try(get("plan"))
   use plan <- result.try(parse_plan(plan_str))
-  let href = result.unwrap(dict.get(metadata, "href"), "")
-  let description = case string.trim(body) {
-    "" -> ""
-    trimmed -> jot.to_html(trimmed)
-  }
+  let href = tom.get_string(metadata, ["href"]) |> result.unwrap("")
+  let description =
+    djot.content(content)
+    |> string.trim
+    |> jot.to_html
   Ok(Sponsor(name:, image:, href:, plan:, description:))
-}
-
-fn parse_frontmatter(
-  content: String,
-) -> Result(#(Dict(String, String), String), String) {
-  case string.split(content, "\n") {
-    ["---", ..rest] -> {
-      let #(meta, body) = list.split_while(rest, fn(l) { l != "---" })
-      let body = list.drop(body, 1) |> string.join("\n")
-      let meta =
-        meta
-        |> list.filter_map(fn(line) {
-          string.split_once(line, ":")
-          |> result.map(fn(pair) {
-            let #(key, value) = pair
-            #(string.trim(key), string.trim(value))
-          })
-        })
-        |> dict.from_list()
-      Ok(#(meta, body))
-    }
-    _ -> Error("Content must start with frontmatter delimited by ---")
-  }
 }
 
 fn parse_plan(s: String) -> Result(SponsorPlan, String) {

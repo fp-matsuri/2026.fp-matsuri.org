@@ -16,10 +16,10 @@ pub fn load_all_returns_sponsors_by_plan_test() {
 pub fn parse_valid_sponsor_test() {
   let content =
     "---
-name: Test Sponsor
-image: /image/sponsors/sample.png
-href: https://example.com
-plan: Gold
+name = \"Test Sponsor\"
+image = \"/image/sponsors/sample.png\"
+href = \"https://example.com\"
+plan = \"Gold\"
 ---
 This is a test sponsor.
 And it has a description with **markdown**.
