@@ -5,6 +5,7 @@ import layout
 import pages/code_of_conduct
 import pages/home
 import pages/not_found
+import pages/sponsors
 import simplifile
 import snag
 
@@ -16,6 +17,7 @@ pub fn main() {
       "code-of-conduct",
       layout.render_page(code_of_conduct.page()),
     )
+    |> config.add_main_page("sponsors", layout.render_page(sponsors.page()))
     |> config.add_main_page("404", layout.render_page(not_found.page()))
     |> config.add_spa_frame(layout.spa_frame)
 
