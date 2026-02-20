@@ -19,6 +19,12 @@ nix develop
 npm install
 ```
 
+### direnv での setup 
+
+```sh
+direnv allow
+```
+
 ### 手動でセットアップする場合
 
 以下をインストールしてください:
@@ -32,8 +38,7 @@ npm install
 ### 開発サーバーの起動
 
 ```sh
-cd app
-gleam run -m lustre/dev start
+npm run dev
 ```
 
 ブラウザで http://localhost:1234 を開いてください。

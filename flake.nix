@@ -16,6 +16,14 @@
               gleam
               nodejs_24
             ];
+
+            shellHook = ''
+              if [ ! -d node_modules ] || [ package-lock.json -nt node_modules ]; then
+                echo "Running npm install..."
+                npm install
+                touch node_modules
+              fi
+            '';
           };
       });
 }
