@@ -26,13 +26,29 @@ pub type SponsorPlan {
 
 const sponsors_dir = "content/sponsors"
 
-pub fn load_all(plan) -> List(Sponsor) {
+pub fn platinum_sponsors() -> List(Sponsor) {
+  all_sponsors(Platinum)
+}
+
+pub fn gold_sponsors() -> List(Sponsor) {
+  all_sponsors(Gold)
+}
+
+pub fn silver_sponsors() -> List(Sponsor) {
+  all_sponsors(Silver)
+}
+
+pub fn logo_sponsors() -> List(Sponsor) {
+  all_sponsors(Logo)
+}
+
+fn all_sponsors(plan) -> List(Sponsor) {
   case simplifile.read_directory(sponsors_dir) {
     Error(_) -> {
       io.println("Warning: could not read " <> sponsors_dir)
       []
     }
-    Ok(files) -> {
+    Ok(files) ->
       files
       |> list.filter(fn(f) { string.ends_with(f, ".dj") })
       |> list.filter_map(fn(filename) {
@@ -56,7 +72,6 @@ pub fn load_all(plan) -> List(Sponsor) {
         }
       })
       |> list.filter(fn(s) { s.plan == plan })
-    }
   }
 }
 

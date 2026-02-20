@@ -261,22 +261,22 @@ fn sponsor_logos() -> Element(msg) {
   div([class("")], [
     sponsor_plan(
       title: "プラチナスポンサー",
-      sponsors: sponsor.load_all(sponsor.Platinum),
+      sponsors: sponsor.platinum_sponsors(),
       grid_template: "grid-cols-[repeat(1,304px)] sm:grid-cols-[repeat(2,328px)]",
     ),
     sponsor_plan(
       title: "ゴールドスポンサー",
-      sponsors: sponsor.load_all(sponsor.Gold),
+      sponsors: sponsor.gold_sponsors(),
       grid_template: "grid-cols-[repeat(2,144px)] sm:grid-cols-[repeat(2,248px)]",
     ),
     sponsor_plan(
       title: "シルバースポンサー",
-      sponsors: sponsor.load_all(sponsor.Silver),
+      sponsors: sponsor.silver_sponsors(),
       grid_template: "grid-cols-[repeat(3,96px)] sm:grid-cols-[repeat(3,168px)]",
     ),
     sponsor_plan(
       title: "ロゴスポンサー",
-      sponsors: sponsor.load_all(sponsor.Logo),
+      sponsors: sponsor.logo_sponsors(),
       grid_template: "grid-cols-[repeat(3,80px)] sm:grid-cols-[repeat(4,128px)]",
     ),
   ])

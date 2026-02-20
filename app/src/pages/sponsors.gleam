@@ -11,17 +11,14 @@ pub fn page() -> Page(msg) {
     page_header(),
     sponsor_plan_section(
       title: "プラチナスポンサー",
-      sponsors: sponsor.load_all(sponsor.Platinum),
+      sponsors: sponsor.platinum_sponsors(),
     ),
-    sponsor_plan_section(
-      title: "ゴールドスポンサー",
-      sponsors: sponsor.load_all(sponsor.Gold),
-    ),
+    sponsor_plan_section(title: "ゴールドスポンサー", sponsors: sponsor.gold_sponsors()),
     sponsor_plan_section(
       title: "シルバースポンサー",
-      sponsors: sponsor.load_all(sponsor.Silver),
+      sponsors: sponsor.silver_sponsors(),
     ),
-    logo_plan_section(sponsor.load_all(sponsor.Logo)),
+    logo_plan_section(sponsor.logo_sponsors()),
     recruitment_section(),
   ])
 }
