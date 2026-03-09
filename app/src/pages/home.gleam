@@ -96,6 +96,7 @@ fn load_announcements(file_path: String) -> List(Announcement) {
 
 fn announcements_section() -> Element(msg) {
   let announcements = load_announcements("../content/announcements.json")
+    |> list.sort(fn(a, b) { string.compare(b.posted_on, a.posted_on) })
   section([class("py-20 px-6 bg-base-200")], [
     div([class("max-w-2xl mx-auto")], [
       h2([class("text-2xl font-bold text-center mb-10 tracking-tight")], [
