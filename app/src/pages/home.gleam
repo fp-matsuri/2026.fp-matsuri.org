@@ -4,6 +4,7 @@ import gleam/dynamic/decode
 import gleam/int
 import gleam/json
 import gleam/list
+import gleam/option.{type Option, None, Some}
 import gleam/result
 import gleam/string
 import layout.{type Page, Page}
@@ -59,7 +60,7 @@ fn event_info(date date: String, venue venue: String) -> Element(msg) {
 
 // Announcements Section
 type SocialLinks {
-  SocialLinks(x: String, bluesky: String)
+  SocialLinks(x: String, bluesky: String, hatena: Option(String))
 }
 
 type Announcement {
@@ -69,7 +70,12 @@ type Announcement {
 fn social_links_decoder() -> decode.Decoder(SocialLinks) {
   use x <- decode.field("x", decode.string)
   use bluesky <- decode.field("bluesky", decode.string)
-  decode.success(SocialLinks(x:, bluesky:))
+  use hatena <- decode.optional_field(
+    "hatena",
+    None,
+    decode.optional(decode.string),
+  )
+  decode.success(SocialLinks(x:, bluesky:, hatena:))
 }
 
 fn announcement_decoder() -> decode.Decoder(Announcement) {
@@ -95,7 +101,8 @@ fn load_announcements(file_path: String) -> List(Announcement) {
 }
 
 fn announcements_section() -> Element(msg) {
-  let announcements = load_announcements("../content/announcements.json")
+  let announcements =
+    load_announcements("../content/announcements.json")
     |> list.sort(fn(a, b) { string.compare(b.posted_on, a.posted_on) })
   section([class("py-20 px-6 bg-base-200")], [
     div([class("max-w-2xl mx-auto")], [
@@ -103,7 +110,7 @@ fn announcements_section() -> Element(msg) {
         text("お知らせ"),
       ]),
       ul(
-        [class("list rounded-box")],
+        [class("list rounded-box divide-y divide-base-content/15")],
         list.map(announcements, fn(announcement) {
           announcement_item(announcement)
         }),
@@ -133,26 +140,39 @@ fn announcement_item(announcement: Announcement) -> Element(msg) {
   let Announcement(posted_on:, headline:, links:) = announcement
   let formatted_date = format_date(posted_on)
 
-  let social_links = [
-    social_link(url: links.x, icon: "/icons/x.svg", label: "Xで投稿を見る"),
-    social_link(
-      url: links.bluesky,
-      icon: "/icons/bluesky.svg",
-      label: "Blueskyで投稿を見る",
-    ),
-  ]
+  let hatena_link = case links.hatena {
+    Some(url) -> [
+      social_link(url:, icon: "/icons/hatenablog.svg", label: "はてなブログで投稿を見る"),
+    ]
+    None -> []
+  }
 
-  li([class("list-row")], [
-    div([class("list-col-grow")], [
-      div([], [
-        span([class("")], [text(formatted_date)]),
+  let social_links =
+    list.append(hatena_link, [
+      social_link(url: links.x, icon: "/icons/x.svg", label: "Xで投稿を見る"),
+      social_link(
+        url: links.bluesky,
+        icon: "/icons/bluesky.svg",
+        label: "Blueskyで投稿を見る",
+      ),
+    ])
+
+  li(
+    [
+      class("flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4 py-4"),
+    ],
+    [
+      div([class("flex-1")], [
+        div([], [
+          span([class("text-sm text-base-content/70")], [text(formatted_date)]),
+        ]),
+        div([class("mt-1")], [
+          p([class("text-base leading-relaxed")], [text(headline)]),
+        ]),
       ]),
-      div([], [
-        p([class("text-base leading-relaxed")], [text(headline)]),
-      ]),
-    ]),
-    div([class("flex gap-4 items-center")], social_links),
-  ])
+      div([class("flex gap-4 items-center mt-1 sm:mt-0 ml-auto")], social_links),
+    ],
+  )
 }
 
 fn social_link(url url: String, icon icon: String, label label: String) {
