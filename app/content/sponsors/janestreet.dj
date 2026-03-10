@@ -4,3 +4,11 @@ image = "/image/sponsors/janestreet.png"
 href = "https://www.janestreet.com/"
 plan = "gold"
 ---
+
+**Work functionally**
+
+At Jane Street, we are big believers in functional programming. We use OCaml, a statically typed functional language, as our primary development platform. Jane Street’s technology group is small by design, which means we need to maximize the productivity of each person we hire; we believe functional programming helps us do that. But it’s not about productivity alone: programming in a rich and expressive language like OCaml is just more fun.
+
+Functional programming isn’t a tool we reserve for some special set of problems. From systems automation to trading systems, from monitoring tools to research code, we write everything that we can in OCaml.
+
+Learn more about [Functional Programming at Jane Street.](https://www.janestreet.com/functional-programming/)
