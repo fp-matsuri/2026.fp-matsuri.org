@@ -3,7 +3,7 @@ import gleam/string
 import lustre/attribute.{attribute, class, href, rel, src, target}
 import lustre/element.{type Element}
 import lustre/element/html.{
-  a, aside, body, div, head, html, img, link, meta, nav, p, script, text,
+  a, aside, body, div, head, html, img, link, meta, nav, p, script, span, text,
 }
 
 // Site metadata constants
@@ -79,6 +79,7 @@ pub fn spa_frame(content: Element(Nil)) -> Element(Nil) {
     ]),
     body([class("min-h-screen flex flex-col")], [
       navbar(),
+      sub_header(),
       content,
       footer(),
     ]),
@@ -177,6 +178,20 @@ fn navbar() -> Element(msg) {
   ])
 }
 
+fn sub_header() -> Element(msg) {
+  div([class("bg-primary text-primary-content text-center py-2 px-4 text-sm")], [
+    a(
+      [
+        attribute("href", "https://fortee.jp/2026fp-matsuri/proposal"),
+        target("_blank"),
+        rel("noopener noreferrer"),
+        class("font-bold hover:opacity-80 transition-opacity"),
+      ],
+      [text("公募セッションのCfPは 4月5日(日) 23:59 までにご応募ください")],
+    ),
+  ])
+}
+
 fn footer() -> Element(msg) {
   html.footer(
     [
@@ -192,6 +207,7 @@ fn footer() -> Element(msg) {
           ]),
           nav_link(label: "スポンサー", url: "/sponsors/"),
           nav_link(label: "行動規範", url: "/code-of-conduct/"),
+          nav_link(label: "fortee", url: "https://fortee.jp/2026fp-matsuri"),
           nav_link(label: "お問い合わせ", url: "https://forms.gle/nwG9RnkP3AHWQtzh6"),
           nav_link(
             label: "公式オンラインストア",
