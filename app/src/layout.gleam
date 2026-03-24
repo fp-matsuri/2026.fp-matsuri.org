@@ -3,7 +3,7 @@ import gleam/string
 import lustre/attribute.{attribute, class, href, rel, src, target}
 import lustre/element.{type Element}
 import lustre/element/html.{
-  a, aside, body, div, head, html, img, link, meta, nav, p, script, span, text,
+  a, aside, body, div, head, html, img, link, meta, nav, p, script, text,
 }
 
 // Site metadata constants

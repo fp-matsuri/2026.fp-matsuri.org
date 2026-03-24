@@ -22,6 +22,7 @@ pub type SponsorPlan {
   Gold
   Silver
   Logo
+  Support
 }
 
 const sponsors_dir = "content/sponsors"
@@ -40,6 +41,10 @@ pub fn silver_sponsors() -> List(Sponsor) {
 
 pub fn logo_sponsors() -> List(Sponsor) {
   all_sponsors(Logo)
+}
+
+pub fn support_sponsors() -> List(Sponsor) {
+  all_sponsors(Support)
 }
 
 fn all_sponsors(plan) -> List(Sponsor) {
@@ -100,6 +105,7 @@ fn parse_plan(s: String) -> Result(SponsorPlan, String) {
     "gold" -> Ok(Gold)
     "silver" -> Ok(Silver)
     "logo" -> Ok(Logo)
+    "support" -> Ok(Support)
     s -> Error("Unknown sponsor plan: " <> s)
   }
 }
