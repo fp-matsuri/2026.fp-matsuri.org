@@ -14,7 +14,7 @@ import lustre/element/html.{
   a, br, div, h2, h3, img, li, p, section, span, text, ul,
 }
 import simplifile
-import sponsor.{type Sponsor, Sponsor}
+import sponsor.{type Sponsor, Community, Individual, Sponsor}
 
 pub fn page() -> Page(msg) {
   Page(title: "関数型まつり2026", body: [
@@ -299,6 +299,7 @@ fn sponsor_logos() -> Element(msg) {
       sponsors: sponsor.logo_sponsors(),
       grid_template: "grid-cols-[repeat(3,80px)] sm:grid-cols-[repeat(4,128px)]",
     ),
+    cheerleader_plan(sponsor.cheerleader_sponsors()),
     sponsor_plan(
       title: "協力",
       sponsors: sponsor.support_sponsors(),
@@ -327,6 +328,54 @@ fn sponsor_plan(
       list.map(sponsors, sponsor_logo),
     ),
   ])
+}
+
+fn cheerleader_plan(sponsors: List(Sponsor)) -> Element(msg) {
+  div([class("pt-8")], [
+    h3([class("text-xl font-semibold text-center")], [
+      text("応援団"),
+    ]),
+    div(
+      [
+        class(
+          "grid grid-cols-4 sm:grid-cols-[repeat(auto-fit,100px)] gap-x-2.5 gap-y-5 sm:gap-y-[30px] mt-8 justify-center",
+        ),
+      ],
+      list.map(sponsors, cheerleader_logo),
+    ),
+  ])
+}
+
+fn cheerleader_logo(sponsor: Sponsor) -> Element(msg) {
+  let Sponsor(name:, image:, href:, kind:, ..) = sponsor
+  let img_class = case kind {
+    Individual -> "w-10 h-10 object-cover rounded-full border border-black/5"
+    Community -> "h-10 rounded-sm"
+  }
+  let contents = [
+    img([
+      src(image),
+      attribute("alt", name),
+      class(img_class),
+    ]),
+    span([class("text-[10px] text-center [text-wrap:balance]")], [text(name)]),
+  ]
+  let wrapper_class =
+    "flex flex-col items-center gap-2 no-underline text-inherit"
+
+  case href {
+    "" -> div([class(wrapper_class)], contents)
+    _ ->
+      a(
+        [
+          attribute("href", href),
+          attribute("target", "_blank"),
+          attribute("rel", "noopener noreferrer"),
+          class(wrapper_class),
+        ],
+        contents,
+      )
+  }
 }
 
 fn sponsor_logo(sponsor: Sponsor) -> Element(msg) {

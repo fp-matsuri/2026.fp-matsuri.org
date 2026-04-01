@@ -13,6 +13,7 @@ pub type Sponsor {
     image: String,
     href: String,
     plan: SponsorPlan,
+    kind: SponsorKind,
     description: String,
   )
 }
@@ -23,6 +24,12 @@ pub type SponsorPlan {
   Silver
   Logo
   Support
+  Cheerleader
+}
+
+pub type SponsorKind {
+  Individual
+  Community
 }
 
 const sponsors_dir = "content/sponsors"
@@ -45,6 +52,10 @@ pub fn logo_sponsors() -> List(Sponsor) {
 
 pub fn support_sponsors() -> List(Sponsor) {
   all_sponsors(Support)
+}
+
+pub fn cheerleader_sponsors() -> List(Sponsor) {
+  all_sponsors(Cheerleader)
 }
 
 fn all_sponsors(plan) -> List(Sponsor) {
@@ -92,11 +103,16 @@ pub fn parse(content: String) -> Result(Sponsor, String) {
   use plan_str <- result.try(get("plan"))
   use plan <- result.try(parse_plan(plan_str))
   let href = tom.get_string(metadata, ["href"]) |> result.unwrap("")
+  let kind =
+    tom.get_string(metadata, ["kind"])
+    |> result.map_error(fn(_) { "" })
+    |> result.try(parse_kind)
+    |> result.unwrap(Individual)
   let description =
     djot.content(content)
     |> string.trim
     |> jot.to_html
-  Ok(Sponsor(name:, image:, href:, plan:, description:))
+  Ok(Sponsor(name:, image:, href:, plan:, kind:, description:))
 }
 
 fn parse_plan(s: String) -> Result(SponsorPlan, String) {
@@ -106,6 +122,15 @@ fn parse_plan(s: String) -> Result(SponsorPlan, String) {
     "silver" -> Ok(Silver)
     "logo" -> Ok(Logo)
     "support" -> Ok(Support)
+    "cheerleader" -> Ok(Cheerleader)
     s -> Error("Unknown sponsor plan: " <> s)
+  }
+}
+
+fn parse_kind(s: String) -> Result(SponsorKind, String) {
+  case string.lowercase(string.trim(s)) {
+    "individual" -> Ok(Individual)
+    "community" -> Ok(Community)
+    s -> Error("Unknown sponsor kind: " <> s)
   }
 }

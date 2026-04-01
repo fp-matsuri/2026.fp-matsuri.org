@@ -3,8 +3,8 @@ import gleam/list
 import layout.{type Page, Page}
 import lustre/attribute.{attribute, class, src}
 import lustre/element.{type Element}
-import lustre/element/html.{a, div, h1, h2, h3, img, p, section, text}
-import sponsor.{type Sponsor}
+import lustre/element/html.{a, div, h1, h2, h3, img, p, section, span, text}
+import sponsor.{type Sponsor, Community, Individual}
 
 pub fn page() -> Page(msg) {
   Page(title: "スポンサー | 関数型まつり2026", body: [
@@ -19,6 +19,7 @@ pub fn page() -> Page(msg) {
       sponsors: sponsor.silver_sponsors(),
     ),
     logo_plan_section(sponsor.logo_sponsors()),
+    cheerleader_plan_section(sponsor.cheerleader_sponsors()),
     recruitment_section(),
   ])
 }
@@ -137,6 +138,55 @@ fn logo_plan_section(sponsors: List(Sponsor)) -> Element(msg) {
       ),
     ]),
   ])
+}
+
+fn cheerleader_plan_section(sponsors: List(Sponsor)) -> Element(msg) {
+  section([class("py-8 px-4 bg-base-100")], [
+    div([class("max-w-3xl mx-auto")], [
+      h2([class("text-xl font-bold mb-6 text-center tracking-tight")], [
+        text("応援団"),
+      ]),
+      div(
+        [
+          class(
+            "grid grid-cols-4 sm:grid-cols-[repeat(auto-fit,100px)] gap-x-2.5 gap-y-5 sm:gap-y-[30px] justify-center",
+          ),
+        ],
+        list.map(sponsors, cheerleader_item),
+      ),
+    ]),
+  ])
+}
+
+fn cheerleader_item(s: Sponsor) -> Element(msg) {
+  let img_class = case s.kind {
+    Individual -> "w-10 h-10 object-cover rounded-full border border-black/5"
+    Community -> "h-10 rounded-sm"
+  }
+  let contents = [
+    img([
+      src(s.image),
+      attribute("alt", s.name),
+      class(img_class),
+    ]),
+    span([class("text-[10px] text-center [text-wrap:balance]")], [text(s.name)]),
+  ]
+  let wrapper_class =
+    "flex flex-col items-center gap-2 no-underline text-inherit"
+
+  case s.href {
+    "" -> div([class(wrapper_class)], contents)
+    href ->
+      a(
+        [
+          attribute("href", href),
+          attribute("target", "_blank"),
+          attribute("rel", "noopener noreferrer"),
+          class(wrapper_class),
+        ],
+        contents,
+      )
+  }
 }
 
 fn logo_sponsor_item(s: Sponsor) -> Element(msg) {
