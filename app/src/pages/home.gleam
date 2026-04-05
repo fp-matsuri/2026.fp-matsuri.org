@@ -15,6 +15,7 @@ import lustre/element/html.{
 }
 import simplifile
 import sponsor.{type Sponsor, Community, Individual, Sponsor}
+import team
 
 pub fn page() -> Page(msg) {
   Page(title: "関数型まつり2026", body: [
@@ -22,6 +23,7 @@ pub fn page() -> Page(msg) {
     announcements_section(),
     about_section(),
     sponsor_recruitment_section(),
+    team_section(),
   ])
 }
 
@@ -401,4 +403,55 @@ fn sponsor_logo(sponsor: Sponsor) -> Element(msg) {
         [img_element],
       )
   }
+}
+
+// Team Section
+fn team_section() -> Element(msg) {
+  section([id("team"), class("py-20 px-6 bg-base-100")], [
+    div([class("max-w-2xl mx-auto")], [
+      h2([class("text-2xl font-bold text-center mb-10 tracking-tight")], [
+        text("Team"),
+      ]),
+      members_section("座長", team.leaders()),
+      members_section("スタッフ", team.staff()),
+    ]),
+  ])
+}
+
+fn members_section(title: String, members: List(team.Member)) -> Element(msg) {
+  let member_to_item = fn(member) {
+    a(
+      [
+        class(
+          "flex flex-col items-center gap-2 p-2 rounded-lg hover:bg-base-200"
+          <> "transition-colors no-underline text-inherit text-[10px] text-center",
+        ),
+        attribute("target", "_blank"),
+        attribute("rel", "noopener noreferrer"),
+        attribute("href", member |> team.github_url),
+      ],
+      [
+        img([
+          class("w-10 h-10 object-cover rounded-full border border-black/5"),
+          attribute("alt", member.id),
+          src(member |> team.avatar_url),
+        ]),
+        span([], [text(member.id)]),
+      ],
+    )
+  }
+  div([class("mb-8")], [
+    h3(
+      [class("text-base font-semibold text-center text-base-content/60 mb-4")],
+      [text(title)],
+    ),
+    div(
+      [
+        class(
+          "grid grid-cols-[repeat(auto-fill,minmax(80px,1fr))] gap-2 justify-center",
+        ),
+      ],
+      members |> list.map(member_to_item),
+    ),
+  ])
 }
