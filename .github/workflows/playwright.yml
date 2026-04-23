@@ -13,7 +13,7 @@ jobs:
       - name: Build Playwright Docker image
         run: npm run docker:build
       - name: Run Playwright tests in Docker
-        run: npm run docker:run 'npm run pretest && npx playwright test'
+        run: npm run docker:run 'npm run pretest && npm run build:html && npx playwright test'
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
