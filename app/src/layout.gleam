@@ -79,7 +79,6 @@ pub fn spa_frame(content: Element(Nil)) -> Element(Nil) {
     ]),
     body([class("min-h-screen flex flex-col")], [
       navbar(),
-      sub_header(),
       content,
       footer(),
     ]),
@@ -175,20 +174,6 @@ fn navbar() -> Element(msg) {
         icon: "/icons/hatenablog.svg",
       ),
     ]),
-  ])
-}
-
-fn sub_header() -> Element(msg) {
-  div([class("bg-primary text-primary-content text-center py-2 px-4 text-sm")], [
-    a(
-      [
-        attribute("href", "https://fortee.jp/2026fp-matsuri/proposal"),
-        target("_blank"),
-        rel("noopener noreferrer"),
-        class("font-bold hover:opacity-80 transition-opacity"),
-      ],
-      [text("公募セッションのCfPは 4月5日(日) 23:59 までにご応募ください")],
-    ),
   ])
 }
 
