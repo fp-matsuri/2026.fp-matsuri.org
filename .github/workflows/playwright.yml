@@ -9,12 +9,12 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Build Playwright Docker image
         run: npm run docker:build
       - name: Run Playwright tests in Docker
         run: npm run docker:run 'npm run pretest && npm run build:html && npx playwright test'
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
