@@ -287,7 +287,7 @@ fn ticket_section() -> Element(msg) {
                   ),
                   ticket_row(
                     "懇親会のみ ※締め切り注意",
-                    "After-party Only (*Does not include conference admission)",
+                    "After-party Only (*Please note the deadline)",
                     6_000,
                   ),
                   ticket_row(
