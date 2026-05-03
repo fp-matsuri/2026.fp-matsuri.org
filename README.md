@@ -34,6 +34,9 @@ npm install
 ```sh
 cd app
 gleam run -m lustre/dev start
+
+# npm run dev でも起動します。
+
 ```
 
 ブラウザで http://localhost:1234 を開いてください。
