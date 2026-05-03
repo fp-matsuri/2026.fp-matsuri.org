@@ -11,7 +11,8 @@ import layout.{type Page, Page}
 import lustre/attribute.{attribute, class, id, src}
 import lustre/element.{type Element}
 import lustre/element/html.{
-  a, br, div, h2, h3, img, li, p, section, span, text, ul,
+  a, br, div, h2, h3, img, li, p, section, span, table, tbody, td, text, th,
+  thead, tr, ul,
 }
 import simplifile
 import sponsor.{type Sponsor, Community, Individual, Sponsor}
@@ -22,6 +23,7 @@ pub fn page() -> Page(msg) {
     hero_section(),
     announcements_section(),
     about_section(),
+    ticket_section(),
     sponsor_recruitment_section(),
     team_section(),
   ])
@@ -237,6 +239,85 @@ fn about_section() -> Element(msg) {
       ),
     ]),
   ])
+}
+
+// Ticket Section
+fn ticket_section() -> Element(msg) {
+  section([id("tickets"), class("py-20 px-6 bg-base-100")], [
+    div([class("max-w-2xl mx-auto")], [
+      h2([class("text-2xl font-bold text-center mb-10 tracking-tight")], [
+        text("チケット"),
+      ]),
+      div(
+        [
+          class(
+            "card bg-neutral text-neutral-content border border-subtle shadow-none",
+          ),
+        ],
+        [
+          div([class("card-body p-8 md:p-10")], [
+            div([class("overflow-x-auto mb-8")], [
+              table([class("table w-full")], [
+                thead([], [
+                  tr([], [
+                    th([], [text("種別")]),
+                    th([class("text-right")], [text("金額（税込）")]),
+                  ]),
+                ]),
+                tbody([], [
+                  ticket_row(
+                    "一般（懇親会なし）",
+                    "General Admission (Conference Only)",
+                    10_000,
+                  ),
+                  ticket_row(
+                    "一般（懇親会あり）",
+                    "General Admission (with After-party)",
+                    16_000,
+                  ),
+                  ticket_row("学生（懇親会なし）", "Student (Conference Only)", 5000),
+                  ticket_row("学生（懇親会あり）", "Student (with After-party)", 8000),
+                  ticket_row(
+                    "懇親会のみ ※締め切り注意",
+                    "After-party Only (*Please note the deadline)",
+                    6000,
+                  ),
+                  ticket_row("1日券（懇親会なし）", "1-Day Pass (Conference Only)", 5000),
+                ]),
+              ]),
+            ]),
+            div([class("card-actions justify-center")], [
+              button.primary(
+                label: "チケットを購入（Doorkeeper）",
+                url: "https://fp-matsuri.doorkeeper.jp/events/196475",
+              ),
+            ]),
+          ]),
+        ],
+      ),
+    ]),
+  ])
+}
+
+fn ticket_row(ja: String, en: String, price: Int) -> Element(msg) {
+  tr([], [
+    td([], [
+      span([class("block")], [text(ja)]),
+      span([class("block text-sm text-base-content/60")], [text(en)]),
+    ]),
+    td([class("text-right tabular-nums whitespace-nowrap")], [
+      text("¥" <> format_ticket_price(price)),
+    ]),
+  ])
+}
+
+fn format_ticket_price(price: Int) -> String {
+  let s = int.to_string(price)
+  let len = string.length(s)
+  case len > 3 {
+    True -> string.slice(s, 0, len - 3) <> "," <> string.slice(s, len - 3, 3)
+    False -> s
+  }
 }
 
 // Sponsor Section
