@@ -21,3 +21,7 @@ node_modules
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+
+# direnv
+.direnv
