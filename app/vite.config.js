@@ -50,6 +50,24 @@ function gleamWatchPlugin() {
     configureServer(server) {
       const srcDir = resolve(__dirname, "src");
 
+      // 初回起動時にビルドを実行
+      console.log("[gleam-watch] Running initial build...");
+      try {
+        console.log("$ gleam run -m build");
+        const out = execSync("gleam run -m build", {
+          encoding: "utf8",
+          cwd: __dirname,
+        });
+        console.log(out);
+        execSync("mkdir -p arctic_build/src && cp src/app.css arctic_build/src/", {
+          encoding: "utf8",
+          cwd: __dirname,
+        });
+        console.log("[gleam-watch] Initial build completed");
+      } catch (error) {
+        console.error("[gleam-watch] Initial build failed:", error.message);
+      }
+
       // src/ディレクトリを再帰的に監視
       watcher = watch(srcDir, { recursive: true }, (eventType, filename) => {
         if (filename && filename.endsWith(".gleam")) {

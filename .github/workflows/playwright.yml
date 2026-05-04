@@ -9,26 +9,12 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: erlef/setup-beam@v1
-        with:
-          otp-version: "28"
-          gleam-version: "1.13.0"
-          rebar3-version: "3"
-      - name: Install Gleam dependencies
-        run: cd app && gleam deps download
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-      - name: Install dependencies
-        run: npm ci
-      - name: Build site
-        run: npm run build
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-      - name: Run Playwright tests
-        run: npx playwright test
-      - uses: actions/upload-artifact@v4
+      - uses: actions/checkout@v6
+      - name: Build Playwright Docker image
+        run: npm run docker:build
+      - name: Run Playwright tests in Docker
+        run: npm run docker:run 'npm run pretest && npm run build:html && npx playwright test'
+      - uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
