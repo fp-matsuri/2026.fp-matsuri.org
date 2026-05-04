@@ -1,12 +1,8 @@
-import gleam/dynamic.{type Dynamic}
 import gleam/dynamic/decode
-import gleam/http/request
-import gleam/httpc
 import gleam/json
-import gleam/list
-import gleam/option.{type Option, None, Some}
+import gleam/option.{type Option, None}
 import gleam/result
-import gleam/string
+import simplifile
 
 pub type Session {
   Session(
@@ -29,56 +25,22 @@ pub type SessionTag {
   SessionTag(name: String)
 }
 
-const timetable_url = "https://fortee.jp/2026fp-matsuri/api/timetable"
+const sessions_file_path = "../content/sessions.json"
 
 pub fn load_sessions() -> Result(List(Session), String) {
   {
-    use content <- result.try(load_schedule_json())
+    use content <- result.try(
+      simplifile.read(sessions_file_path)
+      |> result.replace_error("sessions.json を読み込めませんでした"),
+    )
     use sessions <- result.try(
-      case json.parse(content, schedule_decoder()) {
+      case json.parse(content, decode.list(session_decoder())) {
         Ok(items) -> Ok(items)
-        Error(_) -> Error("fortee API のレスポンスを decode できませんでした")
+        Error(_) -> Error("sessions.json を decode できませんでした")
       },
     )
     Ok(sessions)
   }
-}
-
-fn load_schedule_json() -> Result(String, String) {
-  let request =
-    case request.to(timetable_url) {
-      Ok(req) -> req
-      Error(_) -> panic as "fortee timetable URL が不正です"
-    }
-
-  case httpc.send(request) {
-    Ok(response) -> Ok(response.body)
-    Error(error) ->
-      Error("fortee API の取得に失敗しました: " <> string.inspect(error))
-  }
-}
-
-fn schedule_decoder() -> decode.Decoder(List(Session)) {
-  use timetable <- decode.field("timetable", decode.list(decode.dynamic))
-  decode.success(timetable |> list.map(decode_session) |> option.values)
-}
-
-fn decode_session(item: Dynamic) -> Option(Session) {
-  case decode.run(item, accepted_decoder()) {
-    Ok(True) ->
-      case decode.run(item, session_decoder()) {
-        Ok(session) -> Some(session)
-        Error(_) -> None
-      }
-
-    Ok(False) -> None
-    Error(_) -> None
-  }
-}
-
-fn accepted_decoder() -> decode.Decoder(Bool) {
-  use accepted <- decode.field("accepted", decode.bool)
-  decode.success(accepted)
 }
 
 fn session_decoder() -> decode.Decoder(Session) {

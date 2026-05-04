@@ -74,8 +74,8 @@ function gleamWatchPlugin() {
           console.log(`\n[gleam-watch] ${filename} changed, rebuilding...`);
           try {
             // ArcticのSSGビルドを実行してHTMLを再生成
-            console.log("$ gleam run --target erlang -m build");
-            const out = execSync("gleam run --target erlang -m build", {
+            console.log("$ gleam run -m build");
+            const out = execSync("gleam run -m build", {
               encoding: "utf8",
               cwd: __dirname,
             });
