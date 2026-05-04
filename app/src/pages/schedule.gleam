@@ -23,13 +23,21 @@ fn page_header() -> Element(msg) {
         text("セッション一覧"),
       ]),
       p([class("text-base leading-relaxed max-w-2xl mx-auto")], [
-        text(
-          "時刻・トラック情報は今後反映予定です。",
-        ),
+        text("時刻・トラック情報は今後反映予定です。"),
       ]),
-      div([class("mt-6 flex flex-col sm:flex-row gap-3 justify-center items-center")], [
-        button.primary(label: "fortee で詳細を見る", url: "https://fortee.jp/2026fp-matsuri"),
-      ]),
+      div(
+        [
+          class(
+            "mt-6 flex flex-col sm:flex-row gap-3 justify-center items-center",
+          ),
+        ],
+        [
+          button.primary(
+            label: "fortee で詳細を見る",
+            url: "https://fortee.jp/2026fp-matsuri",
+          ),
+        ],
+      ),
     ]),
   ])
 }
@@ -47,32 +55,29 @@ fn sessions_section(sessions: Result(List(Session), String)) -> Element(msg) {
 }
 
 fn empty_state() -> Element(msg) {
-  div(
-    [class("card bg-base-200 border border-subtle shadow-none")],
-    [
-      div([class("card-body p-8 text-center")], [
-        p([class("text-base leading-relaxed")], [
-          text("現在表示できるセッションはありません。"),
-        ]),
+  div([class("card bg-base-200 border border-subtle shadow-none")], [
+    div([class("card-body p-8 text-center")], [
+      p([class("text-base leading-relaxed")], [
+        text("現在表示できるセッションはありません。"),
       ]),
-    ],
-  )
+    ]),
+  ])
 }
 
 fn error_state() -> Element(msg) {
-  div(
-    [class("card bg-base-200 border border-subtle shadow-none")],
-    [
-      div([class("card-body p-8 text-center")], [
-        p([class("text-base leading-relaxed")], [
-          text("セッション情報を読み込めませんでした。最新情報は fortee をご確認ください。"),
-        ]),
-        div([class("mt-4")], [
-          button.primary(label: "fortee を開く", url: "https://fortee.jp/2026fp-matsuri"),
-        ]),
+  div([class("card bg-base-200 border border-subtle shadow-none")], [
+    div([class("card-body p-8 text-center")], [
+      p([class("text-base leading-relaxed")], [
+        text("セッション情報を読み込めませんでした。最新情報は fortee をご確認ください。"),
       ]),
-    ],
-  )
+      div([class("mt-4")], [
+        button.primary(
+          label: "fortee を開く",
+          url: "https://fortee.jp/2026fp-matsuri",
+        ),
+      ]),
+    ]),
+  ])
 }
 
 fn session_card(item: Session) -> Element(msg) {
@@ -88,7 +93,10 @@ fn session_card(item: Session) -> Element(msg) {
     [
       div([class("card-body p-6 md:p-8 gap-5")], [
         div([class("flex flex-col gap-3")], [
-          div([class("flex flex-wrap items-center gap-2")], list.map(item.tags, session_tag)),
+          div(
+            [class("flex flex-wrap items-center gap-2")],
+            list.map(item.tags, session_tag),
+          ),
           p([class("text-xl font-bold leading-tight")], [text(item.title)]),
         ]),
         speaker_block(item),

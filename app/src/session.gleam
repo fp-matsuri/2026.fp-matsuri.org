@@ -5,20 +5,11 @@ import gleam/result
 import simplifile
 
 pub type Session {
-  Session(
-    url: String,
-    title: String,
-    speaker: Speaker,
-    tags: List(SessionTag),
-  )
+  Session(url: String, title: String, speaker: Speaker, tags: List(SessionTag))
 }
 
 pub type Speaker {
-  Speaker(
-    name: String,
-    kana: String,
-    avatar_url: Option(String),
-  )
+  Speaker(name: String, kana: String, avatar_url: Option(String))
 }
 
 pub type SessionTag {
