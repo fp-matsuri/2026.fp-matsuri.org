@@ -1,0 +1,754 @@
+[
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/2040db10-f825-4378-a854-a953c01e14ff",
+    "title": "関数型の考えをTypeScriptに持ち込んで、テストしやすい純粋関数を増やす—Functional Core, Imperative Shellの実践—",
+    "speaker": {
+      "name": "Shimmy",
+      "kana": "シミー",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/11a6a3f2-d1cd-4fea-9c3f-d69f76f3eda7.jpg"
+    },
+    "tags": [
+      {
+        "name": "実践手法"
+      },
+      {
+        "name": "導入/活用事例"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/09478e6b-049e-409d-a315-0d310a687871",
+    "title": "美しいコードを書くためにF#を学んでみた話",
+    "speaker": {
+      "name": "0yu",
+      "kana": "オユ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/2207fe22-8724-4efe-8d86-9eaf3d6d7d6b.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "理論"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/5fe03d91-00cc-476f-bfc3-073c6f44aa91",
+    "title": "2026 年に読む “The Definition of Standard ML” 〜 現代の堅牢なソフトウェア設計の源流として",
+    "speaker": {
+      "name": "芳賀 雅樹 (silasolla)",
+      "kana": "ハガ マサキ (シラソラ)",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/7202d3c3-e7dd-4d6f-98cf-bf61dcb96a29.png"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "理論"
+      },
+      {
+        "name": "実践手法"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/ff1410bc-10d6-42ad-89d3-315d4abd9b06",
+    "title": "Robloxでのゲーム開発に使う言語「Luau」について",
+    "speaker": {
+      "name": "HOSHINO Yūya",
+      "kana": "ホシノユウヤ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/44635a72-05b4-4aa3-940c-dd885d633121.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "入門解説"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/694610af-8e9f-49e0-b5b0-b14f4715cd6c",
+    "title": "本物のプログラマーは unsafe と型システムを使う 〜拡張可能レコードを作って学ぶ黒魔術入門〜",
+    "speaker": {
+      "name": "konn",
+      "kana": "コン",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/382c9263-6947-4742-beab-d85a0261db06.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "実践手法"
+      },
+      {
+        "name": "入門解説"
+      },
+      {
+        "name": "ライブラリ/フレームワーク"
+      },
+      {
+        "name": "言語処理系/開発ツール"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/22ce2709-f9c9-493a-8596-808b05620659",
+    "title": "パッケージマネージャー Nix はなぜ純粋関数型言語で設定を記述するのか",
+    "speaker": {
+      "name": "ryu",
+      "kana": "リュウ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/720dd88a-9d60-4132-b5fa-efce892062ba.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "実践手法"
+      },
+      {
+        "name": "入門解説"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/48dabf60-2bcf-47f7-ada0-af638ee6af52",
+    "title": "型は壁、Rustでもバグを直すな、表現できなくせよ",
+    "speaker": {
+      "name": "nwiizo",
+      "kana": "ぬうぃぞう",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/f4f14586-894a-49f8-9d09-bbda3b414948.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "実践手法"
+      },
+      {
+        "name": "入門解説"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/02925098-b3c9-4814-b6a1-e0a710399be0",
+    "title": "速習FP in Scala with Flix: Flix言語で親しむ純粋関数型のコード設計",
+    "speaker": {
+      "name": "lagénorhynque/カマイルカ",
+      "kana": "カマイルカ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/c9f8fd4d-d1c1-46e7-87d9-d8df5fef4cb6.jpg"
+    },
+    "tags": [
+      {
+        "name": "理論"
+      },
+      {
+        "name": "実践手法"
+      },
+      {
+        "name": "入門解説"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/b96bc937-7a73-45c7-81ea-ac41085aef89",
+    "title": "Rustで宣言的ストリームDSLを設計する: async boundary と island 実行モデル",
+    "speaker": {
+      "name": "かとじゅん",
+      "kana": "カトジュン",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/c5fd29c0-a89d-4d82-907c-03abe502d9cc.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "実践手法"
+      },
+      {
+        "name": "ライブラリ/フレームワーク"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/1c388c15-55f1-4185-a620-cf2929f26cb9",
+    "title": "OCamlで作ったアプリを実運用している",
+    "speaker": {
+      "name": "Yuki Tajiri",
+      "kana": "タジリユウキ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/257aa52e-9fb4-4447-b19a-f796781c5b1f.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "導入/活用事例"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/904cc5d9-b328-450e-8f60-5c3bf4200b51",
+    "title": "ElixirのGenServerでアクタープログラミングしてみよう 〜Pub/Sub使って広域分散環境でマイグレーションも出来るよ〜",
+    "speaker": {
+      "name": "菊池 豊",
+      "kana": "キクチ ユタカ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/3bd4507d-d980-4130-88a6-c7c501666d78.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "実践手法"
+      },
+      {
+        "name": "入門解説"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/bc8c27a9-8dec-4284-9555-7c4816fb1191",
+    "title": "LLMに書かせる前提で設計された言語の設計について議論して｡",
+    "speaker": {
+      "name": "びしょ～じょ",
+      "kana": "びしょうじょ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/a7a719a2-b2a3-4286-a07e-b5bc30a81675.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "言語処理系/開発ツール"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/8e81ee8e-df0e-4fa5-9cbc-f4fb797b81cb",
+    "title": "壊れたパーサからはじめる関数型設計と構成的なパーサ",
+    "speaker": {
+      "name": "ライガー",
+      "kana": "ライガー",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/70fdaf13-df1a-4689-ae9d-6f3b201d7944.jpg"
+    },
+    "tags": [
+      {
+        "name": "実践手法"
+      },
+      {
+        "name": "入門解説"
+      },
+      {
+        "name": "言語処理系/開発ツール"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/6d3ef026-d458-4738-94a9-120935fc64d0",
+    "title": "モナディックPython — Resultモナドで型安全なAPI開発",
+    "speaker": {
+      "name": "野村尚新",
+      "kana": "ノムラショウシン",
+      "avatar_url": null
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "実践手法"
+      },
+      {
+        "name": "ライブラリ/フレームワーク"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/a7f8f1d8-5ae9-4610-aeab-cc0827f775e7",
+    "title": "PHPだって関数型したい 〜できること、できないこと〜",
+    "speaker": {
+      "name": "せきね じゅん",
+      "kana": "セキネ ジュン",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/1ba5fe88-db3f-4d99-9dca-5395223e6f4a.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/477e0574-83a4-490b-9d89-ada5178c72c6",
+    "title": "モナドっていうほど関数型プログラミング関係なさそうだよな",
+    "speaker": {
+      "name": "山本悠滋",
+      "kana": "ヤマモト ユウジ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/7fbd7eaa-8698-4fb9-92f1-2eae52501fb4.png"
+    },
+    "tags": [
+      {
+        "name": "理論"
+      },
+      {
+        "name": "入門解説"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/d25cd96a-d70b-40d8-98a1-a3b5730d3563",
+    "title": "証券システムを10年Scalaで作り続けるということ",
+    "speaker": {
+      "name": "Ken Kaizu",
+      "kana": "カイヅ ケン",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/d6a0f506-c09f-4292-a1b0-6b59e086bafa.jpg"
+    },
+    "tags": [
+      {
+        "name": "導入/活用事例"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/f55403ba-4808-4028-8794-7e73c55b3d39",
+    "title": "Scalaで作る型安全性を保持する暗号化ライブラリ",
+    "speaker": {
+      "name": "Toshifumi Takahashi",
+      "kana": "たかはしとしふみ",
+      "avatar_url": null
+    },
+    "tags": [
+      {
+        "name": "実践手法"
+      },
+      {
+        "name": "入門解説"
+      },
+      {
+        "name": "ライブラリ/フレームワーク"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/1d67613a-67d5-4f17-98ab-d5737f88d735",
+    "title": "入門ラムダ計算 with λ-1グランプリ！",
+    "speaker": {
+      "name": "うさみけんた",
+      "kana": "ウサミケンタ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/0c809148-c5f4-404f-bc0a-b2a0fe6369fd.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "入門解説"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/0950c519-6c98-4db6-b819-eff0f4f3d06e",
+    "title": "Lean 4をRTL開発の中核にする — Sparkle におけるJIT、検証、Reverse Synthesis(逆合成)",
+    "speaker": {
+      "name": "橋本順之",
+      "kana": "ハシモトジュンジ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/433b46b4-5f96-4c48-9518-cfd32b5ec396.png"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "理論"
+      },
+      {
+        "name": "実践手法"
+      },
+      {
+        "name": "ライブラリ/フレームワーク"
+      },
+      {
+        "name": "言語処理系/開発ツール"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/42048a4e-188f-452f-9661-2e670d0a997d",
+    "title": "Leanで学ぼう等式推論（証明もあるよ！）",
+    "speaker": {
+      "name": "井山梃子歴史館",
+      "kana": "イヤマテコレキシカン",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/c0d5395f-30a2-4121-9041-8b8371e25a23.jpg"
+    },
+    "tags": [
+      {
+        "name": "理論"
+      },
+      {
+        "name": "入門解説"
+      },
+      {
+        "name": "言語処理系/開発ツール"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/ea2c981c-e3c6-44cd-b324-e07125e4d97c",
+    "title": "Haskellと圏論：パフォーマンス改善からKan拡張へ",
+    "speaker": {
+      "name": "グミ",
+      "kana": "グミ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/ad887ca2-fd5c-4b75-9343-967677c6a94c.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "理論"
+      },
+      {
+        "name": "ライブラリ/フレームワーク"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/310a9a71-f65b-4ad1-a6d6-81878923cfb3",
+    "title": "Welcome to the \"Parametricity\" 🏙️ − Generic だけど Specific な世界 −",
+    "speaker": {
+      "name": "TAKASE Kazuyuki",
+      "kana": "タカセ カズユキ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/3e3905fb-1980-45dc-af2a-cfaa308e3178.jpg"
+    },
+    "tags": [
+      {
+        "name": "理論"
+      },
+      {
+        "name": "入門解説"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/9ea50244-ce54-444e-88db-966833807a18",
+    "title": "継続モナドとリアクティブプログラミング",
+    "speaker": {
+      "name": "ゆきくらげ",
+      "kana": "ユキクラゲ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/510efcca-28bd-4a96-b0b4-ddb260293696.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "理論"
+      },
+      {
+        "name": "実践手法"
+      },
+      {
+        "name": "ライブラリ/フレームワーク"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/38550805-5329-47d1-adcd-b28f33883730",
+    "title": "Rewriting Electrical Grid Modelling Software: Lessons in Functional Domain Modeling with F#",
+    "speaker": {
+      "name": "Almir Mesic",
+      "kana": "アルミル・メシク",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/946645ce-aa6c-4d5c-9db9-8f9fc8d5f02d.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "実践手法"
+      },
+      {
+        "name": "導入/活用事例"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/29169622-8801-4dd1-8017-59cfff560d89",
+    "title": "ぼくのかんがえたさいきょうの alt TLA+",
+    "speaker": {
+      "name": "Show",
+      "kana": "ショウ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/0a8a1278-8aee-4d44-9c64-a143add0e222.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "言語処理系/開発ツール"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/eac488c1-4297-43a2-b62d-317efe1cee7d",
+    "title": "アルゴリズムは何を圧縮しているのか: Haskell から育った「圧縮代数」というメンタルモデル",
+    "speaker": {
+      "name": "naoya",
+      "kana": "ナオヤ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/5565402c-0a34-4b8c-b891-d1d5833efc03.jpeg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "理論"
+      },
+      {
+        "name": "実践手法"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/bcfb568b-11bc-43f4-91b0-7218c347df93",
+    "title": "暗号実装における辛さを関数型によって解決してみよう",
+    "speaker": {
+      "name": "Curiosity",
+      "kana": "キュリオシティー",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/d9cf8c06-90ff-489c-85e4-85d3e556f83f.jpg"
+    },
+    "tags": [
+      {
+        "name": "実践手法"
+      },
+      {
+        "name": "入門解説"
+      },
+      {
+        "name": "導入/活用事例"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/fa09ce67-e97a-4c1f-bbf1-0006cdb85ed9",
+    "title": "世界がない物理エンジン",
+    "speaker": {
+      "name": "Andrey Kuzmin",
+      "kana": "アンドレイ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/10b1462b-217e-4153-ad61-35423af428e8.jpg"
+    },
+    "tags": [
+      {
+        "name": "理論"
+      },
+      {
+        "name": "ライブラリ/フレームワーク"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/a7a9001c-b880-49ac-b2c5-1a9fedbccc12",
+    "title": "なぜ多くの言語はHigher Kinded Typesをサポートしないのか",
+    "speaker": {
+      "name": "Ryo Matsumoto",
+      "kana": "マツモトリョウ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/ae92944c-b99e-43f3-bd6f-4a085d5e68d1.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "理論"
+      },
+      {
+        "name": "実践手法"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/68cb9035-4021-4260-8609-f3cd6b6b9569",
+    "title": "結局のところ「代数的」って何なの？ 〜霧の向こうの代数的エフェクト〜",
+    "speaker": {
+      "name": "funnycat",
+      "kana": "ファニーキャット",
+      "avatar_url": null
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "理論"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/bbc88a7c-aa62-4909-9c33-f59b98cb54ff",
+    "title": "証明駆動競技プログラミング: セグメント木ライブラリの検証",
+    "speaker": {
+      "name": "水野 雅之",
+      "kana": "ミズノ マサユキ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/6b65d0b0-3938-4a72-808e-6f609a83d228.jpg"
+    },
+    "tags": [
+      {
+        "name": "理論"
+      },
+      {
+        "name": "導入/活用事例"
+      },
+      {
+        "name": "ライブラリ/フレームワーク"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/a114cef5-c18d-4ad5-ad34-ec7c8b6d5583",
+    "title": "Haskell/Servantを通してWebミドルウェアを捉え直す",
+    "speaker": {
+      "name": "ぴざきゃっと",
+      "kana": "ピザキャット",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/0522f25a-244f-4ff3-9f31-e1689947c225.jpg"
+    },
+    "tags": [
+      {
+        "name": "入門解説"
+      },
+      {
+        "name": "ライブラリ/フレームワーク"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/7327e938-850d-40b3-b6f5-dd3b5447523c",
+    "title": "音楽のための関数型プログラミング言語mimiumにおける多段階計算の活用",
+    "speaker": {
+      "name": "松浦知也",
+      "kana": "マツウラトモヤ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/2a7d1968-ec48-43c9-be1b-e1315c332626.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "理論"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/6d74ce7f-c22b-444d-840f-edd5a88c0631",
+    "title": "代数的エフェクトの高速化技法と発展的な機能",
+    "speaker": {
+      "name": "りよ",
+      "kana": "リヨ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/64844d1e-de15-497f-9de8-6f6d116a23fd.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "理論"
+      },
+      {
+        "name": "ライブラリ/フレームワーク"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/fa95a020-5580-4b6b-9464-b12ea940d613",
+    "title": "なぜ関数型プログラミングで「型」と「証明」が語られるのか",
+    "speaker": {
+      "name": "梶川琢馬",
+      "kana": "カジカワ タクマ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/c20a528e-e2fe-4d01-89a1-f4eb87a67dbd.jpg"
+    },
+    "tags": [
+      {
+        "name": "入門解説"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/faa34794-e581-4601-b6e1-5db20312aeec",
+    "title": "「弱い」世界から分解する「データ型」の概念",
+    "speaker": {
+      "name": "Kory",
+      "kana": "コリー",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/83740390-1d59-42a2-8e26-9425d2914790.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "理論"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/4bf488b7-32f1-4544-8ea8-50e775133b65",
+    "title": "フロントエンド・バックエンド・アプリをClojureで揃えてみて分かったこと",
+    "speaker": {
+      "name": "jyamakawa",
+      "kana": "ジャマカワ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/f9ec6770-21d1-4d88-a345-61c60072e676.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "実践手法"
+      },
+      {
+        "name": "導入/活用事例"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/21ea9d66-0220-43b5-92bb-6ce79b18c209",
+    "title": "多段階計算によるコンパイル時テンソル形状検査",
+    "speaker": {
+      "name": "gfn (Takashi Suwa)",
+      "kana": "ゲフン",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/e3c317ac-5b30-4963-9ea6-12975966c3a0.jpg"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "理論"
+      }
+    ]
+  },
+  {
+    "url": "https://fortee.jp/2026fp-matsuri/proposal/e065afe0-326a-43ba-b12b-0805ac0cd1a9",
+    "title": "型推論入門 ― Hindley-Milnerの仕組みと実装の違い",
+    "speaker": {
+      "name": "こまもか",
+      "kana": "コマモカ",
+      "avatar_url": "https://fortee.jp/files/2026fp-matsuri/speaker/1cd4138e-c54a-40d2-ab38-23bc9f3f2bb9.png"
+    },
+    "tags": [
+      {
+        "name": "言語"
+      },
+      {
+        "name": "理論"
+      },
+      {
+        "name": "言語処理系/開発ツール"
+      }
+    ]
+  }
+]

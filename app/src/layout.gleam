@@ -190,6 +190,7 @@ fn footer() -> Element(msg) {
           html.h3([class("footer-title")], [
             text("関数型まつり2026"),
           ]),
+          nav_link(label: "セッション一覧", url: "/schedule/"),
           nav_link(label: "スポンサー", url: "/sponsors/"),
           nav_link(label: "行動規範", url: "/code-of-conduct/"),
           nav_link(label: "fortee", url: "https://fortee.jp/2026fp-matsuri"),

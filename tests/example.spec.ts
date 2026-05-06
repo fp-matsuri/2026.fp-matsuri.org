@@ -42,6 +42,20 @@ test.describe("Sponsors Page Visual Tests", () => {
   });
 });
 
+test.describe("Schedule Page Visual Tests", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/schedule/");
+    await page.locator("body").waitFor({ state: "visible" });
+    await page.waitForTimeout(1000);
+  });
+
+  test("should render the schedule page correctly", async ({ page }) => {
+    await expect(page).toHaveScreenshot("schedule-page.png", {
+      fullPage: true,
+    });
+  });
+});
+
 test.describe("404 Page Visual Tests", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/404");
