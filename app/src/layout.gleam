@@ -148,7 +148,7 @@ fn page_head(page_title: String) -> Element(msg) {
 }
 
 fn navbar() -> Element(msg) {
-  div([class("navbar bg-base-100 px-4")], [
+  div([class("navbar bg-base-100 px-4 relative z-50")], [
     div([class("navbar-start")], [
       a([href("/")], [
         img([
