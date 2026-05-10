@@ -3,7 +3,8 @@ import gleam/string
 import lustre/attribute.{attribute, class, href, rel, src, target}
 import lustre/element.{type Element}
 import lustre/element/html.{
-  a, aside, body, div, head, html, img, link, meta, nav, p, script, text,
+  a, aside, body, details, div, head, html, img, li, link, meta, nav, p, script,
+  summary, text, ul,
 }
 
 // Site metadata constants
@@ -147,7 +148,7 @@ fn page_head(page_title: String) -> Element(msg) {
 }
 
 fn navbar() -> Element(msg) {
-  div([class("navbar bg-base-100 px-4")], [
+  div([class("navbar bg-base-100 px-4 relative z-50")], [
     div([class("navbar-start")], [
       a([href("/")], [
         img([
@@ -157,23 +158,44 @@ fn navbar() -> Element(msg) {
         ]),
       ]),
     ]),
-    div([class("navbar-end gap-1")], [
-      social_link(
-        label: "Follow us on X",
-        url: "https://x.com/fp_matsuri",
-        icon: "/icons/x.svg",
-      ),
-      social_link(
-        label: "Bluesky",
-        url: "https://bsky.app/profile/fp-matsuri.bsky.social",
-        icon: "/icons/bluesky.svg",
-      ),
-      social_link(
-        label: "関数型まつり運営ブログ",
-        url: "https://blog.fp-matsuri.org/",
-        icon: "/icons/hatenablog.svg",
-      ),
+    div([class("navbar-center")], [
+      ul([class("hidden md:flex menu menu-horizontal px-1")], nav_items()),
     ]),
+    div([class("navbar-end")], [
+      navbar_dropdown(),
+      div([class("hidden md:flex gap-1")], social_links()),
+    ]),
+  ])
+}
+
+fn navbar_dropdown() -> Element(msg) {
+  details([class("dropdown dropdown-end md:hidden")], [
+    summary(
+      [
+        class("btn btn-ghost btn-circle border-none hover:bg-base-300"),
+        attribute("aria-label", "メニューを開く"),
+      ],
+      [
+        img([
+          src("/icons/hamburger.svg"),
+          attribute("alt", ""),
+          class("w-5 h-5"),
+        ]),
+      ],
+    ),
+    ul(
+      [
+        class(
+          "menu menu-md dropdown-content bg-white rounded-box z-[1] mt-3 w-52 p-2 shadow",
+        ),
+        attribute("onclick", "this.parentElement.open = false"),
+      ],
+      list.append(nav_items(), [
+        li([class("mt-2 border-t border-base-200")], [
+          div([class("flex gap-1 pt-2 hover:bg-transparent")], social_links()),
+        ]),
+      ]),
+    ),
   ])
 }
 
@@ -210,23 +232,7 @@ fn footer() -> Element(msg) {
               "w-full grid grid-flow-col gap-1 justify-center sm:justify-start",
             ),
           ],
-          [
-            social_link(
-              label: "X",
-              url: "https://x.com/fp_matsuri",
-              icon: "/icons/x.svg",
-            ),
-            social_link(
-              label: "Bluesky",
-              url: "https://bsky.app/profile/fp-matsuri.bsky.social",
-              icon: "/icons/bluesky.svg",
-            ),
-            social_link(
-              label: "関数型まつり運営ブログ",
-              url: "https://blog.fp-matsuri.org/",
-              icon: "/icons/hatenablog.svg",
-            ),
-          ],
+          social_links(),
         ),
       ]),
       aside([], [
@@ -271,4 +277,32 @@ fn nav_link(label label: String, url url: String) -> Element(msg) {
 
 fn is_external_link(url: String) -> Bool {
   string.starts_with(url, "http://") || string.starts_with(url, "https://")
+}
+
+fn nav_items() -> List(Element(msg)) {
+  [
+    li([], [a([href("/schedule/")], [text("セッション一覧")])]),
+    li([], [a([href("/sponsors/")], [text("スポンサー")])]),
+    li([], [a([href("/code-of-conduct/")], [text("行動規範")])]),
+  ]
+}
+
+fn social_links() -> List(Element(msg)) {
+  [
+    social_link(
+      label: "Follow us on X",
+      url: "https://x.com/fp_matsuri",
+      icon: "/icons/x.svg",
+    ),
+    social_link(
+      label: "Bluesky",
+      url: "https://bsky.app/profile/fp-matsuri.bsky.social",
+      icon: "/icons/bluesky.svg",
+    ),
+    social_link(
+      label: "関数型まつり運営ブログ",
+      url: "https://blog.fp-matsuri.org/",
+      icon: "/icons/hatenablog.svg",
+    ),
+  ]
 }
