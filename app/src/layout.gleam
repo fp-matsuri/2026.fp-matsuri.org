@@ -186,7 +186,7 @@ fn navbar_dropdown() -> Element(msg) {
     ul(
       [
         class(
-          "menu menu-md dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow",
+          "menu menu-md dropdown-content bg-white rounded-box z-[1] mt-3 w-52 p-2 shadow",
         ),
         attribute("onclick", "this.parentElement.open = false"),
       ],
