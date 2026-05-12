@@ -108,3 +108,56 @@ body > div:has(#arctic-app) {
     flex-direction: column;
     flex: 1;
 }
+
+/* Sponsor popover (HTML Popover API) */
+/* DaisyUI の .card が display/position を当てるため、UA の
+   [popover] デフォルト（display: none + position: fixed/inset:0/margin:auto による中央配置）
+   が上書きされる。display と位置を明示的に指定して復元する。 */
+.sponsor-popover {
+    display: none;
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+    transition:
+        opacity 180ms ease-out,
+        transform 180ms ease-out,
+        overlay 180ms ease-out allow-discrete,
+        display 180ms ease-out allow-discrete;
+}
+
+.sponsor-popover:popover-open {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+@starting-style {
+    .sponsor-popover:popover-open {
+        opacity: 0;
+        transform: translateY(8px) scale(0.98);
+    }
+}
+
+.sponsor-popover::backdrop {
+    opacity: 0;
+    background: oklch(0% 0 0 / 0.55);
+    backdrop-filter: blur(2px);
+    transition:
+        opacity 180ms ease-out,
+        overlay 180ms ease-out allow-discrete,
+        display 180ms ease-out allow-discrete;
+}
+
+.sponsor-popover:popover-open::backdrop {
+    opacity: 1;
+}
+
+@starting-style {
+    .sponsor-popover:popover-open::backdrop {
+        opacity: 0;
+    }
+}

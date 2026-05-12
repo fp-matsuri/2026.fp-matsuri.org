@@ -115,6 +115,17 @@ pub fn parse(content: String) -> Result(Sponsor, String) {
   Ok(Sponsor(name:, image:, href:, plan:, kind:, description:))
 }
 
+pub fn plan_to_string(plan: SponsorPlan) -> String {
+  case plan {
+    Platinum -> "platinum"
+    Gold -> "gold"
+    Silver -> "silver"
+    Logo -> "logo"
+    Support -> "support"
+    Cheerleader -> "cheerleader"
+  }
+}
+
 fn parse_plan(s: String) -> Result(SponsorPlan, String) {
   case string.lowercase(string.trim(s)) {
     "platinum" -> Ok(Platinum)
