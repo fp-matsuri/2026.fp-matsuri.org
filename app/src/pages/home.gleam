@@ -441,7 +441,7 @@ fn sponsor_logo_button(entry: SponsorEntry) -> Element(msg) {
       attribute("type", "button"),
       attribute("popovertarget", id),
       class(
-        "block w-full p-0 m-0 border-0 bg-transparent cursor-pointer transition-transform hover:scale-[1.02]",
+        "btn btn-ghost shadow-none w-full h-auto p-0 border-0 bg-transparent transition-transform hover:scale-[1.02]",
       ),
     ],
     [
@@ -467,7 +467,7 @@ fn cheerleader_logo_button(entry: SponsorEntry) -> Element(msg) {
       attribute("type", "button"),
       attribute("popovertarget", id),
       class(
-        "flex flex-col items-center gap-2 p-0 m-0 border-0 bg-transparent cursor-pointer transition-transform hover:scale-[1.05]",
+        "btn btn-ghost shadow-none flex-col gap-2 h-auto p-2 border-0 bg-transparent transition-transform hover:scale-[1.05]",
       ),
     ],
     [
@@ -480,7 +480,7 @@ fn cheerleader_logo_button(entry: SponsorEntry) -> Element(msg) {
 fn sponsor_popover(entry: SponsorEntry) -> Element(msg) {
   let SponsorEntry(
     id: popover_id,
-    sponsor: Sponsor(name:, image:, href:, description:, ..),
+    sponsor: Sponsor(name:, image:, href:, plan:, description:, ..),
   ) = entry
 
   let close_button =
@@ -491,7 +491,7 @@ fn sponsor_popover(entry: SponsorEntry) -> Element(msg) {
         attribute("popovertargetaction", "hide"),
         attribute("aria-label", "閉じる"),
         class(
-          "absolute top-3 right-3 w-8 h-8 inline-flex items-center justify-center rounded-full border-0 bg-base-200 hover:bg-base-300 text-base-content cursor-pointer",
+          "btn btn-sm btn-circle btn-neutral shadow-none absolute top-3 right-3",
         ),
       ],
       [text("✕")],
@@ -502,11 +502,19 @@ fn sponsor_popover(entry: SponsorEntry) -> Element(msg) {
       src(image),
       attribute("alt", name),
       class(
-        "w-full sm:w-64 h-auto aspect-[21/9] object-contain bg-white rounded-lg shrink-0",
+        "w-64 h-auto aspect-[21/9] object-contain rounded-lg shrink-0 mx-auto",
       ),
     ])
 
-  let title = h3([class("text-xl font-bold mt-4 mb-3")], [text(name)])
+  let plan_badge =
+    div([class("flex justify-center mt-3")], [
+      span([class("badge badge-outline badge-sm")], [
+        text(sponsor.plan_label(plan)),
+      ]),
+    ])
+
+  let title =
+    h3([class("text-lg font-bold mb-2 text-center")], [text(name)])
 
   let description_block = case description {
     "" -> element.none()
@@ -530,17 +538,9 @@ fn sponsor_popover(entry: SponsorEntry) -> Element(msg) {
   let link_block = case href {
     "" -> element.none()
     _ ->
-      a(
-        [
-          attribute("href", href),
-          attribute("target", "_blank"),
-          attribute("rel", "noopener noreferrer"),
-          class(
-            "btn btn-primary rounded-full gap-2 font-normal border-none shadow-none",
-          ),
-        ],
-        [text("公式サイトへ")],
-      )
+      div([class("flex justify-center mt-2")], [
+        button.primary(label: "サイトを見る", url: href),
+      ])
   }
 
   div(
@@ -548,13 +548,14 @@ fn sponsor_popover(entry: SponsorEntry) -> Element(msg) {
       id(popover_id),
       attribute("popover", "auto"),
       class(
-        "sponsor-popover card fixed inset-0 m-auto w-fit h-fit bg-base-100 text-base-content border border-subtle max-w-2xl max-h-[85vh] overflow-y-auto",
+        "sponsor-popover card fixed inset-0 m-auto w-fit h-fit bg-base-100 text-base-content max-w-xl max-h-[85vh] overflow-y-auto",
       ),
     ],
     [
       div([class("card-body relative")], [
         close_button,
         logo,
+        plan_badge,
         title,
         description_block,
         link_block,

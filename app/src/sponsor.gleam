@@ -117,6 +117,17 @@ pub fn parse(slug: String, content: String) -> Result(Sponsor, String) {
   Ok(Sponsor(slug:, name:, image:, href:, plan:, kind:, description:))
 }
 
+pub fn plan_label(plan: SponsorPlan) -> String {
+  case plan {
+    Platinum -> "プラチナスポンサー"
+    Gold -> "ゴールドスポンサー"
+    Silver -> "シルバースポンサー"
+    Logo -> "ロゴスポンサー"
+    Support -> "サポートスポンサー"
+    Cheerleader -> "応援団"
+  }
+}
+
 fn parse_plan(s: String) -> Result(SponsorPlan, String) {
   case string.lowercase(string.trim(s)) {
     "platinum" -> Ok(Platinum)
