@@ -15,7 +15,7 @@ import lustre/element/html.{
   thead, tr, ul,
 }
 import simplifile
-import sponsor.{type Sponsor, type SponsorPlan, Community, Individual, Sponsor}
+import sponsor.{type Sponsor, Community, Individual, Sponsor}
 import team
 
 pub fn page() -> Page(msg) {
@@ -389,21 +389,22 @@ fn sponsor_logos() -> Element(msg) {
   ])
 }
 
+type SponsorEntry {
+  SponsorEntry(id: String, sponsor: Sponsor)
+}
+
 fn plan_section(
   title: String,
   grid_class: String,
   sponsors: List(Sponsor),
-  render_logo: fn(String, Sponsor) -> Element(msg),
+  render_logo: fn(SponsorEntry) -> Element(msg),
 ) -> Element(msg) {
-  let indexed =
-    list.index_map(sponsors, fn(s, i) { #(popover_id(s.plan, i), s) })
+  let entries =
+    list.map(sponsors, fn(s) { SponsorEntry(id: popover_id(s), sponsor: s) })
   div([class("pt-8")], [
     h3([class("text-xl font-semibold text-center")], [text(title)]),
-    div(
-      [class(grid_class)],
-      list.map(indexed, fn(p) { render_logo(p.0, p.1) }),
-    ),
-    element.fragment(list.map(indexed, fn(p) { sponsor_popover(p.0, p.1) })),
+    div([class(grid_class)], list.map(entries, render_logo)),
+    element.fragment(list.map(entries, sponsor_popover)),
   ])
 }
 
@@ -429,16 +430,16 @@ fn cheerleader_plan(sponsors: List(Sponsor)) -> Element(msg) {
   )
 }
 
-fn popover_id(plan: SponsorPlan, index: Int) -> String {
-  "sponsor-" <> sponsor.plan_to_string(plan) <> "-" <> int.to_string(index)
+fn popover_id(s: Sponsor) -> String {
+  "sponsor-" <> s.slug
 }
 
-fn sponsor_logo_button(id_: String, s: Sponsor) -> Element(msg) {
-  let Sponsor(name:, image:, ..) = s
+fn sponsor_logo_button(entry: SponsorEntry) -> Element(msg) {
+  let SponsorEntry(id:, sponsor: Sponsor(name:, image:, ..)) = entry
   html.button(
     [
       attribute("type", "button"),
-      attribute("popovertarget", id_),
+      attribute("popovertarget", id),
       class(
         "block w-full p-0 m-0 border-0 bg-transparent cursor-pointer transition-transform hover:scale-[1.02]",
       ),
@@ -455,8 +456,8 @@ fn sponsor_logo_button(id_: String, s: Sponsor) -> Element(msg) {
   )
 }
 
-fn cheerleader_logo_button(id_: String, s: Sponsor) -> Element(msg) {
-  let Sponsor(name:, image:, kind:, ..) = s
+fn cheerleader_logo_button(entry: SponsorEntry) -> Element(msg) {
+  let SponsorEntry(id:, sponsor: Sponsor(name:, image:, kind:, ..)) = entry
   let img_class = case kind {
     Individual -> "w-10 h-10 object-cover rounded-full border border-black/5"
     Community -> "h-10 rounded-sm"
@@ -464,7 +465,7 @@ fn cheerleader_logo_button(id_: String, s: Sponsor) -> Element(msg) {
   html.button(
     [
       attribute("type", "button"),
-      attribute("popovertarget", id_),
+      attribute("popovertarget", id),
       class(
         "flex flex-col items-center gap-2 p-0 m-0 border-0 bg-transparent cursor-pointer transition-transform hover:scale-[1.05]",
       ),
@@ -476,8 +477,11 @@ fn cheerleader_logo_button(id_: String, s: Sponsor) -> Element(msg) {
   )
 }
 
-fn sponsor_popover(popover_id: String, s: Sponsor) -> Element(msg) {
-  let Sponsor(name:, image:, href:, description:, ..) = s
+fn sponsor_popover(entry: SponsorEntry) -> Element(msg) {
+  let SponsorEntry(
+    id: popover_id,
+    sponsor: Sponsor(name:, image:, href:, description:, ..),
+  ) = entry
 
   let close_button =
     html.button(
