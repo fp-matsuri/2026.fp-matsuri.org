@@ -415,7 +415,9 @@ fn sponsor_plan(
 ) -> Element(msg) {
   plan_section(
     title,
-    "grid " <> grid_template <> " gap-2 mt-8 justify-items-center justify-center",
+    "grid "
+      <> grid_template
+      <> " gap-2 mt-8 justify-items-center justify-center",
     sponsors,
     sponsor_logo_button,
   )
@@ -513,8 +515,7 @@ fn sponsor_popover(entry: SponsorEntry) -> Element(msg) {
       ]),
     ])
 
-  let title =
-    h3([class("text-lg font-bold mb-2 text-center")], [text(name)])
+  let title = h3([class("text-lg font-bold mb-2 text-center")], [text(name)])
 
   let description_block = case description {
     "" -> element.none()
