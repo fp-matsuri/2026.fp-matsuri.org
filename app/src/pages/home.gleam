@@ -548,7 +548,7 @@ fn sponsor_popover(entry: SponsorEntry) -> Element(msg) {
       id(popover_id),
       attribute("popover", "auto"),
       class(
-        "sponsor-popover card bg-base-100 text-base-content border border-subtle max-w-2xl w-[90vw] max-h-[85vh] overflow-y-auto",
+        "sponsor-popover card fixed inset-0 m-auto w-fit h-fit bg-base-100 text-base-content border border-subtle max-w-2xl max-h-[85vh] overflow-y-auto",
       ),
     ],
     [
