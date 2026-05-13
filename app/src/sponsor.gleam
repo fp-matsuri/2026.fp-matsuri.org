@@ -9,6 +9,7 @@ import tom
 
 pub type Sponsor {
   Sponsor(
+    slug: String,
     name: String,
     image: String,
     href: String,
@@ -69,13 +70,14 @@ fn all_sponsors(plan) -> List(Sponsor) {
       |> list.filter(fn(f) { string.ends_with(f, ".dj") })
       |> list.filter_map(fn(filename) {
         let path = sponsors_dir <> "/" <> filename
+        let slug = string.drop_end(filename, 3)
         case
           {
             use content <- result.try(
               simplifile.read(path)
               |> result.replace_error("Failed to read " <> path),
             )
-            parse(content)
+            parse(slug, content)
           }
         {
           Ok(s) -> Ok(s)
@@ -91,7 +93,7 @@ fn all_sponsors(plan) -> List(Sponsor) {
   }
 }
 
-pub fn parse(content: String) -> Result(Sponsor, String) {
+pub fn parse(slug: String, content: String) -> Result(Sponsor, String) {
   use metadata <- result.try(
     djot.metadata(content) |> result.replace_error("Invalid TOML frontmatter"),
   )
@@ -112,7 +114,18 @@ pub fn parse(content: String) -> Result(Sponsor, String) {
     djot.content(content)
     |> string.trim
     |> jot.to_html
-  Ok(Sponsor(name:, image:, href:, plan:, kind:, description:))
+  Ok(Sponsor(slug:, name:, image:, href:, plan:, kind:, description:))
+}
+
+pub fn plan_label(plan: SponsorPlan) -> String {
+  case plan {
+    Platinum -> "プラチナスポンサー"
+    Gold -> "ゴールドスポンサー"
+    Silver -> "シルバースポンサー"
+    Logo -> "ロゴスポンサー"
+    Support -> "サポートスポンサー"
+    Cheerleader -> "応援団"
+  }
 }
 
 fn parse_plan(s: String) -> Result(SponsorPlan, String) {

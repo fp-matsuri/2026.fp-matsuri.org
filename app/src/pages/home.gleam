@@ -353,15 +353,13 @@ fn sponsor_recruitment_section() -> Element(msg) {
         ],
       ),
     ]),
-    div([class("max-w-2xl mx-auto")], [
-      sponsor_logos(),
-    ]),
+    div([class("max-w-2xl mx-auto")], [sponsor_logos()]),
   ])
 }
 
 // スポンサーロゴ表示
 fn sponsor_logos() -> Element(msg) {
-  div([class("")], [
+  element.fragment([
     sponsor_plan(
       title: "プラチナスポンサー",
       sponsors: sponsor.platinum_sponsors(),
@@ -391,99 +389,180 @@ fn sponsor_logos() -> Element(msg) {
   ])
 }
 
+type SponsorEntry {
+  SponsorEntry(id: String, sponsor: Sponsor)
+}
+
+fn plan_section(
+  title: String,
+  grid_class: String,
+  sponsors: List(Sponsor),
+  render_logo: fn(SponsorEntry) -> Element(msg),
+) -> Element(msg) {
+  let entries =
+    list.map(sponsors, fn(s) { SponsorEntry(id: popover_id(s), sponsor: s) })
+  div([class("pt-8")], [
+    h3([class("text-xl font-semibold text-center")], [text(title)]),
+    div([class(grid_class)], list.map(entries, render_logo)),
+    element.fragment(list.map(entries, sponsor_popover)),
+  ])
+}
+
 fn sponsor_plan(
   title title: String,
   sponsors sponsors: List(Sponsor),
   grid_template grid_template: String,
 ) -> Element(msg) {
-  div([class("pt-8")], [
-    h3([class("text-xl font-semibold text-center")], [
-      text(title),
-    ]),
-    div(
-      [
-        class(
-          "grid "
-          <> grid_template
-          <> " gap-2 mt-8 justify-items-center justify-center",
-        ),
-      ],
-      list.map(sponsors, sponsor_logo),
-    ),
-  ])
+  plan_section(
+    title,
+    "grid "
+      <> grid_template
+      <> " gap-2 mt-8 justify-items-center justify-center",
+    sponsors,
+    sponsor_logo_button,
+  )
 }
 
 fn cheerleader_plan(sponsors: List(Sponsor)) -> Element(msg) {
-  div([class("pt-8")], [
-    h3([class("text-xl font-semibold text-center")], [
-      text("応援団"),
-    ]),
-    div(
-      [
-        class(
-          "grid grid-cols-4 sm:grid-cols-[repeat(auto-fit,100px)] gap-x-2.5 gap-y-5 sm:gap-y-[30px] mt-8 justify-center",
-        ),
-      ],
-      list.map(sponsors, cheerleader_logo),
-    ),
-  ])
+  plan_section(
+    "応援団",
+    "grid grid-cols-4 sm:grid-cols-[repeat(auto-fit,100px)] gap-x-2.5 gap-y-5 sm:gap-y-[30px] mt-8 justify-center",
+    sponsors,
+    cheerleader_logo_button,
+  )
 }
 
-fn cheerleader_logo(sponsor: Sponsor) -> Element(msg) {
-  let Sponsor(name:, image:, href:, kind:, ..) = sponsor
+fn popover_id(s: Sponsor) -> String {
+  "sponsor-" <> s.slug
+}
+
+fn sponsor_logo_button(entry: SponsorEntry) -> Element(msg) {
+  let SponsorEntry(id:, sponsor: Sponsor(name:, image:, ..)) = entry
+  html.button(
+    [
+      attribute("type", "button"),
+      attribute("popovertarget", id),
+      class(
+        "btn btn-ghost shadow-none w-full h-auto p-0 border-0 bg-transparent transition-transform hover:scale-[1.02]",
+      ),
+    ],
+    [
+      img([
+        src(image),
+        attribute("alt", name),
+        class(
+          "w-full h-auto aspect-[21/9] object-contain bg-white rounded-lg shadow-sm",
+        ),
+      ]),
+    ],
+  )
+}
+
+fn cheerleader_logo_button(entry: SponsorEntry) -> Element(msg) {
+  let SponsorEntry(id:, sponsor: Sponsor(name:, image:, kind:, ..)) = entry
   let img_class = case kind {
     Individual -> "w-10 h-10 object-cover rounded-full border border-black/5"
     Community -> "h-10 rounded-sm"
   }
-  let contents = [
-    img([
-      src(image),
-      attribute("alt", name),
-      class(img_class),
-    ]),
-    span([class("text-[10px] text-center [text-wrap:balance]")], [text(name)]),
-  ]
-  let wrapper_class =
-    "flex flex-col items-center gap-2 no-underline text-inherit"
-
-  case href {
-    "" -> div([class(wrapper_class)], contents)
-    _ ->
-      a(
-        [
-          attribute("href", href),
-          attribute("target", "_blank"),
-          attribute("rel", "noopener noreferrer"),
-          class(wrapper_class),
-        ],
-        contents,
-      )
-  }
+  html.button(
+    [
+      attribute("type", "button"),
+      attribute("popovertarget", id),
+      class(
+        "btn btn-ghost shadow-none flex-col gap-2 h-auto p-2 border-0 bg-transparent transition-transform hover:scale-[1.05]",
+      ),
+    ],
+    [
+      img([src(image), attribute("alt", name), class(img_class)]),
+      span([class("text-[10px] text-center [text-wrap:balance]")], [text(name)]),
+    ],
+  )
 }
 
-fn sponsor_logo(sponsor: Sponsor) -> Element(msg) {
-  let Sponsor(name:, image:, href:, ..) = sponsor
-  let img_element =
+fn sponsor_popover(entry: SponsorEntry) -> Element(msg) {
+  let SponsorEntry(
+    id: popover_id,
+    sponsor: Sponsor(name:, image:, href:, plan:, description:, ..),
+  ) = entry
+
+  let close_button =
+    html.button(
+      [
+        attribute("type", "button"),
+        attribute("popovertarget", popover_id),
+        attribute("popovertargetaction", "hide"),
+        attribute("aria-label", "閉じる"),
+        class(
+          "btn btn-sm btn-circle btn-neutral shadow-none absolute top-3 right-3",
+        ),
+      ],
+      [text("✕")],
+    )
+
+  let logo =
     img([
       src(image),
       attribute("alt", name),
       class(
-        "w-full h-auto aspect-[21/9] object-contain bg-white rounded-lg shadow-sm",
+        "w-64 h-auto aspect-[21/9] object-contain rounded-lg shrink-0 mx-auto",
       ),
     ])
 
-  case href {
-    "" -> div([class("")], [img_element])
+  let plan_badge =
+    div([class("flex justify-center mt-3")], [
+      span([class("badge badge-outline badge-sm")], [
+        text(sponsor.plan_label(plan)),
+      ]),
+    ])
+
+  let title = h3([class("text-lg font-bold mb-2 text-center")], [text(name)])
+
+  let description_block = case description {
+    "" -> element.none()
     _ ->
-      a(
+      element.unsafe_raw_html(
+        "",
+        "div",
         [
-          attribute("href", href),
-          attribute("target", "_blank"),
-          attribute("rel", "noopener noreferrer"),
+          class(
+            "prose prose-sm max-w-none mb-4
+            prose-headings:font-bold
+            prose-p:leading-relaxed
+            prose-a:text-primary
+            prose-ul:list-disc prose-ul:pl-6",
+          ),
         ],
-        [img_element],
+        description,
       )
   }
+
+  let link_block = case href {
+    "" -> element.none()
+    _ ->
+      div([class("flex justify-center mt-2")], [
+        button.primary(label: "サイトを見る", url: href),
+      ])
+  }
+
+  div(
+    [
+      id(popover_id),
+      attribute("popover", "auto"),
+      class(
+        "sponsor-popover card fixed inset-0 m-auto w-fit h-fit bg-base-100 text-base-content max-w-xl max-h-[85vh] overflow-y-auto",
+      ),
+    ],
+    [
+      div([class("card-body relative")], [
+        close_button,
+        logo,
+        plan_badge,
+        title,
+        description_block,
+        link_block,
+      ]),
+    ],
+  )
 }
 
 // Team Section

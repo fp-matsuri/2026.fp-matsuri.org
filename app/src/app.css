@@ -108,3 +108,51 @@ body > div:has(#arctic-app) {
     flex-direction: column;
     flex: 1;
 }
+
+/* DaisyUI の .card が display を上書きするため、閉状態の非表示のみ復元する */
+.sponsor-popover:not(:popover-open) {
+    display: none;
+}
+
+/* 開閉アニメーション（display/overlay は allow-discrete で補間） */
+.sponsor-popover {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+    transition:
+        opacity 180ms ease-out,
+        transform 180ms ease-out,
+        overlay 180ms ease-out allow-discrete,
+        display 180ms ease-out allow-discrete;
+}
+
+.sponsor-popover:popover-open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+@starting-style {
+    .sponsor-popover:popover-open {
+        opacity: 0;
+        transform: translateY(8px) scale(0.98);
+    }
+}
+
+.sponsor-popover::backdrop {
+    opacity: 0;
+    background: oklch(0% 0 0 / 0.55);
+    backdrop-filter: blur(2px);
+    transition:
+        opacity 180ms ease-out,
+        overlay 180ms ease-out allow-discrete,
+        display 180ms ease-out allow-discrete;
+}
+
+.sponsor-popover:popover-open::backdrop {
+    opacity: 1;
+}
+
+@starting-style {
+    .sponsor-popover:popover-open::backdrop {
+        opacity: 0;
+    }
+}
