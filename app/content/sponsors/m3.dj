@@ -4,3 +4,37 @@ image = "/image/sponsors/m3.svg"
 href = "https://jobs.m3.com/engineer/"
 plan = "gold"
 ---
+```=html
+<p>ギークな集団だからこそ世界の医療を変えられる</p>
+
+<p>ユニークなプロダクトで解決するからこそ<br>
+ユニークなエンジニアリング文化があるからこそ<br>
+ユニークなメンバーが集っているからこそ</p>
+
+<p>3つのユニークを掛け合わせ<br>
+新しい世界を見通すからこそ<br>
+医療を変えていくことができる</p>
+
+<p>挑み続けるギークなエンジニア組織で<br>
+世界の医療の変革に挑戦してみませんか？</p>
+
+<hr>
+
+<p>さて、突然ですが、ここで OCaml クイズ！！</p>
+
+<pre><code>"Matsuri"|&gt;fun s-&gt;Printf.sprintf"%c%d"s.[0]((String.fold_left(fun n _-&gt;n+1)0 s)/2);;</code></pre>
+
+<p>"まつり"の先が分かったら、すぐエムスリーに連絡を！</p>
+
+<ul>
+<li><a href="https://www.m3tech.blog">公式Tech Blog</a></li>
+<li><a href="https://www.youtube.com/@m3techchannel160">公式YouTubeチャンネル</a></li>
+<li><a href="https://x.com/m3_engineering">公式Xアカウント</a></li>
+<li><a href="https://jobs.m3.com/engineer/">採用情報はこちらから</a></li>
+<li><a href="https://fresh.m3recruit.com/engineer">新卒採用情報はこちらから</a></li>
+</ul>
+
+<div class="aspect-video w-full">
+<iframe class="w-full h-full" src="https://www.youtube.com/embed/6bPItW2x78k?si=60P8JSHYqpKy-lFP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+```
