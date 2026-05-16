@@ -4,3 +4,25 @@ image = "/image/sponsors/nextbeat.png"
 href = "https://www.nextbeat.co.jp/"
 plan = "silver"
 ---
+```=html
+<div>
+<a href="https://www.nextbeat.co.jp/">ネクストビート</a>は、「人口減少社会において必要とされるインターネット事業を創造し、ニッポンを元気にする」がミッションの自社プロダクト開発ベンチャーです。<br>
+Tech Vision「全員CTO」を掲げ、技術的意思決定へ踏み込み、「技術的トライ」を個人任せにせず組織で支える開発文化です。<br>
+「変更に強く、長く運用できるコード」×「技術的トライ」の土台としてScalaを採用。Scala 3は2021年から早期採用。<br>
+<br>
+<b>● 技術的チャレンジ</b><br>
+・法改正耐性の高いドメインモデル設計:仕様変更を前提にしたアーキテクチャで、変更影響を局所化<br>
+・多重制約の最適化:法令・施設・運用の3制約が同時に絡むシフト管理の課題解決<br>
+・Scala 2→Scala 3への移行:国内でも数少ない、商用規模のリプレイス事例<br>
+・AI駆動開発:全員でClaude Team・Google Workspaceを活用<br>
+<br>
+<b>■ Scala開発プロダクト</b><br>
+・<a href="https://kidsna-connect.com/site/">保育施設の業務効率化SaaS</a><br>
+・<a href="https://lp.palette.hoikushibank.com/">保育施設マネジメントSaaS</a><br>
+・<a href="https://sitter.kidsna.com/sitter">保育士100％のシッターマッチング</a><br>
+<br>
+<b>■ 面談・応募はこちらから</b><br>
+・<a href="https://hrmos.co/pages/nextbeat/jobs/2217591066741051419">Scalaテックリード</a>、<a href="https://hrmos.co/pages/nextbeat/jobs/2217591066741051420">Scalaエンジニア</a><br>
+・<a href="https://hrmos.co/pages/nextbeat/jobs/0002/apply">面談</a><br>
+</div>
+```
