@@ -50,8 +50,11 @@ test.describe("Schedule Page Visual Tests", () => {
   });
 
   test("should render the schedule page correctly", async ({ page }) => {
+    // スピーカーアイコンは外部（fortee.jp）依存で読み込みが不安定なため
+    // 比較対象から除外する
     await expect(page).toHaveScreenshot("schedule-page.png", {
       fullPage: true,
+      mask: [page.locator('img[src*="fortee.jp"]')],
     });
   });
 });
