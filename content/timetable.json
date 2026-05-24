@@ -9,7 +9,7 @@
         "sort": 1
       },
       "starts_at": "2026-07-11T10:30:00+09:00",
-      "length_min": 5
+      "length_min": 30
     },
     {
       "type": "timeslot",
@@ -20,7 +20,7 @@
         "sort": 2
       },
       "starts_at": "2026-07-11T10:30:00+09:00",
-      "length_min": 5
+      "length_min": 30
     },
     {
       "type": "timeslot",
@@ -31,7 +31,7 @@
         "sort": 3
       },
       "starts_at": "2026-07-11T10:30:00+09:00",
-      "length_min": 5
+      "length_min": 30
     },
     {
       "type": "timeslot",
@@ -571,7 +571,7 @@
         "sort": 1
       },
       "starts_at": "2026-07-12T09:30:00+09:00",
-      "length_min": 5
+      "length_min": 30
     },
     {
       "type": "timeslot",
@@ -582,7 +582,7 @@
         "sort": 2
       },
       "starts_at": "2026-07-12T09:30:00+09:00",
-      "length_min": 5
+      "length_min": 30
     },
     {
       "type": "timeslot",
@@ -593,7 +593,7 @@
         "sort": 3
       },
       "starts_at": "2026-07-12T09:30:00+09:00",
-      "length_min": 5
+      "length_min": 30
     },
     {
       "type": "timeslot",
