@@ -212,6 +212,7 @@ fn footer() -> Element(msg) {
           html.h3([class("footer-title")], [
             text("関数型まつり2026"),
           ]),
+          nav_link(label: "タイムテーブル", url: "/timetable/"),
           nav_link(label: "セッション一覧", url: "/schedule/"),
           nav_link(label: "スポンサー", url: "/sponsors/"),
           nav_link(label: "行動規範", url: "/code-of-conduct/"),
@@ -281,6 +282,7 @@ fn is_external_link(url: String) -> Bool {
 
 fn nav_items() -> List(Element(msg)) {
   [
+    li([], [a([href("/timetable/")], [text("タイムテーブル")])]),
     li([], [a([href("/schedule/")], [text("セッション一覧")])]),
     li([], [a([href("/sponsors/")], [text("スポンサー")])]),
     li([], [a([href("/code-of-conduct/")], [text("行動規範")])]),
