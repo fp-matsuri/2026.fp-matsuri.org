@@ -344,11 +344,11 @@ fn volunteer_section() -> Element(msg) {
             div([class("card-actions justify-center gap-4 flex-wrap")], [
               button.primary(
                 label: "詳細をブログで読む",
-                url: "TODO_BLOG_URL",
+                url: "https://blog.fp-matsuri.org/entry/2026/05/31/131337",
               ),
               button.primary(
                 label: "応募フォームはこちら",
-                url: "TODO_FORM_URL",
+                url: "https://forms.gle/hj3cWSqA7oibwd6v6",
               ),
             ]),
           ]),
