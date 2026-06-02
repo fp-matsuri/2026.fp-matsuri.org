@@ -384,7 +384,7 @@ fn sponsor_logos() -> Element(msg) {
     sponsor_plan(
       title: "協力",
       sponsors: sponsor.support_sponsors(),
-      grid_template: "grid-cols-[repeat(1,80px)] sm:grid-cols-[repeat(1,128px)]",
+      grid_template: "grid-cols-[repeat(2,80px)] sm:grid-cols-[repeat(2,128px)]",
     ),
   ])
 }
