@@ -24,6 +24,7 @@ pub fn page() -> Page(msg) {
     announcements_section(),
     about_section(),
     ticket_section(),
+    volunteer_section(),
     sponsor_recruitment_section(),
     team_section(),
   ])
@@ -318,6 +319,43 @@ fn format_ticket_price(price: Int) -> String {
     True -> string.slice(s, 0, len - 3) <> "," <> string.slice(s, len - 3, 3)
     False -> s
   }
+}
+
+// Volunteer Section
+fn volunteer_section() -> Element(msg) {
+  section([id("volunteer"), class("py-20 px-6 bg-base-200")], [
+    div([class("max-w-2xl mx-auto")], [
+      h2([class("text-2xl font-bold text-center mb-10 tracking-tight")], [
+        text("当日スタッフ募集"),
+      ]),
+      div(
+        [
+          class(
+            "card bg-neutral text-neutral-content border border-subtle shadow-none",
+          ),
+        ],
+        [
+          div([class("card-body p-8 md:p-10")], [
+            p([class("text-base mb-6 leading-relaxed")], [
+              text(
+                "関数型まつり2026の当日スタッフを募集しています。イベントを一緒に作り上げてくださる方のご応募をお待ちしております。",
+              ),
+            ]),
+            div([class("card-actions justify-center gap-4 flex-wrap")], [
+              button.primary(
+                label: "詳細をブログで読む",
+                url: "https://blog.fp-matsuri.org/entry/2026/05/31/131337",
+              ),
+              button.primary(
+                label: "応募フォームはこちら",
+                url: "https://forms.gle/hj3cWSqA7oibwd6v6",
+              ),
+            ]),
+          ]),
+        ],
+      ),
+    ]),
+  ])
 }
 
 // Sponsor Section
