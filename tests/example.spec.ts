@@ -67,6 +67,10 @@ test.describe("Sponsor Popover Visual Tests", () => {
   });
 
   test("should render each sponsor popover correctly", async ({ page }) => {
+    // 全スポンサーの popover を1件ずつ開いて検証するため、スポンサーが増えるほど
+    // 実行時間が伸びる。デフォルトの30秒では遅い CI ランナーで超過するため延長する。
+    test.setTimeout(120_000);
+
     const buttons = page.locator(
       'button[popovertarget^="sponsor-"]:not([popovertargetaction="hide"])',
     );
