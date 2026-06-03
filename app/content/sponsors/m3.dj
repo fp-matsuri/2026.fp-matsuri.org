@@ -22,7 +22,7 @@ plan = "gold"
 
 <p>さて、突然ですが、ここで OCaml クイズ！！</p>
 
-<pre><code>"Matsuri"|&gt;fun s-&gt;Printf.sprintf"%c%d"s.[0]((String.fold_left(fun n _-&gt;n+1)0 s)/2);;</code></pre>
+<pre class="whitespace-pre-wrap break-all"><code>"Matsuri"|&gt;fun s-&gt;Printf.sprintf"%c%d"s.[0]((String.fold_left(fun n _-&gt;n+1)0 s)/2);;</code></pre>
 
 <p>"まつり"の先が分かったら、すぐエムスリーに連絡を！</p>
 
