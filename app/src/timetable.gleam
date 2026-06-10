@@ -1,9 +1,11 @@
 import gleam/dynamic/decode
 import gleam/int
 import gleam/json
-import gleam/option.{type Option, None}
+import gleam/list
+import gleam/option.{type Option, None, Some}
 import gleam/result
 import gleam/string
+import session.{type Session}
 import simplifile
 
 pub type TimetableEntry {
@@ -30,6 +32,7 @@ pub type TalkData {
     length_min: Int,
     tags: List(TalkTag),
     speaker: Option(SpeakerData),
+    url: Option(String),
   )
 }
 
@@ -59,6 +62,13 @@ pub fn load_timetable() -> Result(List(TimetableEntry), String) {
   Ok(entries)
 }
 
+pub fn load_schedule() -> Result(List(TimetableEntry), String) {
+  use entries <- result.try(load_timetable())
+  use sessions <- result.try(session.load_sessions())
+
+  Ok(list.map(entries, fn(entry) { enrich_entry(entry, sessions) }))
+}
+
 fn timetable_decoder() -> decode.Decoder(List(TimetableEntry)) {
   use entries <- decode.field("timetable", decode.list(entry_decoder()))
   decode.success(entries)
@@ -84,15 +94,53 @@ fn talk_entry_decoder() -> decode.Decoder(TimetableEntry) {
     None,
     decode.optional(speaker_decoder()),
   )
-  decode.success(TalkEntry(TalkData(
-    uuid:,
-    title:,
-    track:,
-    starts_at:,
-    length_min:,
-    tags:,
-    speaker:,
-  )))
+  decode.success(
+    TalkEntry(TalkData(
+      uuid:,
+      title:,
+      track:,
+      starts_at:,
+      length_min:,
+      tags:,
+      speaker:,
+      url: None,
+    )),
+  )
+}
+
+fn enrich_entry(
+  entry: TimetableEntry,
+  sessions: List(Session),
+) -> TimetableEntry {
+  case entry {
+    TimeslotEntry(_) -> entry
+    TalkEntry(talk) -> TalkEntry(enrich_talk(talk, sessions))
+  }
+}
+
+fn enrich_talk(talk: TalkData, sessions: List(Session)) -> TalkData {
+  case find_session_by_uuid(sessions, talk.uuid) {
+    Error(_) -> talk
+    Ok(item) ->
+      TalkData(
+        ..talk,
+        title: item.title,
+        tags: list.map(item.tags, fn(tag) { TalkTag(name: tag.name) }),
+        speaker: Some(SpeakerData(
+          name: item.speaker.name,
+          kana: item.speaker.kana,
+          avatar_url: item.speaker.avatar_url,
+        )),
+        url: Some(item.url),
+      )
+  }
+}
+
+fn find_session_by_uuid(
+  sessions: List(Session),
+  uuid: String,
+) -> Result(Session, Nil) {
+  list.find(sessions, fn(item) { string.ends_with(item.url, "/" <> uuid) })
 }
 
 fn timeslot_entry_decoder() -> decode.Decoder(TimetableEntry) {
@@ -101,13 +149,9 @@ fn timeslot_entry_decoder() -> decode.Decoder(TimetableEntry) {
   use track <- decode.field("track", track_decoder())
   use starts_at <- decode.field("starts_at", decode.string)
   use length_min <- decode.field("length_min", decode.int)
-  decode.success(TimeslotEntry(TimeslotData(
-    uuid:,
-    title:,
-    track:,
-    starts_at:,
-    length_min:,
-  )))
+  decode.success(
+    TimeslotEntry(TimeslotData(uuid:, title:, track:, starts_at:, length_min:)),
+  )
 }
 
 fn track_decoder() -> decode.Decoder(TrackData) {

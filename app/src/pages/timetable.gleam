@@ -1,14 +1,15 @@
 import gleam/int
 import gleam/list
 import gleam/option
+import gleam/order
 import gleam/string
 import layout.{type Page, Page}
 import lustre/attribute.{attribute, class, src}
 import lustre/element.{type Element}
-import lustre/element/html.{a, div, h1, img, input, label, p, section, span, text}
+import lustre/element/html.{a, div, h1, header, img, p, section, span, text}
 import timetable.{
-  type SpeakerData, type TalkData, type TalkTag, type TimetableEntry,
-  type TimeslotData, TalkEntry, TimeslotEntry,
+  type SpeakerData, type TalkData, type TalkTag, type TimeslotData,
+  type TimetableEntry, TalkEntry, TimeslotEntry,
 }
 
 const px_per_row = 24
@@ -25,18 +26,26 @@ type TimeslotGroup {
   )
 }
 
+type ScheduleItem {
+  ScheduleTimeslot(TimeslotGroup)
+  ScheduleTalk(TalkData)
+}
+
 pub fn page() -> Page(msg) {
   Page(title: "タイムテーブル | 関数型まつり2026", body: [
     page_header(),
-    timetable_section(timetable.load_timetable()),
+    timetable_section(timetable.load_schedule()),
   ])
 }
 
 fn page_header() -> Element(msg) {
   section([class("pt-16 pb-8 px-4 bg-base-100")], [
-    div([class("max-w-6xl mx-auto text-center")], [
+    div([class("max-w-[850px] mx-auto")], [
       h1([class("text-3xl font-bold mb-4 tracking-tight")], [
         text("タイムテーブル"),
+      ]),
+      p([class("text-base leading-relaxed text-secondary")], [
+        text("関数型まつり2026のタイムテーブルです。"),
       ]),
     ]),
   ])
@@ -46,7 +55,7 @@ fn timetable_section(
   entries: Result(List(TimetableEntry), String),
 ) -> Element(msg) {
   section([class("pb-20 px-4 bg-base-100")], [
-    div([class("max-w-6xl mx-auto")], [
+    div([class("max-w-[850px] mx-auto")], [
       case entries {
         Error(_) -> error_state()
         Ok([]) -> empty_state()
@@ -66,67 +75,54 @@ fn both_days(entries: List(TimetableEntry)) -> Element(msg) {
       timetable.get_day_number(timetable.entry_starts_at(e)) == 12
     })
 
-  div([class("timetable-tabs")], [
-    input([
-      attribute("type", "radio"),
-      attribute("id", "timetable-day-1"),
-      attribute("name", "timetable-day"),
-      attribute("checked", "checked"),
-      class("timetable-tab-input"),
-    ]),
-    input([
-      attribute("type", "radio"),
-      attribute("id", "timetable-day-2"),
-      attribute("name", "timetable-day"),
-      class("timetable-tab-input"),
-    ]),
-    div([class("timetable-tab-list")], [
-      label(
-        [
-          attribute("for", "timetable-day-1"),
-          class("timetable-tab-label timetable-tab-label-day-1"),
-        ],
-        [text("Day 1（7/11）")],
-      ),
-      label(
-        [
-          attribute("for", "timetable-day-2"),
-          class("timetable-tab-label timetable-tab-label-day-2"),
-        ],
-        [text("Day 2（7/12）")],
-      ),
-    ]),
-    div([class("timetable-tab-panel timetable-tab-panel-day-1")], [
-      day_section(day1),
-    ]),
-    div([class("timetable-tab-panel timetable-tab-panel-day-2")], [
-      day_section(day2),
-    ]),
+  div([class("space-y-16")], [
+    day_section("day1", "Day 1", "2026年7月11日（土）", day1),
+    day_section("day2", "Day 2", "2026年7月12日（日）", day2),
   ])
 }
 
-fn day_section(entries: List(TimetableEntry)) -> Element(msg) {
-  div([], [
-    div([class("sticky top-0 z-10 bg-base-100 py-2 mb-2")], [
-      div(
-        [attribute("style", "display: grid; grid-template-columns: repeat(3, minmax(200px, 1fr)); gap: 2px; min-width: 600px;")],
-        [
-          track_header("Track A"),
-          track_header("Track B"),
-          track_header("Track C"),
-        ],
-      ),
-    ]),
-    div([class("overflow-x-auto")], [render_day_grid(entries)]),
+fn day_section(
+  id: String,
+  title: String,
+  date_label: String,
+  entries: List(TimetableEntry),
+) -> Element(msg) {
+  section([attribute("id", id), class("scroll-mt-6")], [
+    header(
+      [
+        class(
+          "sticky top-0 z-30 grid gap-2 border-b border-subtle bg-base-100 py-2",
+        ),
+      ],
+      [
+        div([class("text-lg font-bold")], [text(title <> "：" <> date_label)]),
+        div([class("hidden grid-cols-3 gap-2 sm:grid")], [
+          track_header("Track A", "#CE3F3D", "oklch(61% 0.2 40 / 0.12)"),
+          track_header("Track B", "#ff8f00", "oklch(70% 0.15 70 / 0.18)"),
+          track_header("Track C", "#5352A0", "oklch(65% 0.18 250 / 0.12)"),
+        ]),
+      ],
+    ),
+    render_day_grid(entries),
   ])
 }
 
-fn track_header(name: String) -> Element(msg) {
+fn track_header(
+  name: String,
+  text_color: String,
+  background_color: String,
+) -> Element(msg) {
   div(
     [
-      class(
-        "bg-base-200 rounded-sm py-1 text-center text-sm font-bold text-base-content/70",
+      attribute(
+        "style",
+        "color: "
+          <> text_color
+          <> "; background-color: "
+          <> background_color
+          <> ";",
       ),
+      class("rounded-[5px] px-2 py-1 text-center text-sm font-bold"),
     ],
     [text(name)],
   )
@@ -138,77 +134,31 @@ fn render_day_grid(entries: List(TimetableEntry)) -> Element(msg) {
   let total_rows = { day_end - day_start } / grid_interval
 
   let grid_style =
-    "display: grid;"
-    <> " grid-template-columns: repeat(3, minmax(200px, 1fr));"
-    <> " grid-template-rows: repeat("
+    "grid-template-rows: repeat("
     <> int.to_string(total_rows)
     <> ", "
     <> int.to_string(px_per_row)
     <> "px);"
-    <> " gap: 2px;"
-    <> " min-width: 600px;"
 
-  let cells =
-    list.flatten([
-      render_hour_marker_cells(day_start, day_end),
-      render_timeslot_cells(entries, day_start),
-      render_talk_cells(entries, day_start),
-    ])
-
-  div([attribute("style", grid_style)], cells)
-}
-
-fn render_hour_marker_cells(day_start: Int, day_end: Int) -> List(Element(msg)) {
-  let first_marker = next_hour_mark(day_start)
-
-  hour_marks(first_marker, day_end)
-  |> list.map(fn(minutes) {
-    let row = { minutes - day_start } / grid_interval + 1
-    let marker_style =
-      "grid-column: 1 / 4; grid-row: "
-      <> int.to_string(row)
-      <> " / span 1;"
-
-    div(
-      [
-        attribute("style", marker_style),
-        class(
-          "pointer-events-none relative z-20 h-0 border-t border-base-content/20",
-        ),
-      ],
-      [
-        span(
-          [
-            class(
-              "absolute -top-2 left-0 bg-base-100 pr-2 text-[10px] font-bold leading-none text-base-content/50",
-            ),
-          ],
-          [text(format_minutes(minutes))],
-        ),
-      ],
-    )
-  })
-}
-
-fn next_hour_mark(minutes: Int) -> Int {
-  case minutes % 60 {
-    0 -> minutes
-    remainder -> minutes + 60 - remainder
-  }
-}
-
-fn hour_marks(current: Int, end: Int) -> List(Int) {
-  case current >= end {
-    True -> []
-    False -> [current, ..hour_marks(current + 60, end)]
-  }
+  div(
+    [
+      attribute("style", grid_style),
+      class(
+        "mt-4 flex flex-col gap-2 sm:grid sm:grid-cols-3 sm:gap-x-2 sm:gap-y-0",
+      ),
+    ],
+    entries
+      |> schedule_items
+      |> list.sort(by: compare_schedule_items)
+      |> list.map(fn(item) { render_schedule_item(item, day_start) }),
+  )
 }
 
 fn day_grid_start(entries: List(TimetableEntry)) -> Int {
   list.map(entries, fn(e) {
     timetable.get_start_minutes(timetable.entry_starts_at(e))
   })
-  |> list.fold(99999, int.min)
+  |> list.fold(99_999, int.min)
 }
 
 fn day_grid_end(entries: List(TimetableEntry)) -> Int {
@@ -219,100 +169,152 @@ fn day_grid_end(entries: List(TimetableEntry)) -> Int {
   |> list.fold(0, int.max)
 }
 
-fn render_timeslot_cells(
-  entries: List(TimetableEntry),
-  day_start: Int,
-) -> List(Element(msg)) {
-  entries
-  |> group_timeslots
-  |> list.map(fn(group: TimeslotGroup) {
-    let row_start = entry_grid_row(group.starts_at, day_start)
-    let row_end = row_start + group.length_min / grid_interval
-    let col_start = group.min_track
-    let col_end = group.max_track + 1
-    let cell_style =
-      "grid-column: "
-      <> int.to_string(col_start)
-      <> " / "
-      <> int.to_string(col_end)
-      <> "; grid-row: "
-      <> int.to_string(row_start)
-      <> " / "
-      <> int.to_string(row_end)
-      <> ";"
-    div(
-      [
-        attribute("style", cell_style),
-        class(
-          "bg-base-200 text-base-content/60 rounded-sm flex items-center gap-2 overflow-hidden p-2",
-        ),
-      ],
-      [
-        span([class("text-xs font-bold shrink-0 text-base-content/50")], [
-          text(timetable.get_time_label(group.starts_at)),
-        ]),
-        span([class("text-xs leading-snug")], [text(group.title)]),
-      ],
-    )
-  })
+fn schedule_items(entries: List(TimetableEntry)) -> List(ScheduleItem) {
+  let timeslots = entries |> group_timeslots |> list.map(ScheduleTimeslot)
+  let talks =
+    entries
+    |> list.filter_map(fn(e) {
+      case e {
+        TalkEntry(t) -> Ok(t)
+        TimeslotEntry(_) -> Error(Nil)
+      }
+    })
+    |> list.map(ScheduleTalk)
+
+  list.append(timeslots, talks)
 }
 
-fn render_talk_cells(
-  entries: List(TimetableEntry),
-  day_start: Int,
-) -> List(Element(msg)) {
-  entries
-  |> list.filter_map(fn(e) {
-    case e {
-      TalkEntry(t) -> Ok(t)
-      TimeslotEntry(_) -> Error(Nil)
-    }
-  })
-  |> list.map(fn(talk: TalkData) {
-    let row_start = entry_grid_row(talk.starts_at, day_start)
-    let row_end = row_start + talk.length_min / grid_interval
-    let col = talk.track.sort
-    let cell_style =
-      "grid-column: "
-      <> int.to_string(col)
-      <> "; grid-row: "
-      <> int.to_string(row_start)
-      <> " / "
-      <> int.to_string(row_end)
-      <> ";"
-    let is_compact = talk.length_min <= 10
-    a(
-      [
-        attribute("href", proposal_url(talk.uuid)),
-        attribute("target", "_blank"),
-        attribute("rel", "noopener noreferrer"),
-        attribute("style", cell_style),
-        class(
-          "bg-neutral border border-subtle rounded-sm p-1.5 overflow-hidden flex flex-col gap-1 text-neutral-content no-underline transition-colors hover:bg-base-200/40",
-        ),
-      ],
-      [
-        p([class("text-xs text-base-content/40 leading-none shrink-0")], [
-          text(format_time_range(talk.starts_at, talk.length_min)),
+fn compare_schedule_items(a: ScheduleItem, b: ScheduleItem) -> order.Order {
+  case
+    int.compare(schedule_item_start_minutes(a), schedule_item_start_minutes(b))
+  {
+    order.Eq ->
+      int.compare(schedule_item_track_sort(a), schedule_item_track_sort(b))
+    other -> other
+  }
+}
+
+fn schedule_item_start_minutes(item: ScheduleItem) -> Int {
+  case item {
+    ScheduleTimeslot(group) -> timetable.get_start_minutes(group.starts_at)
+    ScheduleTalk(talk) -> timetable.get_start_minutes(talk.starts_at)
+  }
+}
+
+fn schedule_item_track_sort(item: ScheduleItem) -> Int {
+  case item {
+    ScheduleTimeslot(group) -> group.min_track
+    ScheduleTalk(talk) -> talk.track.sort
+  }
+}
+
+fn render_schedule_item(item: ScheduleItem, day_start: Int) -> Element(msg) {
+  case item {
+    ScheduleTimeslot(group) -> render_timeslot(group, day_start)
+    ScheduleTalk(talk) -> render_talk(talk, day_start)
+  }
+}
+
+fn render_timeslot(group: TimeslotGroup, day_start: Int) -> Element(msg) {
+  let row_start = entry_grid_row(group.starts_at, day_start)
+  let row_end = row_start + group.length_min / grid_interval
+  let cell_style =
+    "grid-column: "
+    <> int.to_string(group.min_track)
+    <> " / "
+    <> int.to_string(group.max_track + 1)
+    <> "; grid-row: "
+    <> int.to_string(row_start)
+    <> " / "
+    <> int.to_string(row_end)
+    <> ";"
+
+  div(
+    [
+      attribute("style", cell_style),
+      class(
+        "grid grid-cols-[auto_1fr] items-center gap-x-2 rounded-sm bg-base-200 p-2 text-sm text-base-content/70 sm:mt-2",
+      ),
+    ],
+    [
+      span([class("font-bold")], [
+        text(format_time_range(group.starts_at, group.length_min)),
+      ]),
+      text(group.title),
+    ],
+  )
+}
+
+fn render_talk(talk: TalkData, day_start: Int) -> Element(msg) {
+  let row_start = entry_grid_row(talk.starts_at, day_start)
+  let display_length_min = talk_display_length_min(talk)
+  let row_end = row_start + display_length_min / grid_interval
+  let cell_style =
+    "grid-column: "
+    <> int.to_string(talk.track.sort)
+    <> "; grid-row: "
+    <> int.to_string(row_start)
+    <> " / "
+    <> int.to_string(row_end)
+    <> ";"
+  let is_compact = talk.length_min <= 10
+
+  a(
+    [
+      attribute("href", talk_url(talk)),
+      attribute("target", "_blank"),
+      attribute("rel", "noopener noreferrer"),
+      attribute("style", cell_style),
+      class(
+        "grid grid-rows-[auto_auto_auto_1fr] content-start gap-1 overflow-hidden rounded-sm border border-subtle bg-neutral p-2 text-neutral-content no-underline transition-colors hover:border-primary sm:mt-2",
+      ),
+    ],
+    [
+      p([class("text-xs font-bold leading-none text-base-content/60")], [
+        text(format_time_range(talk.starts_at, talk.length_min)),
+        span([class("font-normal")], [
+          text("（" <> int.to_string(talk.length_min) <> "min）"),
         ]),
-        p([class("text-xs font-medium leading-snug line-clamp-3")], [
-          text(talk.title),
-        ]),
-        case is_compact {
-          True -> div([], [])
-          False ->
-            div([class("flex flex-col gap-1 mt-auto shrink-0")], [
-              render_speaker(talk.speaker),
-              render_tags(talk.tags),
-            ])
-        },
-      ],
-    )
-  })
+      ]),
+      p([class("text-sm leading-snug")], [
+        text(talk.title),
+      ]),
+      case is_compact {
+        True -> div([], [])
+        False ->
+          div([class("flex flex-col gap-1 mt-auto shrink-0")], [
+            render_speaker(talk.speaker),
+            render_tags(talk.tags),
+          ])
+      },
+    ],
+  )
+}
+
+fn talk_display_length_min(talk: TalkData) -> Int {
+  case is_day2_lightning_talk_to_expand(talk) {
+    True -> 15
+    False -> talk.length_min
+  }
+}
+
+fn is_day2_lightning_talk_to_expand(talk: TalkData) -> Bool {
+  talk.length_min == 10
+  && {
+    talk.starts_at == "2026-07-12T14:00:00+09:00"
+    || talk.starts_at == "2026-07-12T14:15:00+09:00"
+  }
 }
 
 fn proposal_url(uuid: String) -> String {
   "https://fortee.jp/2026fp-matsuri/proposal/" <> uuid
+}
+
+fn talk_url(talk: TalkData) -> String {
+  case talk.url {
+    option.Some(url) -> url
+    option.None -> proposal_url(talk.uuid)
+  }
 }
 
 fn render_speaker(speaker: option.Option(SpeakerData)) -> Element(msg) {
