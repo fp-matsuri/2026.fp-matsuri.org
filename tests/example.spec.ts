@@ -50,8 +50,11 @@ test.describe("Schedule Page Visual Tests", () => {
   });
 
   test("should render the schedule page correctly", async ({ page }) => {
+    // スピーカーアイコンは外部（fortee.jp）依存で読み込みが不安定なため
+    // 比較対象から除外する
     await expect(page).toHaveScreenshot("schedule-page.png", {
       fullPage: true,
+      mask: [page.locator('img[src*="fortee.jp"]')],
     });
   });
 });
@@ -64,6 +67,10 @@ test.describe("Sponsor Popover Visual Tests", () => {
   });
 
   test("should render each sponsor popover correctly", async ({ page }) => {
+    // 全スポンサーの popover を1件ずつ開いて検証するため、スポンサーが増えるほど
+    // 実行時間が伸びる。デフォルトの30秒では遅い CI ランナーで超過するため延長する。
+    test.setTimeout(120_000);
+
     const buttons = page.locator(
       'button[popovertarget^="sponsor-"]:not([popovertargetaction="hide"])',
     );
