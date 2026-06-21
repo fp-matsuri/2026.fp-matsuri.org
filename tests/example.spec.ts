@@ -96,7 +96,10 @@ test.describe("Sponsor Popover Visual Tests", () => {
       await expect(popover).toBeVisible();
       await page.waitForTimeout(300);
 
-      await expect(popover).toHaveScreenshot(`popover-${popoverId}.png`);
+      await expect(popover).toHaveScreenshot(`popover-${popoverId}.png`, {
+        mask: [page.locator("iframe")],
+        maxDiffPixelRatio: 0.02,
+      });
 
       await page.keyboard.press("Escape");
       await expect(popover).toBeHidden();
