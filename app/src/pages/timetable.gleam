@@ -136,9 +136,9 @@ fn render_day_grid(entries: List(TimetableEntry)) -> Element(msg) {
   let grid_style =
     "grid-template-rows: repeat("
     <> int.to_string(total_rows)
-    <> ", "
+    <> ", minmax("
     <> int.to_string(px_per_row)
-    <> "px);"
+    <> "px, auto));"
 
   div(
     [
