@@ -4,3 +4,40 @@ image = "/image/sponsors/folio.png"
 href = "https://corp.folio-sec.com/"
 plan = "platinum"
 ---
+```=html
+<p>株式会社FOLIOは、先端テクノロジーやAI予測を活用したユニークな資産運用サービスを提供するFinTechベンチャー企業です。</p>
+
+<p>AI予測を活用したBtoC型の投資サービス「ROBOPRO」「おまかせ投資」を展開するロボアドバイザー事業、金融機関の“投資一任サービス”を実現するBtoBtoC型のSaaSプラットフォーム「4RAP」を提供する金融プラットフォーム事業、さらにAI運用エンジンを活用した投資助言を行うアドバイザリー事業など、多様な形でサービスを提供しています。</p>
+
+<p>ITベンチャーならではのスピード感と、金融機関として求められる堅牢性。その両立を重視し、ScalaやAWS、Kubernetes、Datadog、ArgoCDなどを活用した開発を行っています。</p>
+
+<p><b>Scalaで資産運用を、もっと身近に。</b></p>
+
+<p><b>■FOLIOの開発環境</b></p>
+
+<ul>
+<li>Scala（Cats / fs2 / Play など）を用いたアプリケーション開発</li>
+<li>AWS・Kubernetes・Datadog・ArgoCDによるクラウドネイティブな基盤</li>
+<li>長期運用を前提とした設計と継続的な改善プロセス</li>
+<li>Claude Code等の生成AIツールを活用した開発</li>
+</ul>
+
+<p>持続可能な開発体制を重視し、技術的な学習や知見共有にも力を入れています。社内勉強会やナレッジ整備により、Scala未経験からでもスムーズにキャッチアップできる環境です。</p>
+
+<p><b>■働き方</b></p>
+
+<ul>
+<li>裁量労働制</li>
+<li>リモートワーク中心（国内であればフルリモート可）</li>
+<li>必要に応じた出社も可能</li>
+</ul>
+
+<p>現在、一都三県以外でリモートワークを行っている社員は全体の約20％。働く場所にとらわれず、資産運用をより身近で透明性の高いものにしたい方、関数型の力で堅牢なシステムを構築したい方を歓迎しています。</p>
+
+<p><b>■関連情報</b></p>
+
+<ul>
+<li><a href="https://www.docswell.com/s/folio/KERQD5-folio/1">会社説明資料</a></li>
+<li><a href="https://note.com/foliobackstage">採用ブログ「FOLIO Backstage」</a></li>
+</ul>
+```
