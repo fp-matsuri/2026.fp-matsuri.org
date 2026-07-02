@@ -27,7 +27,7 @@ plan = "silver"
 <p style="margin: 0 0 8px;">関数型の世界に触れるきっかけに、Scala クイズをつくりました</p>
 <p style="margin: 0 0 12px;">QR コードを読み取って、気軽に挑戦してみてください</p>
 <a href="https://scalaquiz.funds.jp/">
-<img src="https://scalaquiz.funds.jp/qr.svg" alt="Scala クイズ QR コード（タップでも開けます）" width="220" height="220" loading="lazy">
+<img src="https://scalaquiz.funds.jp/qr.svg" alt="Scala クイズ QR コード（タップでも開けます）" width="220" height="220">
 </a>
 <p style="margin: 8px 0 0; font-size: 0.9em; color: #555;">
 <a href="https://scalaquiz.funds.jp/">scalaquiz.funds.jp</a>
