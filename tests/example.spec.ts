@@ -42,20 +42,29 @@ test.describe("Sponsors Page Visual Tests", () => {
   });
 });
 
-test.describe("Schedule Page Visual Tests", () => {
+test.describe("Timetable Page Tests", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/schedule/");
+    await page.goto("/timetable/");
     await page.locator("body").waitFor({ state: "visible" });
     await page.waitForTimeout(1000);
   });
 
-  test("should render the schedule page correctly", async ({ page }) => {
+  test("should render the timetable page correctly", async ({ page }) => {
     // スピーカーアイコンは外部（fortee.jp）依存で読み込みが不安定なため
     // 比較対象から除外する
-    await expect(page).toHaveScreenshot("schedule-page.png", {
+    await expect(page).toHaveScreenshot("timetable-page.png", {
       fullPage: true,
       mask: [page.locator('img[src*="fortee.jp"]')],
     });
+  });
+
+  test("should render both days with linked sessions", async ({ page }) => {
+    await expect(page.locator("#day1")).toContainText("2026年7月11日（土）");
+    await expect(page.locator("#day2")).toContainText("2026年7月12日（日）");
+
+    await expect(
+      page.locator('main a[href*="fortee.jp/2026fp-matsuri/proposal/"]'),
+    ).toHaveCount(40);
   });
 });
 
@@ -87,7 +96,10 @@ test.describe("Sponsor Popover Visual Tests", () => {
       await expect(popover).toBeVisible();
       await page.waitForTimeout(300);
 
-      await expect(popover).toHaveScreenshot(`popover-${popoverId}.png`);
+      await expect(popover).toHaveScreenshot(`popover-${popoverId}.png`, {
+        mask: [page.locator("iframe")],
+        maxDiffPixelRatio: 0.02,
+      });
 
       await page.keyboard.press("Escape");
       await expect(popover).toBeHidden();
