@@ -4,3 +4,15 @@ image = "/image/sponsors/idein.png"
 href = "https://www.idein.jp/"
 plan = "silver"
 ---
+```=html
+<p>Idein (イデイン) は「ソフトウェア化された世界を創る」というビジョンのもと、物理世界で起きている現象をデータ化し、自在に制御可能にする事を目指すテックカンパニーです。<br>
+物理世界の知覚・制御のための先端AI技術開発と、エッジデバイスの大規模遠隔運用を実現するエッジAI/IoTプラットフォーム「Actcast」を中核とした事業を行っています。</p>
+
+<p>当社の事業の特徴は、AIそのものだけでなく、その実装や大規模運用を重視して技術開発や事業開発に取り組んでいる事です。現場の課題解決とプロダクト成長の循環を回転させ、より多くのお客様のより難しい課題を解決できる企業へと成長し、より多くの現場のソフトウェアによる変革を実現していく事に私たちは取り組んでいます。</p>
+
+<p><a href="https://www.idein.jp/ja/recruit">https://www.idein.jp/ja/recruit</a></p>
+
+<div class="aspect-video w-full">
+<iframe class="w-full h-full" src="https://speakerdeck.com/player/5142a420a5314b4cb1d01ab73068bb33" title="会社紹介資料／Idein株式会社" frameborder="0" allowfullscreen="true" allow="encrypted-media"></iframe>
+</div>
+```
