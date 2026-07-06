@@ -10,7 +10,7 @@ plan = "gold"
 <b>主な活動</b>
 <ul>
 <li>予約管理プラットフォーム「Wonder Reserve」の自社開発・運営</li>
-<li>Rust 製 OSS「<a href=""https://github.com/wonder-soft/mcp-server-hybrid-search"">mcp-server-hybrid-search</a>」公開（BM25 + Embedding ハイブリッド検索・MCP 対応）</li>
+<li>Rust 製 OSS「<a href="https://github.com/wonder-soft/mcp-server-hybrid-search">mcp-server-hybrid-search</a>」公開（BM25 + Embedding ハイブリッド検索・MCP 対応）</li>
 <li>Claude Code を活用した AI ペア開発を日常的に実践</li>
 </ul>
 
@@ -18,5 +18,5 @@ plan = "gold"
 
 関数型プログラミングを愛するエンジニアの皆さんと、ぜひブースでお話しできることを楽しみにしています！
 
-<a href=""https://wonder-soft.com"">wonder-soft.com</a>
+<a href="https://wonder-soft.com">wonder-soft.com</a>
 ```
