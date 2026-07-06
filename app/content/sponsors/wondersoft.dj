@@ -1,0 +1,22 @@
+---
+name = "ワンダーソフト株式会社"
+image = "/image/sponsors/wondersoft.png"
+href = "https://wonder-soft.com/"
+plan = "gold"
+---
+```=html
+ワンダーソフト株式会社は、東京・銀座を拠点とする総合クリエイティブカンパニーです。<b>Scala 3 / Http4s / Cats Effect</b> を軸とした関数型バックエンド開発を得意とし、Rust・Next.js・TypeScript と組み合わせてプロダクトを構築しています。
+
+<b>主な活動</b>
+<ul>
+<li>予約管理プラットフォーム「Wonder Reserve」の自社開発・運営</li>
+<li>Rust 製 OSS「<a href=""https://github.com/wonder-soft/mcp-server-hybrid-search"">mcp-server-hybrid-search</a>」公開（BM25 + Embedding ハイブリッド検索・MCP 対応）</li>
+<li>Claude Code を活用した AI ペア開発を日常的に実践</li>
+</ul>
+
+開発だけにとどまらず、自家焙煎コーヒーブランド「WonderSoft Coffee」や音楽×コーヒーイベント「MelodyBrewz」など、テクノロジーとクリエイティブを掛け合わせた活動も展開中です。
+
+関数型プログラミングを愛するエンジニアの皆さんと、ぜひブースでお話しできることを楽しみにしています！
+
+<a href=""https://wonder-soft.com"">wonder-soft.com</a>
+```
