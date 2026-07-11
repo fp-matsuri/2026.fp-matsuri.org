@@ -462,12 +462,25 @@ fn sponsor_plan(
 }
 
 fn cheerleader_plan(sponsors: List(Sponsor)) -> Element(msg) {
-  plan_section(
-    "応援団",
-    "grid grid-cols-4 sm:grid-cols-[repeat(auto-fit,100px)] gap-x-2.5 gap-y-5 sm:gap-y-[30px] mt-8 justify-center",
-    sponsors,
-    cheerleader_logo_button,
-  )
+  let entries =
+    list.map(sponsors, fn(s) { SponsorEntry(id: popover_id(s), sponsor: s) })
+  // アイコンは申込口数分繰り返し表示するが、popover は1スポンサーにつき1つ
+  let buttons =
+    list.flat_map(entries, fn(entry) {
+      list.repeat(cheerleader_logo_button(entry), entry.sponsor.units)
+    })
+  div([class("pt-8")], [
+    h3([class("text-xl font-semibold text-center")], [text("応援団")]),
+    div(
+      [
+        class(
+          "grid grid-cols-4 sm:grid-cols-[repeat(auto-fit,100px)] gap-x-2.5 gap-y-5 sm:gap-y-[30px] mt-8 justify-center",
+        ),
+      ],
+      buttons,
+    ),
+    element.fragment(list.map(entries, sponsor_popover)),
+  ])
 }
 
 fn popover_id(s: Sponsor) -> String {

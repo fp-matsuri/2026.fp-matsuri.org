@@ -152,7 +152,8 @@ fn cheerleader_plan_section(sponsors: List(Sponsor)) -> Element(msg) {
             "grid grid-cols-4 sm:grid-cols-[repeat(auto-fit,100px)] gap-x-2.5 gap-y-5 sm:gap-y-[30px] justify-center",
           ),
         ],
-        list.map(sponsors, cheerleader_item),
+        // 申込口数分アイコンを繰り返し表示する
+        list.flat_map(sponsors, fn(s) { list.repeat(cheerleader_item(s), s.units) }),
       ),
     ]),
   ])
