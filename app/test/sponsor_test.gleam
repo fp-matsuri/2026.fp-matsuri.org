@@ -31,5 +31,22 @@ multiple lines."
     plan: Gold,
     kind: Individual,
     description: "<p>This is a test sponsor.\nAnd it has a description with *<strong>markdown</strong>*.</p>\n<p>multiple lines.</p>\n",
+    units: 1,
   )) = result
+}
+
+pub fn parse_sponsor_with_units_test() {
+  let content =
+    "---
+name = \"Test Cheerleader\"
+image = \"/image/sponsors/sample.png\"
+href = \"https://example.com\"
+plan = \"cheerleader\"
+kind = \"individual\"
+units = 10
+---"
+
+  let result = sponsor.parse("test_cheerleader", content)
+
+  let assert Ok(Sponsor(plan: Cheerleader, units: 10, ..)) = result
 }
