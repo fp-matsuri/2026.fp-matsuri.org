@@ -4,4 +4,5 @@ image = "/image/sponsors/konn.jpg"
 href = "https://x.com/mr_konn"
 plan = "cheerleader"
 kind = "individual"
+units = 2
 ---

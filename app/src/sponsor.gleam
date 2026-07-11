@@ -1,3 +1,4 @@
+import gleam/int
 import gleam/io
 import gleam/list
 import gleam/result
@@ -16,6 +17,8 @@ pub type Sponsor {
     plan: SponsorPlan,
     kind: SponsorKind,
     description: String,
+    // 申込口数。応援団はこの数だけアイコンを繰り返し表示する
+    units: Int,
   )
 }
 
@@ -114,7 +117,11 @@ pub fn parse(slug: String, content: String) -> Result(Sponsor, String) {
     djot.content(content)
     |> string.trim
     |> jot.to_html
-  Ok(Sponsor(slug:, name:, image:, href:, plan:, kind:, description:))
+  let units =
+    tom.get_int(metadata, ["units"])
+    |> result.unwrap(1)
+    |> int.max(1)
+  Ok(Sponsor(slug:, name:, image:, href:, plan:, kind:, description:, units:))
 }
 
 pub fn plan_label(plan: SponsorPlan) -> String {
