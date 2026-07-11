@@ -153,7 +153,9 @@ fn cheerleader_plan_section(sponsors: List(Sponsor)) -> Element(msg) {
           ),
         ],
         // 申込口数分アイコンを繰り返し表示する
-        list.flat_map(sponsors, fn(s) { list.repeat(cheerleader_item(s), s.units) }),
+        list.flat_map(sponsors, fn(s) {
+          list.repeat(cheerleader_item(s), s.units)
+        }),
       ),
     ]),
   ])
