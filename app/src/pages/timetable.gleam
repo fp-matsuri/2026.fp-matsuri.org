@@ -281,7 +281,7 @@ fn render_talk(talk: TalkData, day_start: Int) -> Element(msg) {
       div([class("flex flex-col gap-1 mt-auto shrink-0")], [
         render_speaker(talk.speaker),
         render_tags(talk.tags),
-      ])
+      ]),
     ],
   )
 }
