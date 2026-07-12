@@ -257,7 +257,6 @@ fn render_talk(talk: TalkData, day_start: Int) -> Element(msg) {
     <> " / "
     <> int.to_string(row_end)
     <> ";"
-  let is_compact = talk.length_min <= 10
 
   a(
     [
@@ -279,14 +278,10 @@ fn render_talk(talk: TalkData, day_start: Int) -> Element(msg) {
       p([class("text-sm leading-snug")], [
         text(talk.title),
       ]),
-      case is_compact {
-        True -> div([], [])
-        False ->
-          div([class("flex flex-col gap-1 mt-auto shrink-0")], [
-            render_speaker(talk.speaker),
-            render_tags(talk.tags),
-          ])
-      },
+      div([class("flex flex-col gap-1 mt-auto shrink-0")], [
+        render_speaker(talk.speaker),
+        render_tags(talk.tags),
+      ]),
     ],
   )
 }
