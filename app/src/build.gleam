@@ -3,6 +3,7 @@ import arctic/config
 import gleam/io
 import layout
 import pages/code_of_conduct
+import pages/commercial
 import pages/home
 import pages/not_found
 import pages/sponsors
@@ -20,6 +21,7 @@ pub fn main() {
     )
     |> config.add_main_page("sponsors", layout.render_page(sponsors.page()))
     |> config.add_main_page("timetable", layout.render_page(timetable.page()))
+    |> config.add_main_page("commercial", layout.render_page(commercial.page()))
     |> config.add_main_page("404", layout.render_page(not_found.page()))
     |> config.add_spa_frame(layout.spa_frame)
 
