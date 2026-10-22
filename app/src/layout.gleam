@@ -214,6 +214,7 @@ fn footer() -> Element(msg) {
           ]),
           nav_link(label: "タイムテーブル", url: "/timetable/"),
           nav_link(label: "スポンサー", url: "/sponsors/"),
+          nav_link(label: "CM", url: "/commercial/"),
           nav_link(label: "行動規範", url: "/code-of-conduct/"),
           nav_link(label: "fortee", url: "https://fortee.jp/2026fp-matsuri"),
           nav_link(label: "お問い合わせ", url: "https://forms.gle/nwG9RnkP3AHWQtzh6"),
@@ -282,8 +283,9 @@ fn is_external_link(url: String) -> Bool {
 fn nav_items() -> List(Element(msg)) {
   [
     li([], [a([href("/timetable/")], [text("タイムテーブル")])]),
-    li([], [a([href("/sponsors/")], [text("スポンサー")])]),
     li([], [a([href("/code-of-conduct/")], [text("行動規範")])]),
+    li([], [a([href("/sponsors/")], [text("スポンサー")])]),
+    li([], [a([href("/commercial/")], [text("CM")])]),
   ]
 }
 

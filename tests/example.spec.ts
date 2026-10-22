@@ -107,6 +107,20 @@ test.describe("Sponsor Popover Visual Tests", () => {
   });
 });
 
+test.describe("Commercial Page Visual Tests", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/commercial/");
+    await page.locator("body").waitFor({ state: "visible" });
+    await page.waitForTimeout(1000);
+  });
+
+  test("should render the commercial page correctly", async ({ page }) => {
+    await expect(page).toHaveScreenshot("commercial-page.png", {
+      fullPage: true,
+    });
+  });
+});
+
 test.describe("404 Page Visual Tests", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/404");
